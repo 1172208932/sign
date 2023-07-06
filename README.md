@@ -1,0 +1,64 @@
+# Vue 3 + TypeScript + Vite
+
+This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+
+## Recommended IDE Setup
+
+- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+
+## Type Support For `.vue` Imports in TS
+
+Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+
+1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
+2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+
+You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+
+
+## 技术栈
+
+- 编程语言：[TypeScript 4.x](https://www.typescriptlang.org/zh/) + [JavaScript](https://www.javascript.com/)
+- 构建工具：[Vite 2.x](https://cn.vitejs.dev/)
+- 前端框架：[Vue 3.x](https://v3.cn.vuejs.org/)
+- 游戏框架：[eva.js](https://eva.js.org/)
+- 路由工具：[Vue Router 4.x](https://next.router.vuejs.org/zh/index.html)
+- 状态管理：[Vuex 4.x](https://next.vuex.vuejs.org/)
+- PC 端 UI 框架：[Element Plus](https://element-plus.org/#/zh-CN)
+- H5 端 UI 框架：[vant](https://vant-contrib.gitee.io/vant/v3/#/zh-CN/)
+- CSS 预编译：[Stylus](https://stylus-lang.com/) / [Sass](https://sass.bootcss.com/documentation) / [Less](http://lesscss.cn/)
+- HTTP 工具：[Axios](https://axios-http.com/)
+- Git Hook 工具：[husky](https://typicode.github.io/husky/#/) + [lint-staged](https://github.com/okonet/lint-staged)
+- 代码规范：[EditorConfig](http://editorconfig.org) + [Prettier](https://prettier.io/) + [ESLint](https://eslint.org/) + [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript#translation)
+- 提交规范：[Commitizen](http://commitizen.github.io/cz-cli/) + [Commitlint](https://commitlint.js.org/#/)
+
+
+## 提交规范
+
+- `feat` 增加新功能
+- `fix` 修复问题/BUG
+- `style` 代码风格相关无影响运行结果的
+- `perf` 优化/性能提升
+- `refactor` 重构
+- `revert` 撤销修改
+- `test` 测试相关
+- `docs` 文档/注释
+- `build` 对构建系统或者外部依赖项进行了修改
+- `chore` 依赖更新/脚手架配置修改等
+- `workflow` 工作流改进
+- `ci` 持续集成
+- `types` 类型定义文件更改
+- `wip` 开发中
+
+## 添加了commit lint
+
+要修改 Git 中的 commit 信息，可以使用以下命令：
+
+1. 使用 `git commit --amend` 命令来修改最新的 commit 信息。这将打开默认文本编辑器，允许你编辑 commit 信息。你可以修改提交的消息、作者、日期等信息。保存并关闭编辑器后，commit 信息将被更新。
+
+2. 如果你只想修改 commit 的消息，可以使用 `git commit --amend -m "新的提交消息"` 命令。这将直接修改最新的 commit 消息，而不需要打开编辑器。
+
+3. 如果你想修改早期的 commit 信息，可以使用 `git rebase -i` 命令来进行交互式 rebase。在交互式 rebase 中，你可以选择要修改的 commit，并将其标记为 `edit`。然后，使用 `git commit --amend` 命令来修改 commit 信息。完成修改后，使用 `git rebase --continue` 命令继续 rebase 过程。
+
+需要注意的是，如果你已经将 commit 推送到远程仓库，修改 commit 信息后，你需要使用 `git push --force` 命令来强制推送修改后的 commit。
+在修改 commit 信息时，请确保你了解修改 commit 可能带来的潜在影响，并确保与团队成员进行适当的沟通和协调。undefined
