@@ -79,7 +79,7 @@ export const upYunImg = <T = any>(data): Promise<any> => {
     });
   });
 };
-const randomString = function (number) {
+export const randomString = function (number) {
   const e = number || 32;
   const t = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678";
   const a = t.length;

@@ -68,7 +68,7 @@ import {
 import { showToast } from 'vant';
 
 import CheckPhone from "@/components/CheckPhone.vue"
-import { getossKey, upYunImg, getActiveInfo, postSignUp } from '@/api/resource'
+import { getossKey, upYunImg, getActiveInfo, postSignUp ,randomString } from '@/api/resource'
 // import cztvApi from './ztvApi.d.ts'
 import { areaList } from '@vant/area-data';
 
@@ -79,42 +79,37 @@ export default defineComponent({
     CheckPhone,
   },
   setup(props, { emit }: SetupContext) {
-    let showCheckPop = ref<boolean>(false)
-    let mobile = ref('')
-    let fileList = ref([]);
+    const showCheckPop = ref<boolean>(false)
+    const mobile = ref('')      //手机号
+    const fileList = ref([]);   
     const fileVideoList = ref([]);
-    const checked = ref(0);
-    const username = ref('');
+    const checked = ref(1);   // 性别
+    const username = ref(''); //姓名
     const trade = ref('');  //  行当&流派
-    const team = ref('');
-    const works = ref('');
+    const team = ref('');  // 所属院团
+    const works = ref('');  // 参赛作品
     const router = useRouter();
-
     let imgUrl, videoUrl;
-
-
-    const password = ref('');
-
     const result = ref('');
     const showPicker = ref(false);
-    const onConfirm = ({ selectedValues }) => {
-      result.value = selectedValues.join('/');
-      showPicker.value = false;
-    };
-
     const resultArea = ref('');
     const showArea = ref(false);
-    const onConfirmArea = ({ selectedOptions }) => {
-      showArea.value = false;
-      resultArea.value = selectedOptions.map((item) => item.text).join('/');
-    };
-
     const groupResult = ref('');
     const showGroup = ref(false);
     const columns = [
       { text: '职业组', value: 0 },
       { text: '非职业组', value: 1 },
     ];
+
+    const onConfirmArea = ({ selectedOptions }) => {
+      showArea.value = false;
+      resultArea.value = selectedOptions.map((item) => item.text).join('/');
+    };
+
+    const onConfirm = ({ selectedValues }) => {
+      result.value = selectedValues.join('/');
+      showPicker.value = false;
+    };
 
     const onConfirmGroup = ({ selectedOptions }) => {
       groupResult.value = selectedOptions[0]?.text;
@@ -127,12 +122,6 @@ export default defineComponent({
       console.log(res, 'res')
     };
 
-    const handleLogin = () => {
-      // cztvApi.login(res => {
-      //   console.log('login', res)
-      // })
-    }
-
     const afterRead = async (file) => {
       // 此时可以自行将文件上传至服务器
       console.log(file);
@@ -143,9 +132,10 @@ export default defineComponent({
       console.log(res, 'res')
       if (res.code == 200) {
         let { policy, dir, signature, accessid } = res.data;
+        let randomStr = randomString(8)
         let result = await upYunImg({
           policy,
-          key: dir + Date.parse(new Date() + ''),
+          key: dir + Date.parse(new Date() + '')/1000 + randomStr,
           OSSAccessKeyId: accessid,
           signature,
           file: file.file
@@ -155,8 +145,8 @@ export default defineComponent({
 
         console.log(result, 'result')
 
-        imgUrl = 'https://o.cztvcloud.com/' + dir + Date.parse(new Date() + '')
-        console.log('https://o.cztvcloud.com/' + dir + Date.parse(new Date() + ''), 'https://o.cztvcloud.com/350/202307/06/1688631065/1688631065000')
+        imgUrl = 'https://o.cztvcloud.com/' + dir + Date.parse(new Date() + '')/1000 + randomStr
+        console.log(imgUrl, 'https://o.cztvcloud.com/350/202307/06/1688631065/1688631065000')
       }
     };
 
@@ -170,36 +160,28 @@ export default defineComponent({
       console.log(res, 'res')
       if (res.code == 200) {
         let { policy, dir, signature, accessid } = res.data;
+        let randomStr = randomString(8)
+
         let result = await upYunImg({
           policy,
-          key: dir + Date.parse(new Date() + ''),
+          key: dir + Date.parse(new Date() + '')/1000 + randomStr,
           OSSAccessKeyId: accessid,
           signature,
           file: file.file
         })
 
-        file.status = 'done';
-        videoUrl = 'https://o.cztvcloud.com/' + dir + Date.parse(new Date() + '')
 
-        console.log(result, 'result')
-        console.log('https://o.cztvcloud.com/' + dir + Date.parse(new Date() + ''), 'https://o.cztvcloud.com/350/202307/06/1688631065/1688631065000')
+        file.status = 'done';
+        videoUrl = 'https://o.cztvcloud.com/' + dir + Date.parse(new Date() + '')/1000 + randomStr
+        console.log(videoUrl, 'https://o.cztvcloud.com/350/202307/06/1688631065/1688631065000')
+
       }
     };
-
-
 
     const backCloseCall = () => {
       showCheckPop.value = false
     }
     const validator = (val) => /^1[3456789][0-9]{9}$/.test(val);
-    const submit = () => {
-      showCheckPop.value = true
-      // console.log(mobile.value);
-      // if(!/^1[3456789][0-9]{9}$/.test(mobile.value)) {
-      //   showToast('请输入正确的手机号！')
-      //   return
-      // }     
-    }
 
     const onSubmit = async (values) => {
       console.log('submit', fileList.value, imgUrl);
@@ -239,35 +221,33 @@ export default defineComponent({
     });
 
     return {
-      validator,
       groupResult,
       showGroup,
       columns,
-      onConfirmGroup,
       fileVideoList,
-      afterReadVideo,
       username,
       checked,
-      password,
-      onSubmit,
       result,
-      onConfirm,
       resultArea,
       areaList,
       showArea,
-      onConfirmArea,
       showPicker,
       showCheckPop,
-      backCloseCall,
       mobile,
       trade,
       team,
       works,
-      init,
-      submit,
-      afterRead,
       fileList,
       minDate: new Date(1970, 0, 1),
+      init,
+      afterRead,
+      validator,
+      backCloseCall,
+      onConfirmArea,
+      onConfirm,
+      onSubmit,
+      afterReadVideo,
+      onConfirmGroup,
     };
   },
 });
