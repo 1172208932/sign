@@ -1,7 +1,10 @@
 <template>
   <div class="picBox">
-    <GuideTips v-if="showGuideTips" />
-    <div class="jump" @click="jumoUpPage"></div>
+    <GuideTips ref="childRef" v-if="showGuideTips" />
+    <div :class="{indexBg:true,appTop:isApp,wxTop:!isApp}"></div>
+    <div class="jump" >
+      <div class="jump-btn" @click="jumoUpPage"></div>
+    </div>
   </div>
 </template>
 
@@ -22,7 +25,7 @@ import {
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { showToast } from 'vant';
-
+import { throttle } from "@/utils/throttle";
 export default defineComponent({
   name: "picPage",
   components: {
@@ -30,49 +33,55 @@ export default defineComponent({
   },
   setup(props, { emit }: SetupContext) {
     let showGuideTips = ref(false)
+    const childRef = ref(null);
+
     const router = useRouter();
     const store = useStore();
 
     const state: {} = reactive({});
+
+    const isApp = ref(false)
 
 
     const { index } = store.state;
 
     onMounted(async () => {
       showGuideTips.value = window.navigator.userAgent.indexOf('chinablue') == -1
-      if(window.navigator.userAgent.indexOf('chinablue')== -1){
+      if (window.navigator.userAgent.indexOf('chinablue') == -1) {
         initWechatShare()
+        isApp.value = false
         console.log('weixin')
-      }else{
+      } else {
+        isApp.value = true
         initAppShare()
       }
       await store.dispatch("getActiveInfo");
       console.log(index.activeInfo)
     });
 
-    const initAppShare = ()=>{
+    const initAppShare = () => {
       const shareData = {
         url: `https://ztv.cztv.com/ap/zt2023/signsoundh5/index.shtml#/`,
-        title:'越韵新声，唱响中国“好声音”', //分享的标题
-        content:'《中国好声音·越剧特别季》第二季荣耀归来', // 分享的文字
-        img:'https://ohudong.cztv.com/1/266034/static/share.png'
+        title: '越韵新声，唱响中国“好声音”', //分享的标题
+        content: '《中国好声音·越剧特别季》第二季荣耀归来', // 分享的文字
+        img: 'https://ohudong.cztv.com/1/266034/static/share.jpg'
       }
       cztvApi.changeShareInfo(shareData)
       cztvApi.showShareButton(true)
     }
 
-    const initWechatShare = ()=>{
+    const initWechatShare = () => {
       wxShare(
         true,
         "越韵新声，唱响中国“好声音”",
         "《中国好声音·越剧特别季》第二季荣耀归来",
         "越韵新声，唱响中国“好声音”",
         "https://ztv.cztv.com/ap/zt2023/signsoundh5/index.shtml#/",
-        "https://ohudong.cztv.com/1/266034/static/share.png"
+        "https://ohudong.cztv.com/1/266034/static/share.jpg"
       )
     }
 
-    const jumoUpPage = () => {
+    const jumoUpPage = throttle(() => {
       const canContinue = isOnApp();
       if (!canContinue) { return }
 
@@ -82,15 +91,15 @@ export default defineComponent({
         return
       }
       const user_session = window.sessionStorage.getItem('token') || "";
-      if(!user_session){
+      if (!user_session) {
         handleLogin()
         return
       }
-      
+
       router.replace({
         name: "upload",
       });
-    }
+    }, 2000)
 
     const isInActive = () => {
       // 活动时间限制
@@ -123,12 +132,30 @@ export default defineComponent({
       }
     }
 
-    const openApp = () => {
+    const handleLogin = () => {
+      cztvApi.userInfo(res => {
+        const data = JSON.parse(res);
+        console.log(data, 'login data')
+        // this.token = data.sessionId || ''
+        if (data?.sessionId || '') {
+          window.sessionStorage.setItem('token', data.sessionId)
+          router.replace({
+            name: "upload",
+          });
+        } else {
+          loginApp()
+        }
+      })
 
-
+      setTimeout(() => {
+        const user_session = window.sessionStorage.getItem('token') || "";
+        if (!user_session) {
+          loginApp()
+        }
+      }, 1000)
     }
 
-    const handleLogin = () => {
+    const loginApp = () => {
       cztvApi.login(res => {
         console.log('login', res)
         if (res.code === 200) {
@@ -137,18 +164,14 @@ export default defineComponent({
             // this.token = data.sessionId || ''
             if (data.sessionId || '') {
               window.sessionStorage.setItem('token', data.sessionId)
+              router.replace({
+                name: "upload",
+              });
             }
           })
           // this.$router.go(0)
         } else {
-
-        }
-      })
-      cztvApi.userInfo(res => {
-        const data = JSON.parse(res);
-        // this.token = data.sessionId || ''
-        if (data.sessionId || '') {
-          window.sessionStorage.setItem('token', data.sessionId)
+          showToast('登录失败请稍后再试一次！')
         }
       })
     }
@@ -156,7 +179,8 @@ export default defineComponent({
     const isOnApp = () => {
       let canContinue = false;
       if (window.navigator.userAgent.indexOf('chinablue') === -1) {
-        showToast("请打开Z视介APP参与活动~");
+        // showToast("请打开Z视介APP参与活动~");
+        childRef!.value!.openApp()
         canContinue = false;
       } else {
         canContinue = true
@@ -168,6 +192,8 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
+      isApp,
+      childRef, 
       showGuideTips,
       jumoUpPage
 
@@ -181,14 +207,36 @@ export default defineComponent({
   width: 750px;
   height: 100vh;
   position: relative;
-
-  .jump {
-    width: 127px;
-    height: 60px;
-    position: fixed;
+  overflow-y: scroll;
+  .appTop{
+    top: -5%;
+  }
+  .wxTop{
+    top: 0%;
+  }
+  .indexBg {
+    background: url(../../assets/indexbg.jpg) no-repeat;
+    background-size: 750px 2880px;
+    position: absolute;
+    
+    width: 750px;
+    height: 2880px;
     left: 0%;
-    top: 50%;
-    background-color: red;
+  }
+  .jump{
+    background: url(../../assets/indexBg.png) no-repeat;
+    background-size: 750px 296px;
+    position: fixed;
+    bottom: 0;
+    height: 296px;
+    width: 750px;
+  }
+  .jump-btn{
+    background: url(../../assets/index_btn.png) no-repeat;
+    background-size: 750px 150px;
+    width: 750px;
+    height: 150px;
+    margin-top:146px;
   }
 }
 </style>

@@ -23,9 +23,23 @@ html, body {
 	height: 100vh;
     overflow-y: scroll;
 	background: #2A0D13;
+	overflow-x: hidden;
 	// top: 50%;
 	// left: 50%;
 	// transform: translate(-50%, -50%);
+}
+.jump-btn{
+	background: url(../../assets/upBtn.png) no-repeat;
+    background-size: 750px 150px;
+    width: 750px;
+    height: 150px;
+	position: relative;
+	left: -16PX;
+	border: none;
+}
+
+.tip-video{
+	color: #c8c9cc ;
 }
 
 .intor{
@@ -41,5 +55,13 @@ html, body {
 		.group{
 			margin-top:40px;
 		}
+		.groupBottom{
+			margin-bottom:20px;
+
+		}
 	}
+}
+.head-img{
+	width: 326px;
+	height: 62px;	
 }

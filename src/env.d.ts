@@ -16,6 +16,7 @@ interface Window {
   game: any;
   throwBall: any;
   resetBall: any;
+  cztvApi:any
 }
 
 interface HTMLElement {
