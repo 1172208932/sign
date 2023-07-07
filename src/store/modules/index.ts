@@ -1,17 +1,41 @@
-// import { UserState } from "./user";
 
-// const files = require.context(".", false, /\.ts$/);
-// const modules: {
-//   [key: string]: unknown;
-//   user: UserState;
-// } = {};
-// let Realmodule = {};
+import { useStore } from "vuex";
+import { getActiveInfo } from "@/api/resource";
 
-// files.keys().forEach(key => {
-//   if (key === "./index.ts") return;
-//   modules[key.replace(/(\.\/|\.ts)/g, "")] = files(key).default;
-// });
-
-// Realmodule = Object.assign({}, modules);
-
-// export default Realmodule;
+export interface UserState {
+    activeInfo: any;
+  }
+  export interface GameState {
+    gameInfo: any;
+  }
+  export interface HealthImgStage {
+    img: any;
+  }
+  export default {
+    state: {
+        activeInfo: {},
+        gameInfo:{},
+        img:''
+    },
+    mutations: {
+      setActiveInfo(state: UserState, data: any) {
+          state.activeInfo = data;
+      },
+      setGameInfo(state: GameState, data: any) {
+        state.gameInfo = data;
+      },
+      setHealthImg(state: HealthImgStage, data: string) {
+        state.img = data;
+      },
+    },
+    actions:{
+      async getActiveInfo({commit}){
+        let res = await getActiveInfo();
+        console.log(res)
+        if (res) {
+          commit("setActiveInfo", res);
+        }
+      }
+    }
+  };
+  

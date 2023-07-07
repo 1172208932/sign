@@ -58,6 +58,9 @@ class NbRequest {
             responseType: responseType,
             ...AxiosOptions,
         };
+        console.log(config.headers,'config.headers')
+        console.log(config.userSession)
+        
         return instance(config)
     }
     /**

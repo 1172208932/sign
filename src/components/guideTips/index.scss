@@ -1,0 +1,62 @@
+.guidetips {
+  background-color: #000000;
+  height: 108px;
+  width: 100%;
+  position: fixed;
+  z-index: 99;
+
+  .cover {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(51, 51, 51, 0.928);
+    z-index: 99999;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    // # 禁止拖拽
+    -webkit-user-drag: none;
+    //   禁止点击
+    pointer-events: none;
+
+    .flex-img {
+      img {
+        // width: 750px;
+        width: 100vw;
+      }
+    }
+  }
+
+  .logotop {
+    padding: 0 50px;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+
+    .bottomLogo {
+      width: 172px;
+      height: 58px;
+    }
+
+    .openAPPNOW {
+      cursor: pointer;
+      width: 140px;
+      height: 58px;
+      background: linear-gradient(154deg, #00d0e0, #1180ff);
+      border-radius: 20px;
+      color: #fff;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      line-height: 58px;
+      font-size: .06rem;
+      text-align: center;
+    }
+  }
+}
+
+.guidetips::after{
+  border: none;
+} 

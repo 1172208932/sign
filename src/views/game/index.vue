@@ -1,20 +1,60 @@
 <template>
   <div class="box">
     <div class="intor">
-      <div class="write-bg"></div>
-      <div class="baner-box b-top1">
-        <img src="../../assets/banner1.jpg" alt="">
-        <div class="down-time">下载证书</div>
-        <div class="down-btn" @click="submit">下载</div>
-      </div>
-      <div class="baner-box b-top2">
-        <img src="../../assets/banner1.jpg" alt="">
-        <div class="down-time">下载证书</div>
-        <div class="down-btn">下载</div>
-      </div>
-      <!-- <div @click="join" class="btn"></div> -->
+      <van-form class="form" @submit="onSubmit">
+        <van-cell-group inset>
+          <img class="head-img" src="../../assets/head.png" alt="" />
+          <van-field class="group" required v-model="username" name="string0" label="姓名" placeholder="请输入真实姓名"
+            :rules="[{ required: true, message: '请填写姓名' }]" />
+          <van-field required name="radio1" label="性别">
+            <template #input>
+              <van-radio-group v-model="checked" direction="horizontal">
+                <van-radio :name="1">男</van-radio>
+                <van-radio :name="0">女</van-radio>
+              </van-radio-group>
+            </template>
+          </van-field>
+          <van-field v-model="result" is-link required readonly name="date2" label="出生日期" placeholder="点击选择出生日期"
+            @click="showPicker = true" />
+          <van-field required v-model="mobile" name="string3" label="手机号" placeholder="请输入手机号"
+            :rules="[{ validator, required: true, message: '请填写正确的手机号' }]" />
+          <van-field required v-model="resultArea" is-link readonly name="region4" label="地域" placeholder="点击选择省市区"
+            @click="showArea = true" />
+          <van-field required v-model="trade" name="string5" label="行当&流派" placeholder="请输入行当&流派"
+            :rules="[{ required: true, message: '请填写行当&流派' }]" />
+          <van-field v-model="groupResult" required is-link readonly name="radio6" label="参赛组别" placeholder="点击选择参赛组别"
+            @click="showGroup = true" :rules="[{ required: true, message: '请选择参赛组别' }]" />
+          <van-field v-model="team" name="string7" label="所属院团" placeholder="职业组必填，不填视为报名不成功" />
+          <van-field name="img8" label="个人照片">
+            <template #input>
+              <van-uploader v-model="fileList" :max-count="1" :after-read="afterRead" />
+            </template>
+          </van-field>
+          <!-- label-align="top" -->
+          <van-field rows="4" type="textarea" required v-model="works" name="text9" label="参赛作品"
+            placeholder="唱段名称（该视频会同步到视介官发布）" :rules="[{ required: true, message: '参赛作品' }]" />
+          <van-field name="video10" label="视频上传">
+            <template #input>
+              <van-uploader v-model="fileVideoList" accept="video/*" :max-count="1" :after-read="afterReadVideo" />
+            </template>
+          </van-field>
+        </van-cell-group>
+        <div style="margin: 16px;">
+          <van-button round block type="primary" native-type="submit">
+            提交
+          </van-button>
+        </div>
+      </van-form>
     </div>
-    <check-phone v-model:show="showCheckPop"  @closePop="backCloseCall"></check-phone>
+    <van-popup v-model:show="showPicker" position="bottom">
+      <van-date-picker :min-date="minDate" @confirm="onConfirm" @cancel="showPicker = false" />
+    </van-popup>
+    <van-popup v-model:show="showArea" position="bottom">
+      <van-area :area-list="areaList" @confirm="onConfirmArea" @cancel="showArea = false" />
+    </van-popup>
+    <van-popup v-model:show="showGroup" position="bottom">
+      <van-picker :columns="columns" @confirm="onConfirmGroup" @cancel="showPicker = false" />
+    </van-popup>
   </div>
 </template>
 
@@ -26,80 +66,132 @@ import {
   ref,
 } from "vue";
 import { showToast } from 'vant';
-import axios from "axios";
-import { wxShare } from "../../utils/wxUtils";
-import CryptoJS from "crypto-js";
+
 import CheckPhone from "@/components/CheckPhone.vue"
+import { getossKey, upYunImg, getActiveInfo, postSignUp } from '@/api/resource'
 // import cztvApi from './ztvApi.d.ts'
+import { areaList } from '@vant/area-data';
 
 let isFirst = false
 export default defineComponent({
   name: "gameIndex",
   components: {
-    CheckPhone
+    CheckPhone,
   },
   setup(props, { emit }: SetupContext) {
     let showCheckPop = ref<boolean>(false)
     let mobile = ref('')
+    let fileList = ref([]);
+    const fileVideoList = ref([]);
+    const checked = ref(0);
+    const username = ref('');
+    const trade = ref('');  //  行当&流派
+    const team = ref('');
+    const works = ref('');
+    const router = useRouter();
 
-    const init = () => {
+    let imgUrl, videoUrl;
+
+
+    const password = ref('');
+
+    const result = ref('');
+    const showPicker = ref(false);
+    const onConfirm = ({ selectedValues }) => {
+      result.value = selectedValues.join('/');
+      showPicker.value = false;
     };
 
-    const handleLogin = () =>{
-      cztvApi.login(res => {
-        console.log('login', res)
+    const resultArea = ref('');
+    const showArea = ref(false);
+    const onConfirmArea = ({ selectedOptions }) => {
+      showArea.value = false;
+      resultArea.value = selectedOptions.map((item) => item.text).join('/');
+    };
 
-      })
+    const groupResult = ref('');
+    const showGroup = ref(false);
+    const columns = [
+      { text: '职业组', value: 0 },
+      { text: '非职业组', value: 1 },
+    ];
+
+    const onConfirmGroup = ({ selectedOptions }) => {
+      groupResult.value = selectedOptions[0]?.text;
+      showGroup.value = false;
+    };
+
+    const init = async () => {
+
+      let res = await getActiveInfo()
+      console.log(res, 'res')
+    };
+
+    const handleLogin = () => {
+      // cztvApi.login(res => {
+      //   console.log('login', res)
+      // })
     }
 
-    const join = () =>{
-      // 获取原始图片的URL
-      const isTextUrl = import.meta.env.VITE_RESOURCE_URL;
-      
-        const originalImageUrl = `${isTextUrl}bg.png`;
+    const afterRead = async (file) => {
+      // 此时可以自行将文件上传至服务器
+      console.log(file);
+      file.status = 'uploading';
+      file.message = '上传中...';
 
-        // 创建一个Canvas元素
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+      let res = await getossKey()
+      console.log(res, 'res')
+      if (res.code == 200) {
+        let { policy, dir, signature, accessid } = res.data;
+        let result = await upYunImg({
+          policy,
+          key: dir + Date.parse(new Date() + ''),
+          OSSAccessKeyId: accessid,
+          signature,
+          file: file.file
+        })
 
-        // 创建一个Image元素用于加载原始图片
-        const image = new Image();
+        file.status = 'done';
 
-        // 加载原始图片
-        image.onload = () => {
-          // 设置Canvas的尺寸与原始图片一致
-          canvas.width = image.width;
-          canvas.height = image.height;
+        console.log(result, 'result')
 
-          // 在Canvas上绘制原始图片
-          ctx!.drawImage(image, 0, 0);
+        imgUrl = 'https://o.cztvcloud.com/' + dir + Date.parse(new Date() + '')
+        console.log('https://o.cztvcloud.com/' + dir + Date.parse(new Date() + ''), 'https://o.cztvcloud.com/350/202307/06/1688631065/1688631065000')
+      }
+    };
 
-          // 添加文字
-          ctx!.font = '24px Arial';
-          ctx!.fillStyle = 'red';
-          ctx!.fillText('Hello, World!', 50, 50);
+    const afterReadVideo = async (file) => {
+      // 此时可以自行将文件上传至服务器
+      console.log(file);
+      file.status = 'uploading';
+      file.message = '上传中...';
 
-          // 将Canvas内容转换为DataURL
-          const dataUrl = canvas.toDataURL('image/jpeg');
+      let res = await getossKey()
+      console.log(res, 'res')
+      if (res.code == 200) {
+        let { policy, dir, signature, accessid } = res.data;
+        let result = await upYunImg({
+          policy,
+          key: dir + Date.parse(new Date() + ''),
+          OSSAccessKeyId: accessid,
+          signature,
+          file: file.file
+        })
 
-          // 创建一个下载链接
-          const downloadLink = document.createElement('a');
-          downloadLink.href = dataUrl;
-          downloadLink.download = 'processed_image.jpg';
+        file.status = 'done';
+        videoUrl = 'https://o.cztvcloud.com/' + dir + Date.parse(new Date() + '')
 
-          // 触发下载
-          downloadLink.click();
-        };
+        console.log(result, 'result')
+        console.log('https://o.cztvcloud.com/' + dir + Date.parse(new Date() + ''), 'https://o.cztvcloud.com/350/202307/06/1688631065/1688631065000')
+      }
+    };
 
-        // 设置Image元素的src为原始图片的URL
-        image.src = originalImageUrl;
 
-    }
 
-    const backCloseCall = ()=>{
+    const backCloseCall = () => {
       showCheckPop.value = false
     }
-
+    const validator = (val) => /^1[3456789][0-9]{9}$/.test(val);
     const submit = () => {
       showCheckPop.value = true
       // console.log(mobile.value);
@@ -109,25 +201,73 @@ export default defineComponent({
       // }     
     }
 
+    const onSubmit = async (values) => {
+      console.log('submit', fileList.value, imgUrl);
+      //   let fileList = ref([]);
+      // const fileVideoList = ref([]);
+      if (!imgUrl || fileList.value.length == 0) {
+        showToast('请上传图片')
+        return
+      }
+      if (!videoUrl || fileVideoList.value.length == 0) {
+        showToast('请上传视频')
+        return
+      }
+      values.radio6 = values.radio6 == '职业组' ? 0 : 1;
+      values.img8 = imgUrl
+      values.video10 = {
+        cover: '',
+        video: videoUrl
+      }
+      let res = await postSignUp({
+        enroll_id: '133',
+        extra: values
+      })
+      if (res) {
+        router.replace({
+          name: "index",
+        });
+        showToast('报名成功')
+
+      }else{
+        showToast('请稍后重试！')
+      }
+    };
+
     onMounted(async () => {
       init()
-      wxShare(
-        true,
-        "这恋综看得我老脸一红",
-        "点击预约《当我们遇见你》，解锁全熟恋爱方式",
-        "这恋综看得我老脸一红",
-        "https://ztv.cztv.com/ap/zt2023/meetyou/index.shtml", 
-        "https://ohudong.cztv.com/1/265926/images/share.jpg"
-      )
     });
 
     return {
+      validator,
+      groupResult,
+      showGroup,
+      columns,
+      onConfirmGroup,
+      fileVideoList,
+      afterReadVideo,
+      username,
+      checked,
+      password,
+      onSubmit,
+      result,
+      onConfirm,
+      resultArea,
+      areaList,
+      showArea,
+      onConfirmArea,
+      showPicker,
       showCheckPop,
       backCloseCall,
       mobile,
+      trade,
+      team,
+      works,
       init,
-      join,
-      submit
+      submit,
+      afterRead,
+      fileList,
+      minDate: new Date(1970, 0, 1),
     };
   },
 });
