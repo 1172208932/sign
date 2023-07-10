@@ -45,8 +45,8 @@
               <div class="tip-video">不传视频封面则默认取第一帧展示</div>
             </template>
           </van-field>
-          <van-field class="groupBottom" rows="3"  type="textarea"  required v-model="ownHave" name="text11" label="我有你没有" placeholder="分享您和越剧的小故事或者您的参赛亮点"
-            :rules="[{ required: true, message: '请填写内容' }]" />
+          <van-field class="groupBottom" rows="3"  type="textarea" v-model="ownHave" name="text11" label="我有你没有" placeholder="分享您和越剧的小故事"
+            />
         </van-cell-group>
         <div style="margin: 16px;">
           <van-button class="jump-btn" native-type="submit">
@@ -297,7 +297,7 @@ export default defineComponent({
       team,
       works,
       fileList,
-      minDate: new Date(1970, 0, 1),
+      minDate: new Date(1950, 0, 1),
       videoImageFileList,
       ownHave,
       init,

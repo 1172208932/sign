@@ -9,7 +9,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/upload",
     name: "upload",
-    component: () => import("../views/game/index.vue"),
+    component: () => import("../views/sign/index.vue"),
   }
 ];
 
