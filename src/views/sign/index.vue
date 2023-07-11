@@ -142,9 +142,10 @@ export default defineComponent({
       if (res.code == 200) {
         let { policy, dir, signature, accessid } = res.data;
         let randomStr = randomString(8)
+        let randomTime = Date.parse(new Date() + '') / 1000
         let result = await upYunImg({
           policy,
-          key: dir + Date.parse(new Date() + '') / 1000 + randomStr,
+          key: dir + randomTime + randomStr,
           OSSAccessKeyId: accessid,
           signature,
           file: file.file
@@ -154,7 +155,7 @@ export default defineComponent({
 
         console.log(result, 'result')
 
-        imgUrl = 'https://o.cztvcloud.com/' + dir + Date.parse(new Date() + '') / 1000 + randomStr
+        imgUrl = 'https://o.cztvcloud.com/' + dir + randomTime + randomStr
         console.log(imgUrl, 'https://o.cztvcloud.com/350/202307/06/1688631065/1688631065000')
       }
     };
@@ -170,9 +171,10 @@ export default defineComponent({
       if (res.code == 200) {
         let { policy, dir, signature, accessid } = res.data;
         let randomStr = randomString(8)
+        let randomTime = Date.parse(new Date() + '') / 1000
         let result = await upYunImg({
           policy,
-          key: dir + Date.parse(new Date() + '') / 1000 + randomStr,
+          key: dir + randomTime + randomStr,
           OSSAccessKeyId: accessid,
           signature,
           file: file.file
@@ -182,7 +184,7 @@ export default defineComponent({
 
         console.log(result, 'result')
 
-        videoImgUrl = 'https://o.cztvcloud.com/' + dir + Date.parse(new Date() + '') / 1000 + randomStr
+        videoImgUrl = 'https://o.cztvcloud.com/' + dir + randomTime + randomStr
         console.log(imgUrl, 'https://o.cztvcloud.com/350/202307/06/1688631065/1688631065000')
       }
     };
@@ -219,10 +221,10 @@ export default defineComponent({
       if (res.code == 200) {
         let { policy, dir, signature, accessid } = res.data;
         let randomStr = randomString(8)
-
+        let randomTime = Date.parse(new Date() + '') / 1000
         let result = await upYunImg({
           policy,
-          key: dir + Date.parse(new Date() + '') / 1000 + randomStr,
+          key: dir + randomTime + randomStr,
           OSSAccessKeyId: accessid,
           signature,
           file: file.file
@@ -230,7 +232,7 @@ export default defineComponent({
 
 
         file.status = 'done';
-        videoUrl = 'https://o.cztvcloud.com/' + dir + Date.parse(new Date() + '') / 1000 + randomStr
+        videoUrl = 'https://o.cztvcloud.com/' + dir + randomTime + randomStr
         console.log(videoUrl, 'https://o.cztvcloud.com/350/202307/06/1688631065/1688631065000')
 
       }
