@@ -19,6 +19,8 @@ const APIPath = {
   getInfo: `${snsUrl}api/v3/videos-activity/info`,
   getActiveInfo: `${zcatUrl}api/enrolls/150`,
   postSignUp: `${zcatUrl}api/enrollLists`,
+  getRecords: `${zcatUrl}api/enrollLists/getRecords`,
+
 
   getIndexInfo: `${snsUrl}api/v3/videos-activity/signList`, // 获取页面信息
   getHomeInfo: `${dhudongUrl}media/latest`, // 获取页面信息
@@ -30,6 +32,29 @@ export const postMobile = (mobile) => {
   })
 }
 
+
+export const getRecords = <T = any>(): Promise<any> => {
+  const user_session = window.sessionStorage.getItem('token') || "";
+    const timestamp = Math.round(new Date().getTime()/1000);
+    const nonce = randomString(8);
+    const signature = CryptoJS.SHA1(CryptoJS.enc.Utf8.parse(user_session + nonce + timestamp), true).toString();
+  return new Promise((resolve, reject) => {
+    NbRequest.get(APIPath.getRecords, { 
+      enroll_id:150
+    },{
+      userSession:user_session,
+      timestamp,
+      nonce,
+      signature
+    })
+      .then((res) => {
+        resolve(res);
+    })
+      .catch((err) => {
+        reject(err);
+    });
+  });
+};
 export const getActiveInfo = <T = any>(): Promise<any> => {
   return new Promise((resolve, reject) => {
     NbRequest.get(APIPath.getActiveInfo, { },{})
@@ -91,8 +116,6 @@ export const randomString = function (number) {
 }
 
 export const postSignUp = <T = any>(data): Promise<any> => {
-
-
   return new Promise((resolve, reject) => {
     const user_session = window.sessionStorage.getItem('token') || "";
     const timestamp = Math.round(new Date().getTime()/1000);

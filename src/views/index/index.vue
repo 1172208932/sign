@@ -21,6 +21,7 @@ import {
   SetupContext,
   ref,
 } from "vue";
+import { getRecords } from '@/api/resource'
 
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -62,8 +63,8 @@ export default defineComponent({
     const initAppShare = () => {
       const shareData = {
         url: `https://ztv.cztv.com/ap/zt2023/signsoundh5/index.shtml#/`,
-        title: '越韵新声，唱响中国“好声音”', //分享的标题
-        content: '《中国好声音·越剧特别季》第二季荣耀归来', // 分享的文字
+        title: '“10万大奖 一球制胜”', //分享的标题
+        content: 'Z视介迎亚运大联投，一“战”到底', // 分享的文字
         img: 'https://ohudong.cztv.com/1/266034/static/share.jpg'
       }
       cztvApi.changeShareInfo(shareData)
@@ -73,9 +74,9 @@ export default defineComponent({
     const initWechatShare = () => {
       wxShare(
         true,
-        "越韵新声，唱响中国“好声音”",
-        "《中国好声音·越剧特别季》第二季荣耀归来",
-        "越韵新声，唱响中国“好声音”",
+        "“10万大奖 一球制胜”",
+        "Z视介迎亚运大联投，一“战”到底",
+        "“10万大奖 一球制胜”",
         "https://ztv.cztv.com/ap/zt2023/signsoundh5/index.shtml#/",
         "https://ohudong.cztv.com/1/266034/static/share.jpg"
       )
@@ -96,10 +97,20 @@ export default defineComponent({
         return
       }
 
-      router.replace({
-        name: "upload",
-      });
+      nextStep()
     }, 2000)
+
+    const nextStep = async ()=>{
+      let res = await getRecords()
+      if(res?.data?.length){
+
+      }else{
+        router.replace({
+          name: "upload",
+        });
+      }
+
+    }
 
     const isInActive = () => {
       // 活动时间限制
@@ -139,9 +150,7 @@ export default defineComponent({
         // this.token = data.sessionId || ''
         if (data?.sessionId || '') {
           window.sessionStorage.setItem('token', data.sessionId)
-          router.replace({
-            name: "upload",
-          });
+          nextStep()
         } else {
           loginApp()
         }
@@ -164,9 +173,7 @@ export default defineComponent({
             // this.token = data.sessionId || ''
             if (data.sessionId || '') {
               window.sessionStorage.setItem('token', data.sessionId)
-              router.replace({
-                name: "upload",
-              });
+              nextStep()
             }
           })
           // this.$router.go(0)

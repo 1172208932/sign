@@ -8,7 +8,7 @@
             :rules="[{ required: true, message: '请填写姓名' }]" />  
           <van-field required v-model="mobile" name="string1" label="手机号" placeholder="请输入手机号"
             :rules="[{ validator, required: true, message: '请填写正确的手机号' }]" />
-          <van-field required v-model="trade" name="string2" label="身份证号" placeholder="请输入身份证号"
+          <van-field  class="groupBottom" required v-model="trade" name="string2" label="身份证号" placeholder="请输入身份证号"
             :rules="[{ required: true, message: '请填写身份证号' }]" />
           <!-- <van-field v-model="groupResult" required is-link readonly name="radio6" label="参赛组别" placeholder="点击选择参赛组别"
             @click="showGroup = true" :rules="[{ required: true, message: '请选择参赛组别' }]" /> -->
