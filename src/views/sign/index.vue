@@ -5,48 +5,14 @@
         <van-cell-group inset>
           <img class="head-img" src="../../assets/head.png" alt="" />
           <van-field class="group" required v-model="username" name="string0" label="姓名" placeholder="请输入真实姓名"
-            :rules="[{ required: true, message: '请填写姓名' }]" />
-          <van-field required name="radio1" label="性别">
-            <template #input>
-              <van-radio-group v-model="checked" direction="horizontal">
-                <van-radio :name="1">男</van-radio>
-                <van-radio :name="0">女</van-radio>
-              </van-radio-group>
-            </template>
-          </van-field>
-          <van-field v-model="result" is-link required readonly name="date2" label="出生日期" placeholder="点击选择出生日期"
-            @click="showPicker = true" />
-          <van-field required v-model="mobile" name="string3" label="手机号" placeholder="请输入手机号"
+            :rules="[{ required: true, message: '请填写姓名' }]" />  
+          <van-field required v-model="mobile" name="string1" label="手机号" placeholder="请输入手机号"
             :rules="[{ validator, required: true, message: '请填写正确的手机号' }]" />
-          <van-field required v-model="resultArea" is-link readonly name="region4" label="地域" placeholder="点击选择省市区"
-            @click="showArea = true" />
-          <van-field required v-model="trade" name="string5" label="流派&行当" placeholder="请输入流派&行当"
-            :rules="[{ required: true, message: '请填写流派&行当' }]" />
-          <van-field v-model="groupResult" required is-link readonly name="radio6" label="参赛组别" placeholder="点击选择参赛组别"
-            @click="showGroup = true" :rules="[{ required: true, message: '请选择参赛组别' }]" />
-          <van-field v-model="team" name="string7" label="所属院团" placeholder="职业组必填，不填视为报名不成功" />
-          <van-field name="img8" required label="个人照片">
-            <template #input>
-              <van-uploader v-model="fileList" :max-count="1" :after-read="afterRead" />
-            </template>
-          </van-field>
+          <van-field required v-model="trade" name="string2" label="身份证号" placeholder="请输入身份证号"
+            :rules="[{ required: true, message: '请填写身份证号' }]" />
+          <!-- <van-field v-model="groupResult" required is-link readonly name="radio6" label="参赛组别" placeholder="点击选择参赛组别"
+            @click="showGroup = true" :rules="[{ required: true, message: '请选择参赛组别' }]" /> -->
           <!-- label-align="top" -->
-          <van-field rows="4" type="textarea" required v-model="works" name="text9" label="参赛作品"
-            placeholder="唱段名称（该视频会同步到视介官发布）" :rules="[{ required: true, message: '参赛作品' }]" />
-          <van-field required name="video10" label="视频上传">
-            <template #input>
-              <van-uploader v-model="fileVideoList" accept="video/*" :max-count="1" :before-read="handleBeforeRead"
-                :after-read="afterReadVideo" />
-            </template>
-          </van-field>
-          <van-field name="videoimage" label="视频封面">
-            <template #input>
-              <van-uploader v-model="videoImageFileList" :max-count="1" :after-read="afterVideoImgRead" />
-              <div class="tip-video">不传视频封面则默认取第一帧展示</div>
-            </template>
-          </van-field>
-          <van-field class="groupBottom" rows="3"  type="textarea" v-model="ownHave" name="text11" label="我有你没有" placeholder="分享您和越剧的小故事"
-            />
         </van-cell-group>
         <div style="margin: 16px;">
           <van-button class="jump-btn" native-type="submit">
@@ -240,29 +206,6 @@ export default defineComponent({
     const validator = (val) => /^1[3456789][0-9]{9}$/.test(val);
 
     const onSubmit = throttle(async (values) => {
-      console.log('submit', fileList.value, imgUrl);
-      //   let fileList = ref([]);
-      // const fileVideoList = ref([]);
-      if (!imgUrl || fileList.value.length == 0) {
-        showToast('请上传图片')
-        return
-      }
-      if (!videoUrl || fileVideoList.value.length == 0) {
-        showToast('请上传视频')
-        return
-      }
-      if (groupResult.value == '职业组' && !team.value) {
-        showToast('请上填写所属院团')
-        return
-      }
-
-      values.radio6 = values.radio6 == '职业组' ? 0 : 1;
-      delete values.videoimage;
-      values.img8 = imgUrl
-      values.video10 = {
-        cover: videoImgUrl || '',
-        video: videoUrl
-      }
       let res = await postSignUp({
         enroll_id: '150',
         extra: values

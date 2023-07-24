@@ -235,7 +235,7 @@ export default defineComponent({
     background-size: 750px 98px;
     width: 750px;
     height: 98px;
-    margin-top:146px;
+    margin:146px auto 0px auto;
   }
 }
 </style>
