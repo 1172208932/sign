@@ -264,7 +264,7 @@ export default defineComponent({
         video: videoUrl
       }
       let res = await postSignUp({
-        enroll_id: '133',
+        enroll_id: '150',
         extra: values
       })
       if (res) {

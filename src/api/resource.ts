@@ -17,7 +17,7 @@ const zcatUrl = 'https://zcatapi.cztv.com/'
 const APIPath = {
   getossKey: `${cloufUrl}zsj/cztvfile/osspolicy`,
   getInfo: `${snsUrl}api/v3/videos-activity/info`,
-  getActiveInfo: `${zcatUrl}api/enrolls/133`,
+  getActiveInfo: `${zcatUrl}api/enrolls/150`,
   postSignUp: `${zcatUrl}api/enrollLists`,
 
   getIndexInfo: `${snsUrl}api/v3/videos-activity/signList`, // 获取页面信息

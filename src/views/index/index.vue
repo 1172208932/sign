@@ -209,18 +209,17 @@ export default defineComponent({
   position: relative;
   overflow-y: scroll;
   .appTop{
-    top: -5%;
-  }
-  .wxTop{
     top: 0%;
   }
+  .wxTop{
+    top: 6%;
+  }
   .indexBg {
-    background: url(../../assets/indexbg.jpg) no-repeat;
-    background-size: 750px 2880px;
+    background: url(../../assets/indexback.png) no-repeat;
+    background-size: 750px 4102px;
     position: absolute;
-    
     width: 750px;
-    height: 2880px;
+    height: 4102px;
     left: 0%;
   }
   .jump{
@@ -233,9 +232,9 @@ export default defineComponent({
   }
   .jump-btn{
     background: url(../../assets/index_btn.png) no-repeat;
-    background-size: 750px 150px;
+    background-size: 750px 98px;
     width: 750px;
-    height: 150px;
+    height: 98px;
     margin-top:146px;
   }
 }
