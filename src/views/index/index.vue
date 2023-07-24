@@ -1,10 +1,11 @@
 <template>
   <div class="picBox">
     <GuideTips ref="childRef" v-if="showGuideTips" />
-    <div :class="{indexBg:true,appTop:isApp,wxTop:!isApp}"></div>
-    <div class="jump" >
-      <div class="jump-btn" @click="jumoUpPage"></div>
+    <div :class="{ indexBg: true, appTop: isApp, wxTop: !isApp }"></div>
+    <div class="jump2">
     </div>
+    <div class="jump-btn2" @click="jumoUpPage"></div>
+    <success-pop :sid="sid" v-model:show="showPop" @closePop="backPopCall"></success-pop>
   </div>
 </template>
 
@@ -12,6 +13,7 @@
 import GuideTips from "@/components/guideTips/index.vue"
 import dayjs from 'dayjs' //日期库
 import { wxShare } from "../../utils/wxUtils";
+import SuccessPop from "@/components/successPop.vue";
 
 import {
   defineComponent,
@@ -30,15 +32,22 @@ import { throttle } from "@/utils/throttle";
 export default defineComponent({
   name: "picPage",
   components: {
-    GuideTips
+    GuideTips,
+    SuccessPop
   },
   setup(props, { emit }: SetupContext) {
     let showGuideTips = ref(false)
     const childRef = ref(null);
+    const sid = ref('')
 
     const router = useRouter();
+    const route = useRoute();
     const store = useStore();
-
+    const isSignUp = ref(false)
+    let showPop = ref<boolean>(false);
+    const backPopCall = () => {
+      showPop.value = false;
+    }
     const state: {} = reactive({});
 
     const isApp = ref(false)
@@ -47,6 +56,10 @@ export default defineComponent({
     const { index } = store.state;
 
     onMounted(async () => {
+      // console.log(history.state.params?.from)
+      // if(history.state.params?.from){
+      //   console.log('showwwwwwwwwwwwwwwww')
+      // }
       showGuideTips.value = window.navigator.userAgent.indexOf('chinablue') == -1
       if (window.navigator.userAgent.indexOf('chinablue') == -1) {
         initWechatShare()
@@ -62,27 +75,31 @@ export default defineComponent({
 
     const initAppShare = () => {
       const shareData = {
-        url: `https://ztv.cztv.com/ap/zt2023/signsoundh5/index.shtml#/`,
-        title: '“10万大奖 一球制胜”', //分享的标题
+        url: `https://ztv.cztv.com/ap/zt2023/signupshoot/index.shtml#/`,
+        title: '10万大奖 一球制胜', //分享的标题
         content: 'Z视介迎亚运大联投，一“战”到底', // 分享的文字
-        img: 'https://ohudong.cztv.com/1/266034/static/share.jpg'
+        img: 'https://ohudong.cztv.com/1/266056/static/share.png'
       }
       cztvApi.changeShareInfo(shareData)
       cztvApi.showShareButton(true)
     }
-
     const initWechatShare = () => {
       wxShare(
         true,
-        "“10万大奖 一球制胜”",
+        "10万大奖 一球制胜",
         "Z视介迎亚运大联投，一“战”到底",
-        "“10万大奖 一球制胜”",
-        "https://ztv.cztv.com/ap/zt2023/signsoundh5/index.shtml#/",
-        "https://ohudong.cztv.com/1/266034/static/share.jpg"
+        "10万大奖 一球制胜",
+        "https://ztv.cztv.com/ap/zt2023/signupshoot/index.shtml#/",
+        "https://ohudong.cztv.com/1/266056/static/share.png"
       )
     }
 
     const jumoUpPage = throttle(() => {
+      // router.replace({
+      //     name: "upload",
+      //   });
+      //   return
+
       const canContinue = isOnApp();
       if (!canContinue) { return }
 
@@ -100,11 +117,12 @@ export default defineComponent({
       nextStep()
     }, 2000)
 
-    const nextStep = async ()=>{
+    const nextStep = async () => {
       let res = await getRecords()
-      if(res?.data?.length){
-
-      }else{
+      if (res?.data?.length) {
+        sid.value = res?.data[0].id
+        showPop.value = true
+      } else {
         router.replace({
           name: "upload",
         });
@@ -200,8 +218,12 @@ export default defineComponent({
     return {
       ...toRefs(state),
       isApp,
-      childRef, 
+      sid,
+      childRef,
       showGuideTips,
+      showPop,
+      isSignUp,
+      backPopCall,
       jumoUpPage
 
     };
@@ -215,34 +237,42 @@ export default defineComponent({
   height: 100vh;
   position: relative;
   overflow-y: scroll;
-  .appTop{
+
+  .appTop {
     top: 0%;
   }
-  .wxTop{
+
+  .wxTop {
     top: 6%;
   }
+
   .indexBg {
     background: url(../../assets/indexback.png) no-repeat;
-    background-size: 750px 4102px;
+    background-size: 750px 3030px;
     position: absolute;
     width: 750px;
-    height: 4102px;
+    height: 3030px;
     left: 0%;
   }
-  .jump{
+
+  .jump2 {
     background: url(../../assets/indexBg.png) no-repeat;
     background-size: 750px 296px;
     position: fixed;
     bottom: 0;
     height: 296px;
     width: 750px;
+    pointer-events: none;
   }
-  .jump-btn{
+
+  .jump-btn2 {
     background: url(../../assets/index_btn.png) no-repeat;
     background-size: 750px 98px;
     width: 750px;
     height: 98px;
-    margin:146px auto 0px auto;
+    position: fixed;
+    bottom: 52px;
+    margin: 146px auto 0px auto;
   }
 }
 </style>

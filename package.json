@@ -27,6 +27,7 @@
     "esbuild-windows-64": "^0.15.6",
     "jsonp": "^0.2.1",
     "lodash-es": "^4.17.21",
+    "lottie-web": "^5.12.2",
     "node-sass": "^7.0.1",
     "pixi.js": "^6.5.2",
     "qs": "^6.11.0",

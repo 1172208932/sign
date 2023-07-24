@@ -1,3 +1,6 @@
+import { isPromise } from "./index";
+
+
 class EventObject {
     public type: string;
     public target: EventCenterClass | undefined;
@@ -103,7 +106,10 @@ export class EventCenterClass {
 
             for (let i = 0; i < eventListenersCopy.length; i++) {
                 const el = eventListenersCopy[i];
-                el.listener.call(el.context, event);
+                let res = el.listener.call(el.context, event);
+                if(isPromise(res)){
+                    return  res
+                }
                 if (el.once) {
                     const index = eventListeners.indexOf(el);
                     if (index > -1) {

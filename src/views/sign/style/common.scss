@@ -9,7 +9,7 @@
 }
 
 html, body {
-	overflow: hidden;
+	// overflow: hidden;
 }
 
 :root:root {
@@ -22,7 +22,7 @@ html, body {
 	position: relative;
 	height: 100vh;
     overflow-y: scroll;
-	background: #2A0D13;
+	background: #E4563E;
 	overflow-x: hidden;
 	// top: 50%;
 	// left: 50%;
@@ -30,12 +30,13 @@ html, body {
 }
 .jump-btn{
 	background: url(../../assets/upBtn.png) no-repeat;
-    background-size: 750px 150px;
-    width: 750px;
-    height: 150px;
+    background-size: 530px 90px;
+    width: 530px;
+    height: 90px;
 	position: relative;
 	left: -16PX;
 	border: none;
+	margin-left: 80px;
 }
 
 .tip-video{
@@ -44,13 +45,13 @@ html, body {
 
 .intor{
 	background: url(../../assets/bg.png) no-repeat;
-	background-size: 750px 1822px;
+	background-size: 750px 1442px;
 	position: absolute;
 	top: 0%;
 	width: 750px;
-	height: 1822px;
+	height: 1442px;
 	.form{
-		margin-top:376px;
+		margin-top:706px;
 		padding-bottom: 62px;
 		.group{
 			margin-top:40px;
