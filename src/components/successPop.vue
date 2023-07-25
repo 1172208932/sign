@@ -32,12 +32,11 @@ import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 
-const props = defineProps({
-    show: Boolean,
-    sid: String,
-    radiolist: Array
-});
-
+const props = defineProps<{
+    show: boolean
+    sid: string
+    radiolist: any[]
+}>()
 
 
 let showPopup = ref<boolean>(false);
@@ -152,5 +151,6 @@ function close() {
     font-weight: 400;
     color: #FFFFFF;
     line-height: 22px;
-}</style>
+}
+</style>
     

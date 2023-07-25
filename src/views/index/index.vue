@@ -119,7 +119,7 @@ export default defineComponent({
       nextStep()
     }, 2000)
 
- 
+
     const nextStep = async () => {
       let res = await getRecords()
       if (res?.data?.length) {
@@ -188,7 +188,7 @@ export default defineComponent({
     const loginApp = () => {
       cztvApi.login(res => {
         console.log('login', res)
-        if (res.code === 200) {
+        if (res?.code === 200) {
           cztvApi.userInfo(res => {
             const data = JSON.parse(res);
             // this.token = data.sessionId || ''
@@ -208,6 +208,7 @@ export default defineComponent({
       let canContinue = false;
       if (window.navigator.userAgent.indexOf('chinablue') === -1) {
         // showToast("请打开Z视介APP参与活动~");
+        // @ts-ignore
         childRef!.value!.openApp()
         canContinue = false;
       } else {

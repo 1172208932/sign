@@ -12,6 +12,7 @@
 </template>
 <script>
 // @ts-ignore
+// @ts-ignore
 import { ref, watch, onMounted, nextTick } from 'vue';
 // @ts-ignore
 import lottie from 'lottie-web';
@@ -22,6 +23,7 @@ import EventBus from '@/utils/eventbus';
 export default {
   setup() {
     const showAnimation = ref(false);
+    // @ts-ignore
     // @ts-ignore
     const router = useRouter();
     let animation
@@ -45,19 +47,20 @@ export default {
       showAnimation.value = true
       await nextTick()
 
+      // @ts-ignore
       return new Promise((resolve, reject) => {
         animation.play();
         animation.addEventListener('enterFrame', (event) => {
-        
+
           if (event.currentTime >= 25) {
             // animation.pause();
-                resolve('22222')
+            resolve('22222')
           }
         });
         return false
       });
       // @ts-ignore
-     
+
     }
     onMounted(async () => {
       // document.body.addEventListener('touchmove', function(e) {
@@ -70,6 +73,7 @@ export default {
 
       EventBus.on('SHOW_ANI', showAni, this)
       animation = lottie.loadAnimation({
+        // @ts-ignore
         container: document.getElementById('canvas9'),
         // Lottie动画的配置选项
         renderer: 'svg',
@@ -111,6 +115,7 @@ export default {
   position: fixed;
   top: 0;
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -118,10 +123,12 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+
 * {
   padding: 0;
   margin: 0;
 }
+
 body {
   background: #eae6df;
   overscroll-behavior-y: none;
@@ -130,11 +137,12 @@ body {
 .fade-enter-active {
   transition: opacity 0.5s ease;
 }
+
 .fade-leave-active {
   transition: none;
 }
+
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-}
-</style>
+}</style>

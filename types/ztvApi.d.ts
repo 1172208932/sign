@@ -11,8 +11,10 @@
 // export = cztvApi;
 
 
-declare global {
-  interface Window {
-    cztvApi: any; // 替换 any 为 cztvApi 对象的类型
-  }
+declare namespace cztvApi {
+
+  function login (resCallback: (res: any) => void): void;
+  function userInfo (resCallback: (res: any) => void): void;
+  function changeShareInfo (res:any): void;
+  function showShareButton (res:any): void;
 }
