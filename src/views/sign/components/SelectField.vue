@@ -10,11 +10,11 @@ const onConfirmGroup = ({ selectedOptions }) => {
     groupResult.value = selectedOptions[0]?.text;
     showGroup.value = false;
 };
-const props = defineProps({
-    name: String,
-    label: String,
-    columns: Array
-});
+const props = defineProps<{
+    name: string,
+    label: string,
+    columns: any[]
+}>();
 
 </script>
 
