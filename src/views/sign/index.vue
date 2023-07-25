@@ -9,35 +9,23 @@
           <van-field required v-model="mobile" name="string1" label="手机号" placeholder="请输入手机号"
             :rules="[{ validator, required: true, message: '请填写正确的手机号' }]" />
           <van-field class="groupBottom" required v-model="trade" name="string2" label="身份证号" placeholder="请输入身份证号"
-            :rules="[{ validator:validatorId, required: true, message: '请填写正确的身份证号' }]" />
-          <van-field v-model="groupResult" required is-link readonly name="radio3" label="活动时间" placeholder="点击选择活动时间"
-            @click="showGroup = true" :rules="[{ required: true, message: '请选择活动时间' }]" />
-            <van-field v-model="groupPlaceResult" required is-link readonly name="radio4" label="比赛场地" placeholder="点击选择比赛场地"
-            @click="showPlaceGroup = true" :rules="[{ required: true, message: '请选择比赛场地' }]" />
-          <!-- label-align="top" -->
-
+            :rules="[{ validator: validatorId, required: true, message: '请填写正确的身份证号' }]" />
+          <SelectField :name="'radio3'" label="活动时间" :columns="timeColumns"></SelectField>
+          <SelectField :name="'radio5'" label="比赛场地" :columns="placeColumn"></SelectField>
           <div style="margin: 16px;">
             <van-button class="jump-btn" native-type="submit">
             </van-button>
           </div>
-
         </van-cell-group>
-
       </van-form>
     </div>
-    <success-pop v-model:show="showPop" :sid="sid" @closePop="backPopCall"></success-pop>
+    <success-pop v-model:show="showPop" :radiolist="radioList" :sid="sid" @closePop="backPopCall"></success-pop>
 
     <van-popup v-model:show="showPicker" position="bottom">
       <van-date-picker :min-date="minDate" @confirm="onConfirm" @cancel="showPicker = false" />
     </van-popup>
     <van-popup v-model:show="showArea" position="bottom">
       <van-area :area-list="areaList" @confirm="onConfirmArea" @cancel="showArea = false" />
-    </van-popup>
-    <van-popup v-model:show="showGroup" position="bottom">
-      <van-picker :columns="timeColumns" @confirm="onConfirmGroup" @cancel="showGroup = false" />
-    </van-popup>
-    <van-popup v-model:show="showPlaceGroup" position="bottom">
-      <van-picker :columns="placeColumn" @confirm="onPlaceConfirmGroup" @cancel="showPlaceGroup = false" />
     </van-popup>
   </div>
 </template>
@@ -51,16 +39,19 @@ import {
 } from "vue";
 import { showToast } from 'vant';
 import SuccessPop from "@/components/successPop.vue";
+import { getRadioList } from "@/utils/index"
 
 import { getossKey, upYunImg, getActiveInfo, postSignUp, randomString } from '@/api/resource'
 import { areaList } from '@vant/area-data';
 import { throttle } from "@/utils/throttle";
-import {timeColumns,placeColumn} from "./config"
+import { timeColumns, findArrValue } from "./config"
+import SelectField from "./components/SelectField.vue"
 let isFirst = false
 export default defineComponent({
   name: "gameIndex",
   components: {
     SuccessPop,
+    SelectField
   },
   setup(props, { emit }: SetupContext) {
     const mobile = ref('')      //手机号
@@ -81,10 +72,11 @@ export default defineComponent({
     const resultArea = ref('');
     const showArea = ref(false);
     const groupResult = ref('');
-    const groupPlaceResult = ref('');
 
-    const showGroup = ref(false);
-    const showPlaceGroup = ref(false);
+    const radioList = ref<any[]>([])
+    const placeColumn = ref<any[]>([])
+
+
 
     let showPop = ref<boolean>(false);
     const backPopCall = () => {
@@ -94,15 +86,7 @@ export default defineComponent({
       });
     }
 
-    const findArrValue = (list,str)=>{
-      if(!str){return ''}
 
-      let item = list.filter((item)=>{
-        return item.text == str
-      })
-      console.log(item)
-      return item[0]?.value
-    }
 
     const onConfirmArea = ({ selectedOptions }) => {
       showArea.value = false;
@@ -114,20 +98,26 @@ export default defineComponent({
       showPicker.value = false;
     };
 
-    const onConfirmGroup = ({ selectedOptions }) => {
-      groupResult.value = selectedOptions[0]?.text;
-      showGroup.value = false;
-    };
 
-    const onPlaceConfirmGroup = ({ selectedOptions }) => {
-      groupPlaceResult.value = selectedOptions[0]?.text;
-      showPlaceGroup.value = false;
-    };
-    
+
+
+
     const init = async () => {
       let res = await getActiveInfo()
       console.log(res, 'res')
+      placeColumn.value = filterColumn(res.extra.param[5].data)
     };
+
+    const filterColumn = (arr) => {
+      let newArr: any[] = []
+      arr.forEach((element, index) => {
+        newArr.push({
+          text: element,
+          value: index
+        })
+      });
+      return newArr
+    }
 
     const afterRead = async (file) => {
       // 此时可以自行将文件上传至服务器
@@ -148,11 +138,7 @@ export default defineComponent({
           signature,
           file: file.file
         })
-
         file.status = 'done';
-
-        console.log(result, 'result')
-
         imgUrl = 'https://o.cztvcloud.com/' + dir + randomTime + randomStr
         console.log(imgUrl, 'https://o.cztvcloud.com/350/202307/06/1688631065/1688631065000')
       }
@@ -208,7 +194,6 @@ export default defineComponent({
       return true;
     }
 
-
     const afterReadVideo = async (file) => {
       // 此时可以自行将文件上传至服务器
       file.status = 'uploading';
@@ -246,22 +231,23 @@ export default defineComponent({
       // });
       // return
 
-      values.radio3 = findArrValue(timeColumns,values.radio3);
-      values.radio4 = findArrValue(placeColumn,values.radio4);
+      values.radio3 = findArrValue(timeColumns, values.radio3);
+      values.radio5 = findArrValue(placeColumn.value, values.radio5);
 
       let res = await postSignUp({
         enroll_id: '150',
         extra: values
       })
       //res.status_code 
+      console.log(res, 'rrrrrrr')
       if (res?.id) {
+        radioList.value = getRadioList(res)
         sid.value = res.id + ''
         showPop.value = true
         // router.replace({
         //   name: "index",
         // });
         // showToast('报名成功')
-
       } else {
         showToast('报名失败，请稍后重试！')
       }
@@ -273,9 +259,6 @@ export default defineComponent({
 
     return {
       groupResult,
-      groupPlaceResult,
-      showGroup,
-      showPlaceGroup,
       timeColumns,
       fileVideoList,
       username,
@@ -296,7 +279,7 @@ export default defineComponent({
       ownHave,
       showPop,
       placeColumn,
-      onPlaceConfirmGroup,
+      radioList,
       init,
       backPopCall,
       afterRead,
@@ -307,7 +290,6 @@ export default defineComponent({
       onSubmit,
       afterReadVideo,
       handleBeforeRead,
-      onConfirmGroup,
       afterVideoImgRead,
     };
   },

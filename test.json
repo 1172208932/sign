@@ -1,0 +1,632 @@
+{
+ "current_page": 1,
+ "data": [
+  {
+   "id": 107553,
+   "zone_id": 1,
+   "site_id": 1,
+   "enroll_id": 150,
+   "name": null,
+   "mobile": null,
+   "ip": "120.27.173.33",
+   "client_id": null,
+   "user_id": "25887108",
+   "user_name": "中国蓝TV网友",
+   "user_mobile": "18245049648",
+   "up_num": 0,
+   "origin_vote_option": 0,
+   "extra": {
+    "string0": "金家渡",
+    "string1": "18245049644",
+    "string2": "1234",
+    "ip_address": "局域网或未知IP",
+    "phone_address": "黑龙江哈尔滨"
+   },
+   "sort": 0,
+   "created_at": "2023-07-24 15:14:27",
+   "updated_at": "2023-07-24 15:20:01",
+   "status": 0,
+   "remark": null,
+   "display": 0,
+   "ugc_article_id": 0,
+   "enroll": {
+    "id": 150,
+    "zone_id": 1,
+    "site_id": 1,
+    "author_id": 18,
+    "author_name": "严海东",
+    "signup_count": 6,
+    "status": 1,
+    "virtual_number": 1,
+    "ugc_sync": 0,
+    "extra": {
+     "auth": "login",
+     "type": "enroll",
+     "cover": [
+      {
+       "path": "https://z-hd-interact.oss-cn-hangzhou.aliyuncs.com/batrix/cms_1690163149_RSCrtep7sh.png"
+      }
+     ],
+     "limit": {
+      "num": 1,
+      "type": "all"
+     },
+     "param": [
+      {
+       "data": [],
+       "name": "姓名",
+       "type": "string",
+       "intro": null,
+       "validate": {
+        "required": true
+       },
+       "column_name": "string0",
+       "show_in_list": true
+      },
+      {
+       "data": [],
+       "name": "手机号",
+       "type": "string",
+       "intro": null,
+       "validate": {
+        "regex": "/^1[3456789][0-9]{9}$/",
+        "required": true
+       },
+       "column_name": "string1",
+       "show_in_list": true
+      },
+      {
+       "data": [],
+       "name": "身份证号",
+       "type": "string",
+       "intro": null,
+       "validate": {
+        "required": true
+       },
+       "column_name": "string2",
+       "show_in_list": true
+      },
+      {
+       "data": [
+        "2023年7月28日",
+        "2023年7月29日"
+       ],
+       "name": "活动时间",
+       "type": "radio",
+       "intro": null,
+       "ugc_type": null,
+       "validate": {
+        "required": true
+       },
+       "column_name": "radio3",
+       "show_in_list": true
+      },
+      {
+       "data": [
+        "DK灌篮公园",
+        "东赞球馆奥体店",
+        "硬核公园-博雅城馆",
+        "飞动篮球公园",
+        "硬核公园-滨江RMB CENTER",
+        "钱唐健身工场",
+        "硬核公园-数字体验馆",
+        "硬核公园-中电万谷馆",
+        "新青牛篮球馆",
+        "硬核公园-古墩印象城馆",
+        "政星体育运动馆",
+        "博燚体育国际击剑中心"
+       ],
+       "name": "比赛场地",
+       "type": "radio",
+       "intro": null,
+       "ugc_type": null,
+       "validate": {
+        "required": true
+       },
+       "column_name": "radio4",
+       "show_in_list": true
+      }
+     ],
+     "title": "【正式】一球制胜活动报名",
+     "yidun": "0",
+     "end_time": "2023-08-19 21:00:00",
+     "start_time": "2023-07-24 00:00:00",
+     "cover_style": "220",
+     "limit_total": {
+      "total": null,
+      "enable": "0"
+     },
+     "comment_uuid": "0250b1aa29c411ee9c055285eb369fef",
+     "template_style": "220",
+     "link_to_lucky_draw": {
+      "id": null,
+      "title": null,
+      "chance": null,
+      "enable": 0,
+      "free_mode": "once"
+     }
+    },
+    "created_at": "2023-07-24 09:47:12",
+    "updated_at": "2023-07-24 17:22:31",
+    "deleted_at": null
+   }
+  },
+  {
+   "id": 107551,
+   "zone_id": 1,
+   "site_id": 1,
+   "enroll_id": 150,
+   "name": null,
+   "mobile": null,
+   "ip": "47.98.74.89",
+   "client_id": null,
+   "user_id": "25887108",
+   "user_name": "中国蓝TV网友",
+   "user_mobile": "18245049648",
+   "up_num": 0,
+   "origin_vote_option": 0,
+   "extra": {
+    "string0": "糊涂",
+    "string1": "18245049648",
+    "string2": "236",
+    "ip_address": "局域网或未知IP",
+    "phone_address": "黑龙江哈尔滨"
+   },
+   "sort": 0,
+   "created_at": "2023-07-24 15:09:34",
+   "updated_at": "2023-07-24 15:10:01",
+   "status": 0,
+   "remark": null,
+   "display": 0,
+   "ugc_article_id": 0,
+   "enroll": {
+    "id": 150,
+    "zone_id": 1,
+    "site_id": 1,
+    "author_id": 18,
+    "author_name": "严海东",
+    "signup_count": 6,
+    "status": 1,
+    "virtual_number": 1,
+    "ugc_sync": 0,
+    "extra": {
+     "auth": "login",
+     "type": "enroll",
+     "cover": [
+      {
+       "path": "https://z-hd-interact.oss-cn-hangzhou.aliyuncs.com/batrix/cms_1690163149_RSCrtep7sh.png"
+      }
+     ],
+     "limit": {
+      "num": 1,
+      "type": "all"
+     },
+     "param": [
+      {
+       "data": [],
+       "name": "姓名",
+       "type": "string",
+       "intro": null,
+       "validate": {
+        "required": true
+       },
+       "column_name": "string0",
+       "show_in_list": true
+      },
+      {
+       "data": [],
+       "name": "手机号",
+       "type": "string",
+       "intro": null,
+       "validate": {
+        "regex": "/^1[3456789][0-9]{9}$/",
+        "required": true
+       },
+       "column_name": "string1",
+       "show_in_list": true
+      },
+      {
+       "data": [],
+       "name": "身份证号",
+       "type": "string",
+       "intro": null,
+       "validate": {
+        "required": true
+       },
+       "column_name": "string2",
+       "show_in_list": true
+      },
+      {
+       "data": [
+        "2023年7月28日",
+        "2023年7月29日"
+       ],
+       "name": "活动时间",
+       "type": "radio",
+       "intro": null,
+       "ugc_type": null,
+       "validate": {
+        "required": true
+       },
+       "column_name": "radio3",
+       "show_in_list": true
+      },
+      {
+       "data": [
+        "DK灌篮公园",
+        "东赞球馆奥体店",
+        "硬核公园-博雅城馆",
+        "飞动篮球公园",
+        "硬核公园-滨江RMB CENTER",
+        "钱唐健身工场",
+        "硬核公园-数字体验馆",
+        "硬核公园-中电万谷馆",
+        "新青牛篮球馆",
+        "硬核公园-古墩印象城馆",
+        "政星体育运动馆",
+        "博燚体育国际击剑中心"
+       ],
+       "name": "比赛场地",
+       "type": "radio",
+       "intro": null,
+       "ugc_type": null,
+       "validate": {
+        "required": true
+       },
+       "column_name": "radio4",
+       "show_in_list": true
+      }
+     ],
+     "title": "【正式】一球制胜活动报名",
+     "yidun": "0",
+     "end_time": "2023-08-19 21:00:00",
+     "start_time": "2023-07-24 00:00:00",
+     "cover_style": "220",
+     "limit_total": {
+      "total": null,
+      "enable": "0"
+     },
+     "comment_uuid": "0250b1aa29c411ee9c055285eb369fef",
+     "template_style": "220",
+     "link_to_lucky_draw": {
+      "id": null,
+      "title": null,
+      "chance": null,
+      "enable": 0,
+      "free_mode": "once"
+     }
+    },
+    "created_at": "2023-07-24 09:47:12",
+    "updated_at": "2023-07-24 17:22:31",
+    "deleted_at": null
+   }
+  },
+  {
+   "id": 107550,
+   "zone_id": 1,
+   "site_id": 1,
+   "enroll_id": 150,
+   "name": null,
+   "mobile": null,
+   "ip": "118.178.15.235",
+   "client_id": null,
+   "user_id": "25887108",
+   "user_name": "中国蓝TV网友",
+   "user_mobile": "18245049648",
+   "up_num": 0,
+   "origin_vote_option": 0,
+   "extra": {
+    "string0": "ink哦哦您看",
+    "string1": "18245049648",
+    "string2": "18245049646",
+    "ip_address": "局域网或未知IP",
+    "phone_address": "黑龙江哈尔滨"
+   },
+   "sort": 0,
+   "created_at": "2023-07-24 15:00:01",
+   "updated_at": "2023-07-24 15:10:01",
+   "status": 0,
+   "remark": null,
+   "display": 0,
+   "ugc_article_id": 0,
+   "enroll": {
+    "id": 150,
+    "zone_id": 1,
+    "site_id": 1,
+    "author_id": 18,
+    "author_name": "严海东",
+    "signup_count": 6,
+    "status": 1,
+    "virtual_number": 1,
+    "ugc_sync": 0,
+    "extra": {
+     "auth": "login",
+     "type": "enroll",
+     "cover": [
+      {
+       "path": "https://z-hd-interact.oss-cn-hangzhou.aliyuncs.com/batrix/cms_1690163149_RSCrtep7sh.png"
+      }
+     ],
+     "limit": {
+      "num": 1,
+      "type": "all"
+     },
+     "param": [
+      {
+       "data": [],
+       "name": "姓名",
+       "type": "string",
+       "intro": null,
+       "validate": {
+        "required": true
+       },
+       "column_name": "string0",
+       "show_in_list": true
+      },
+      {
+       "data": [],
+       "name": "手机号",
+       "type": "string",
+       "intro": null,
+       "validate": {
+        "regex": "/^1[3456789][0-9]{9}$/",
+        "required": true
+       },
+       "column_name": "string1",
+       "show_in_list": true
+      },
+      {
+       "data": [],
+       "name": "身份证号",
+       "type": "string",
+       "intro": null,
+       "validate": {
+        "required": true
+       },
+       "column_name": "string2",
+       "show_in_list": true
+      },
+      {
+       "data": [
+        "2023年7月28日",
+        "2023年7月29日"
+       ],
+       "name": "活动时间",
+       "type": "radio",
+       "intro": null,
+       "ugc_type": null,
+       "validate": {
+        "required": true
+       },
+       "column_name": "radio3",
+       "show_in_list": true
+      },
+      {
+       "data": [
+        "DK灌篮公园",
+        "东赞球馆奥体店",
+        "硬核公园-博雅城馆",
+        "飞动篮球公园",
+        "硬核公园-滨江RMB CENTER",
+        "钱唐健身工场",
+        "硬核公园-数字体验馆",
+        "硬核公园-中电万谷馆",
+        "新青牛篮球馆",
+        "硬核公园-古墩印象城馆",
+        "政星体育运动馆",
+        "博燚体育国际击剑中心"
+       ],
+       "name": "比赛场地",
+       "type": "radio",
+       "intro": null,
+       "ugc_type": null,
+       "validate": {
+        "required": true
+       },
+       "column_name": "radio4",
+       "show_in_list": true
+      }
+     ],
+     "title": "【正式】一球制胜活动报名",
+     "yidun": "0",
+     "end_time": "2023-08-19 21:00:00",
+     "start_time": "2023-07-24 00:00:00",
+     "cover_style": "220",
+     "limit_total": {
+      "total": null,
+      "enable": "0"
+     },
+     "comment_uuid": "0250b1aa29c411ee9c055285eb369fef",
+     "template_style": "220",
+     "link_to_lucky_draw": {
+      "id": null,
+      "title": null,
+      "chance": null,
+      "enable": 0,
+      "free_mode": "once"
+     }
+    },
+    "created_at": "2023-07-24 09:47:12",
+    "updated_at": "2023-07-24 17:22:31",
+    "deleted_at": null
+   }
+  },
+  {
+   "id": 107544,
+   "zone_id": 1,
+   "site_id": 1,
+   "enroll_id": 150,
+   "name": null,
+   "mobile": null,
+   "ip": "120.27.173.53",
+   "client_id": null,
+   "user_id": "25887108",
+   "user_name": "中国蓝TV网友",
+   "user_mobile": "18245049648",
+   "up_num": 0,
+   "origin_vote_option": 0,
+   "extra": {
+    "string0": "测试1",
+    "string1": "18245049648",
+    "string2": "23012419940805701X",
+    "ip_address": "局域网或未知IP",
+    "phone_address": "黑龙江哈尔滨"
+   },
+   "sort": 0,
+   "created_at": "2023-07-24 10:33:42",
+   "updated_at": "2023-07-24 10:40:00",
+   "status": 0,
+   "remark": null,
+   "display": 0,
+   "ugc_article_id": 0,
+   "enroll": {
+    "id": 150,
+    "zone_id": 1,
+    "site_id": 1,
+    "author_id": 18,
+    "author_name": "严海东",
+    "signup_count": 6,
+    "status": 1,
+    "virtual_number": 1,
+    "ugc_sync": 0,
+    "extra": {
+     "auth": "login",
+     "type": "enroll",
+     "cover": [
+      {
+       "path": "https://z-hd-interact.oss-cn-hangzhou.aliyuncs.com/batrix/cms_1690163149_RSCrtep7sh.png"
+      }
+     ],
+     "limit": {
+      "num": 1,
+      "type": "all"
+     },
+     "param": [
+      {
+       "data": [],
+       "name": "姓名",
+       "type": "string",
+       "intro": null,
+       "validate": {
+        "required": true
+       },
+       "column_name": "string0",
+       "show_in_list": true
+      },
+      {
+       "data": [],
+       "name": "手机号",
+       "type": "string",
+       "intro": null,
+       "validate": {
+        "regex": "/^1[3456789][0-9]{9}$/",
+        "required": true
+       },
+       "column_name": "string1",
+       "show_in_list": true
+      },
+      {
+       "data": [],
+       "name": "身份证号",
+       "type": "string",
+       "intro": null,
+       "validate": {
+        "required": true
+       },
+       "column_name": "string2",
+       "show_in_list": true
+      },
+      {
+       "data": [
+        "2023年7月28日",
+        "2023年7月29日"
+       ],
+       "name": "活动时间",
+       "type": "radio",
+       "intro": null,
+       "ugc_type": null,
+       "validate": {
+        "required": true
+       },
+       "column_name": "radio3",
+       "show_in_list": true
+      },
+      {
+       "data": [
+        "DK灌篮公园",
+        "东赞球馆奥体店",
+        "硬核公园-博雅城馆",
+        "飞动篮球公园",
+        "硬核公园-滨江RMB CENTER",
+        "钱唐健身工场",
+        "硬核公园-数字体验馆",
+        "硬核公园-中电万谷馆",
+        "新青牛篮球馆",
+        "硬核公园-古墩印象城馆",
+        "政星体育运动馆",
+        "博燚体育国际击剑中心"
+       ],
+       "name": "比赛场地",
+       "type": "radio",
+       "intro": null,
+       "ugc_type": null,
+       "validate": {
+        "required": true
+       },
+       "column_name": "radio4",
+       "show_in_list": true
+      }
+     ],
+     "title": "【正式】一球制胜活动报名",
+     "yidun": "0",
+     "end_time": "2023-08-19 21:00:00",
+     "start_time": "2023-07-24 00:00:00",
+     "cover_style": "220",
+     "limit_total": {
+      "total": null,
+      "enable": "0"
+     },
+     "comment_uuid": "0250b1aa29c411ee9c055285eb369fef",
+     "template_style": "220",
+     "link_to_lucky_draw": {
+      "id": null,
+      "title": null,
+      "chance": null,
+      "enable": 0,
+      "free_mode": "once"
+     }
+    },
+    "created_at": "2023-07-24 09:47:12",
+    "updated_at": "2023-07-24 17:22:31",
+    "deleted_at": null
+   }
+  }
+ ],
+ "first_page_url": "http://zcatapi.cztv.com/api/enrollLists/getRecords?page=1",
+ "from": 1,
+ "last_page": 1,
+ "last_page_url": "http://zcatapi.cztv.com/api/enrollLists/getRecords?page=1",
+ "links": [
+  {
+   "url": null,
+   "label": "&laquo; 上一页",
+   "active": false
+  },
+  {
+   "url": "http://zcatapi.cztv.com/api/enrollLists/getRecords?page=1",
+   "label": "1",
+   "active": true
+  },
+  {
+   "url": null,
+   "label": "下一页 &raquo;",
+   "active": false
+  }
+ ],
+ "next_page_url": null,
+ "path": "http://zcatapi.cztv.com/api/enrollLists/getRecords",
+ "per_page": 20,
+ "prev_page_url": null,
+ "to": 4,
+ "total": 4
+}

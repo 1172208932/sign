@@ -20,8 +20,6 @@ const APIPath = {
   getActiveInfo: `${zcatUrl}api/enrolls/150`,
   postSignUp: `${zcatUrl}api/enrollLists`,
   getRecords: `${zcatUrl}api/enrollLists/getRecords`,
-
-
   getIndexInfo: `${snsUrl}api/v3/videos-activity/signList`, // 获取页面信息
   getHomeInfo: `${dhudongUrl}media/latest`, // 获取页面信息
   // https://dhudong.cztv.com/media/latest?category_id=107&channel_id=1&sort=0&size=10&page=1 
@@ -89,9 +87,6 @@ export const getossKey = (): Promise<any>=> {
     });
   });
 }
-
-
-
 
 export const upYunImg = <T = any>(data): Promise<any> => {
   return new Promise((resolve, reject) => {

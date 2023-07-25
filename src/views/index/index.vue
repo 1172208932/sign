@@ -5,7 +5,7 @@
     <div class="jump2">
     </div>
     <div class="jump-btn2" @click="jumoUpPage"></div>
-    <success-pop :sid="sid" v-model:show="showPop" @closePop="backPopCall"></success-pop>
+    <success-pop :sid="sid" :radiolist="radioList" v-model:show="showPop" @closePop="backPopCall"></success-pop>
   </div>
 </template>
 
@@ -29,6 +29,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { showToast } from 'vant';
 import { throttle } from "@/utils/throttle";
+import { getRadioList } from "@/utils/index"
 export default defineComponent({
   name: "picPage",
   components: {
@@ -39,7 +40,8 @@ export default defineComponent({
     let showGuideTips = ref(false)
     const childRef = ref(null);
     const sid = ref('')
-
+    const radioList = ref<any[]>([])
+    const place = ref('')
     const router = useRouter();
     const route = useRoute();
     const store = useStore();
@@ -56,6 +58,7 @@ export default defineComponent({
     const { index } = store.state;
 
     onMounted(async () => {
+
       // console.log(history.state.params?.from)
       // if(history.state.params?.from){
       //   console.log('showwwwwwwwwwwwwwwww')
@@ -113,21 +116,21 @@ export default defineComponent({
         handleLogin()
         return
       }
-
       nextStep()
     }, 2000)
 
+ 
     const nextStep = async () => {
       let res = await getRecords()
       if (res?.data?.length) {
-        sid.value = res?.data[0].id
+        radioList.value = getRadioList(res?.data[0])
+        sid.value = res?.data[0].id + '';
         showPop.value = true
       } else {
         router.replace({
           name: "upload",
         });
       }
-
     }
 
     const isInActive = () => {
@@ -213,8 +216,6 @@ export default defineComponent({
       return canContinue
     }
 
-
-
     return {
       ...toRefs(state),
       isApp,
@@ -223,6 +224,8 @@ export default defineComponent({
       showGuideTips,
       showPop,
       isSignUp,
+      radioList,
+      place,
       backPopCall,
       jumoUpPage
 
@@ -243,7 +246,7 @@ export default defineComponent({
   }
 
   .wxTop {
-    top: 6%;
+    top: 108px;
   }
 
   .indexBg {
