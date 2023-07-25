@@ -252,10 +252,10 @@ export default defineComponent({
 
   .indexBg {
     background: url(../../assets/indexback.png) no-repeat;
-    background-size: 750px 3030px;
+    background-size: 750px 5184px;
     position: absolute;
     width: 750px;
-    height: 3030px;
+    height: 5184px;
     left: 0%;
   }
 

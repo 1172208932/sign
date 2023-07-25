@@ -72,11 +72,8 @@ export default defineComponent({
     const resultArea = ref('');
     const showArea = ref(false);
     const groupResult = ref('');
-
     const radioList = ref<any[]>([])
     const placeColumn = ref<any[]>([])
-
-
 
     let showPop = ref<boolean>(false);
     const backPopCall = () => {
@@ -85,8 +82,6 @@ export default defineComponent({
         name: "index",
       });
     }
-
-
 
     const onConfirmArea = ({ selectedOptions }) => {
       showArea.value = false;
@@ -97,10 +92,6 @@ export default defineComponent({
       result.value = selectedValues.join('/');
       showPicker.value = false;
     };
-
-
-
-
 
     const init = async () => {
       let res = await getActiveInfo()
@@ -163,11 +154,8 @@ export default defineComponent({
           signature,
           file: file.file
         })
-
         file.status = 'done';
-
         console.log(result, 'result')
-
         videoImgUrl = 'https://o.cztvcloud.com/' + dir + randomTime + randomStr
         console.log(imgUrl, 'https://o.cztvcloud.com/350/202307/06/1688631065/1688631065000')
       }
@@ -213,7 +201,6 @@ export default defineComponent({
           file: file.file
         })
 
-
         file.status = 'done';
         videoUrl = 'https://o.cztvcloud.com/' + dir + randomTime + randomStr
         console.log(videoUrl, 'https://o.cztvcloud.com/350/202307/06/1688631065/1688631065000')
@@ -224,9 +211,8 @@ export default defineComponent({
 
     const validatorId = (val) => /^[1-9]\d{5}(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/.test(val);
 
-
     const onSubmit = throttle(async (values) => {
-      //       router.replace({
+      // router.replace({
       //   name: "index",
       // });
       // return
@@ -239,7 +225,6 @@ export default defineComponent({
         extra: values
       })
       //res.status_code 
-      console.log(res, 'rrrrrrr')
       if (res?.id) {
         radioList.value = getRadioList(res)
         sid.value = res.id + ''

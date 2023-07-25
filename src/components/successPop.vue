@@ -38,7 +38,6 @@ const props = defineProps<{
     radiolist: any[]
 }>()
 
-
 let showPopup = ref<boolean>(false);
 
 watch(props, (newProps) => {
