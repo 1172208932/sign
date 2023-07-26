@@ -58,7 +58,6 @@ export default defineComponent({
     const { index } = store.state;
 
     onMounted(async () => {
-
       // console.log(history.state.params?.from)
       // if(history.state.params?.from){
       //   console.log('showwwwwwwwwwwwwwwww')

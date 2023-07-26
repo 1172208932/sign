@@ -1,30 +1,32 @@
 <template>
-    <van-popup overlay-class="graypop" v-model:show="showPopup" :close-on-click-overlay="false">
-        <div class="overBg">
-            <img src="../assets/success_title.png" class="title-spop" alt="" />
-            <div class="card-sbox">
-                <img src="../assets/success-index.png" class="title-sindex" alt="" />
-                <div class="index-sbg">
-                    <div class="success-t1">Z视介迎亚运大联投“一球制胜”活动</div>
+    <div class="popboxS">
+        <van-popup overlay-class="graypop" v-model:show="showPopup" :close-on-click-overlay="false">
+            <div class="overBg">
+                <img src="../assets/success_title.png" class="title-spop" alt="" />
+                <div class="card-sbox">
+                    <img src="../assets/success-index.png" class="title-sindex" alt="" />
+                    <div class="index-sbg">
+                        <div class="success-t1">Z视介迎亚运大联投“一球制胜”活动</div>
 
-                    <div class="t-box">
-                        <div v-if="props.radiolist?.length" class="success-t2">{{ props.radiolist[0].name }}：{{
-                            props.radiolist[0].value }}</div>
-                        <div v-if="props.radiolist?.length" class="success-t2">{{ props.radiolist[1].name }}：{{
-                            props.radiolist[1].value }}</div>
-                        <div v-if="props.sid" class="success-t3">报名ID：{{ props.sid }}</div>
+                        <div class="t-box">
+                            <div v-if="props.radiolist?.length" class="success-t2">{{ props.radiolist[0].name }}：{{
+                                props.radiolist[0].value }}</div>
+                            <div v-if="props.radiolist?.length" class="success-t2">{{ props.radiolist[1].name }}：{{
+                                props.radiolist[1].value }}</div>
+                            <div v-if="props.sid" class="success-t3">报名ID：{{ props.sid }}</div>
+                        </div>
+
+                        <img src="https://ohudong.cztv.com/1/266056/static/code.png" class="title-simg" alt="" />
                     </div>
 
-                    <img src="https://ohudong.cztv.com/1/266056/static/code.png" class="title-simg" alt="" />
                 </div>
-
+                <!-- <div class="back-btn"  @click="$emit('closePop')">继续阅读</div> -->
+                <div class="text-stip">可截图保存至手机相册</div>
             </div>
-            <!-- <div class="back-btn"  @click="$emit('closePop')">继续阅读</div> -->
-            <div class="text-stip">可截图保存至手机相册</div>
-        </div>
-        <img src="../assets/close.png" class="close" @click="$emit('closePop')" alt="" />
+            <img src="../assets/close.png" class="close" @click="$emit('closePop')" alt="" />
 
-    </van-popup>
+        </van-popup>
+    </div>
 </template>
     
 <script setup lang="ts">
@@ -52,12 +54,16 @@ function close() {
 </script>
     
 <style  lang="scss" >
-.van-popup {
-    background: none !important;
+.popboxS {
+    .van-popup {
+        background: none !important;
+    }
 }
 
 .graypop {
+
     background-color: rgba(0, 0, 0, .9);
+
 }
 
 .index-sbg {

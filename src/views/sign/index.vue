@@ -10,8 +10,8 @@
             :rules="[{ validator, required: true, message: '请填写正确的手机号' }]" />
           <van-field class="groupBottom" required v-model="trade" name="string2" label="身份证号" placeholder="请输入身份证号"
             :rules="[{ validator: validatorId, required: true, message: '请填写正确的身份证号' }]" />
-          <SelectField :name="'radio3'" label="活动时间" :columns="timeColumns"></SelectField>
-          <SelectField :name="'radio5'" label="比赛场地" :columns="placeColumn"></SelectField>
+          <SelectField :name="'radio6'" label="活动时间" :columns="timeColumns"></SelectField>
+          <SelectField :name="'radio7'" label="比赛场地" :columns="placeColumn"></SelectField>
           <div style="margin: 16px;">
             <van-button class="jump-btn" native-type="submit">
             </van-button>
@@ -44,7 +44,7 @@ import { getRadioList } from "@/utils/index"
 import { getossKey, upYunImg, getActiveInfo, postSignUp, randomString } from '@/api/resource'
 import { areaList } from '@vant/area-data';
 import { throttle } from "@/utils/throttle";
-import { timeColumns, findArrValue } from "./config"
+import { findArrValue } from "./config"
 import SelectField from "./components/SelectField.vue"
 let isFirst = false
 export default defineComponent({
@@ -74,6 +74,7 @@ export default defineComponent({
     const groupResult = ref('');
     const radioList = ref<any[]>([])
     const placeColumn = ref<any[]>([])
+    const timeColumns = ref<any[]>([])
 
     let showPop = ref<boolean>(false);
     const backPopCall = () => {
@@ -96,7 +97,8 @@ export default defineComponent({
     const init = async () => {
       let res = await getActiveInfo()
       console.log(res, 'res')
-      placeColumn.value = filterColumn(res.extra.param[5].data)
+      placeColumn.value = filterColumn(res.extra.param[7].data)
+      timeColumns.value = filterColumn(res.extra.param[6].data)
     };
 
     const filterColumn = (arr) => {
@@ -217,8 +219,8 @@ export default defineComponent({
       // });
       // return
 
-      values.radio3 = findArrValue(timeColumns, values.radio3);
-      values.radio5 = findArrValue(placeColumn.value, values.radio5);
+      values.radio6 = findArrValue(timeColumns.value, values.radio6);
+      values.radio7 = findArrValue(placeColumn.value, values.radio7);
 
       let res = await postSignUp({
         enroll_id: '150',
