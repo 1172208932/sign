@@ -4,10 +4,11 @@ import {
 } from "vue";
 
 const groupResult = ref('');
-
+const emit = defineEmits(['config'])
 const showGroup = ref(false);
 const onConfirmGroup = ({ selectedOptions }) => {
     groupResult.value = selectedOptions[0]?.text;
+    emit('config',selectedOptions)
     showGroup.value = false;
 };
 const props = defineProps<{
@@ -15,6 +16,14 @@ const props = defineProps<{
     label: string,
     columns: any[]
 }>();
+
+const  clearText= ()=>{
+    groupResult.value = ''
+}
+defineExpose({
+    groupResult,
+    clearText
+})
 
 </script>
 

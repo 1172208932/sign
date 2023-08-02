@@ -7,7 +7,7 @@ export function isPromise(value: any): value is Promise<any> {
     let resList: any[] = [];
 
     var keys = Object.keys(extra)
-    console.log(keys)
+
     keys.forEach((item, index) => {
       if (item.indexOf('radio') != -1) {
         let itemObj = getRadioName(item, enroll.extra.param, extra[item])

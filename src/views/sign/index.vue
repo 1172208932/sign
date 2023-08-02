@@ -10,8 +10,8 @@
             :rules="[{ validator, required: true, message: '请填写正确的手机号' }]" />
           <van-field class="groupBottom" required v-model="trade" name="string2" label="身份证号" placeholder="请输入身份证号"
             :rules="[{ validator: validatorId, required: true, message: '请填写正确的身份证号' }]" />
-          <SelectField :name="'radio6'" label="活动时间" :columns="timeColumns"></SelectField>
-          <SelectField :name="'radio7'" label="比赛场地" :columns="placeColumn"></SelectField>
+          <SelectField :name="'radio10'" label="比赛场地" :columns="placeColumn" @config="configPlace"></SelectField>
+          <SelectField ref="seleteTimeRef" :name="'radio9'" label="活动时间" :columns="timeColumns"></SelectField>
           <div style="margin: 16px;">
             <van-button class="jump-btn" native-type="submit">
             </van-button>
@@ -23,9 +23,6 @@
 
     <van-popup v-model:show="showPicker" position="bottom">
       <van-date-picker :min-date="minDate" @confirm="onConfirm" @cancel="showPicker = false" />
-    </van-popup>
-    <van-popup v-model:show="showArea" position="bottom">
-      <van-area :area-list="areaList" @confirm="onConfirmArea" @cancel="showArea = false" />
     </van-popup>
   </div>
 </template>
@@ -70,11 +67,12 @@ export default defineComponent({
     const result = ref('');
     const showPicker = ref(false);
     const resultArea = ref('');
-    const showArea = ref(false);
     const groupResult = ref('');
     const radioList = ref<any[]>([])
     const placeColumn = ref<any[]>([])
     const timeColumns = ref<any[]>([])
+    const seleteTimeRef = ref(null);
+    let allTimeColumns:any[] = []
 
     let showPop = ref<boolean>(false);
     const backPopCall = () => {
@@ -84,10 +82,15 @@ export default defineComponent({
       });
     }
 
-    const onConfirmArea = ({ selectedOptions }) => {
-      showArea.value = false;
-      resultArea.value = selectedOptions.map((item) => item.text).join('/');
-    };
+    const configPlace = (selectedOptions)=>{
+      seleteTimeRef.value.clearText()
+      if(selectedOptions[0]?.text == '余杭区西溪印象城B座B1层'){
+        timeColumns.value = allTimeColumns.slice(2,4)
+      }else{
+        timeColumns.value = allTimeColumns.slice(0,2)
+      }
+    }
+
 
     const onConfirm = ({ selectedValues }) => {
       result.value = selectedValues.join('/');
@@ -97,8 +100,9 @@ export default defineComponent({
     const init = async () => {
       let res = await getActiveInfo()
       console.log(res, 'res')
-      placeColumn.value = filterColumn(res.extra.param[7].data)
-      timeColumns.value = filterColumn(res.extra.param[6].data)
+      allTimeColumns = filterColumn(res.extra.param[9].data)
+      timeColumns.value = allTimeColumns.slice(0,2)
+      placeColumn.value = filterColumn(res.extra.param[10].data)
     };
 
     const filterColumn = (arr) => {
@@ -219,8 +223,10 @@ export default defineComponent({
       // });
       // return
 
-      values.radio6 = findArrValue(timeColumns.value, values.radio6);
-      values.radio7 = findArrValue(placeColumn.value, values.radio7);
+      values.radio9 = findArrValue(allTimeColumns, values.radio9);
+      values.radio10 = findArrValue(placeColumn.value, values.radio10);
+
+      console.log(values,'vales')
 
       let res = await postSignUp({
         enroll_id: '150',
@@ -253,7 +259,6 @@ export default defineComponent({
       result,
       resultArea,
       areaList,
-      showArea,
       showPicker,
       mobile,
       trade,
@@ -267,12 +272,13 @@ export default defineComponent({
       showPop,
       placeColumn,
       radioList,
+      seleteTimeRef,
       init,
+      configPlace,
       backPopCall,
       afterRead,
       validator,
       validatorId,
-      onConfirmArea,
       onConfirm,
       onSubmit,
       afterReadVideo,
