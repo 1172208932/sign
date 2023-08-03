@@ -8,7 +8,7 @@ const emit = defineEmits(['config'])
 const showGroup = ref(false);
 const onConfirmGroup = ({ selectedOptions }) => {
     groupResult.value = selectedOptions[0]?.text;
-    emit('config',selectedOptions)
+    emit('config', selectedOptions)
     showGroup.value = false;
 };
 const props = defineProps<{
@@ -17,23 +17,22 @@ const props = defineProps<{
     columns: any[]
 }>();
 
-const  clearText= ()=>{
+const clearText = () => {
     groupResult.value = ''
 }
+
 defineExpose({
     groupResult,
-    clearText
+    clearText,
 })
 
 </script>
 
 <template>
-    <div>
-        <van-field v-model="groupResult" required is-link readonly :name="props.name" :label="props.label"
-            :placeholder="'点击选择' + props.label" @click="showGroup = true"
-            :rules="[{ required: true, message: '请选择' + props.label }]" />
-        <van-popup v-model:show="showGroup" position="bottom">
-            <van-picker :columns="props.columns" @confirm="onConfirmGroup" @cancel="showGroup = false" />
-        </van-popup>
-    </div>
+    <van-field v-model="groupResult" required is-link readonly :name="props.name" :label="props.label"
+        :placeholder="'点击选择' + props.label" @click="showGroup = true"
+        :rules="[{ required: true, message: '请选择' + props.label }]" />
+    <van-popup v-model:show="showGroup" position="bottom">
+        <van-picker :columns="props.columns" @confirm="onConfirmGroup" @cancel="showGroup = false" />
+    </van-popup>
 </template>

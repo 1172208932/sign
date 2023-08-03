@@ -72,7 +72,7 @@ export default defineComponent({
     const placeColumn = ref<any[]>([])
     const timeColumns = ref<any[]>([])
     const seleteTimeRef = ref(null);
-    let allTimeColumns:any[] = []
+    let allTimeColumns: any[] = []
 
     let showPop = ref<boolean>(false);
     const backPopCall = () => {
@@ -82,12 +82,13 @@ export default defineComponent({
       });
     }
 
-    const configPlace = (selectedOptions)=>{
+    const configPlace = (selectedOptions) => {
+      //@ts-ignore
       seleteTimeRef.value.clearText()
-      if(selectedOptions[0]?.text == '余杭区西溪印象城B座B1层'){
-        timeColumns.value = allTimeColumns.slice(2,4)
-      }else{
-        timeColumns.value = allTimeColumns.slice(0,2)
+      if (selectedOptions[0]?.text == '余杭区西溪印象城B座B1层') {
+        timeColumns.value = allTimeColumns.slice(2, 4)
+      } else {
+        timeColumns.value = allTimeColumns.slice(0, 2)
       }
     }
 
@@ -101,8 +102,10 @@ export default defineComponent({
       let res = await getActiveInfo()
       console.log(res, 'res')
       allTimeColumns = filterColumn(res.extra.param[9].data)
-      timeColumns.value = allTimeColumns.slice(0,2)
-      placeColumn.value = filterColumn(res.extra.param[10].data)
+      timeColumns.value = allTimeColumns.slice(0, 2)
+      placeColumn.value = filterColumn(res.extra.param[10].data).filter(item => {
+        return item.text != '飞动篮球公园' && item.text != '硬核-古墩印象城馆'
+      })
     };
 
     const filterColumn = (arr) => {
@@ -223,10 +226,11 @@ export default defineComponent({
       // });
       // return
 
+      // console.log(values, 'vales')
+
       values.radio9 = findArrValue(allTimeColumns, values.radio9);
       values.radio10 = findArrValue(placeColumn.value, values.radio10);
 
-      console.log(values,'vales')
 
       let res = await postSignUp({
         enroll_id: '150',
