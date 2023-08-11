@@ -84,12 +84,12 @@ export default defineComponent({
 
     const configPlace = (selectedOptions) => {
       //@ts-ignore
-      // seleteTimeRef.value.clearText()
-      // if (selectedOptions[0]?.text == '余杭区西溪印象城B座B1层') {
-      //   timeColumns.value = allTimeColumns.slice(2, 4)
-      // } else {
-      //   timeColumns.value = allTimeColumns.slice(0, 2)
-      // }
+      seleteTimeRef.value.clearText()
+      if (selectedOptions[0]?.text == '浙江广电集团篮球场专场（限广电员工）') {
+        timeColumns.value = allTimeColumns.slice(0, 1)
+      } else {
+        timeColumns.value = allTimeColumns.slice(1, 3)
+      }
     }
 
 
@@ -102,11 +102,12 @@ export default defineComponent({
       let res = await getActiveInfo()
       console.log(res, 'res')
       allTimeColumns = filterColumn(res.extra.param[12].data)
-      timeColumns.value = allTimeColumns
-      // .slice(0, 2)
-      placeColumn.value = filterColumn(res.extra.param[13].data).filter(item => {
-        return item.text != '飞动篮球公园' && item.text != '硬核-古墩印象城馆'
-      })
+      timeColumns.value = allTimeColumns.slice(1, 3)
+      // 
+      placeColumn.value = filterColumn(res.extra.param[13].data)
+      // .filter(item => {
+      //   return item.text != '飞动篮球公园' && item.text != '硬核-古墩印象城馆'
+      // })
     };
 
     const filterColumn = (arr) => {
