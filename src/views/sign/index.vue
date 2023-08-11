@@ -10,8 +10,8 @@
             :rules="[{ validator, required: true, message: '请填写正确的手机号' }]" />
           <van-field class="groupBottom" required v-model="trade" name="string2" label="身份证号" placeholder="请输入身份证号"
             :rules="[{ validator: validatorId, required: true, message: '请填写正确的身份证号' }]" />
-          <SelectField :name="'radio10'" label="比赛场地" :columns="placeColumn" @config="configPlace"></SelectField>
-          <SelectField ref="seleteTimeRef" :name="'radio9'" label="活动时间" :columns="timeColumns"></SelectField>
+          <SelectField :name="'radio13'" label="比赛场地" :columns="placeColumn" @config="configPlace"></SelectField>
+          <SelectField ref="seleteTimeRef" :name="'radio12'" label="活动时间" :columns="timeColumns"></SelectField>
           <div style="margin: 16px;">
             <van-button class="jump-btn" native-type="submit">
             </van-button>
@@ -84,12 +84,12 @@ export default defineComponent({
 
     const configPlace = (selectedOptions) => {
       //@ts-ignore
-      seleteTimeRef.value.clearText()
-      if (selectedOptions[0]?.text == '余杭区西溪印象城B座B1层') {
-        timeColumns.value = allTimeColumns.slice(2, 4)
-      } else {
-        timeColumns.value = allTimeColumns.slice(0, 2)
-      }
+      // seleteTimeRef.value.clearText()
+      // if (selectedOptions[0]?.text == '余杭区西溪印象城B座B1层') {
+      //   timeColumns.value = allTimeColumns.slice(2, 4)
+      // } else {
+      //   timeColumns.value = allTimeColumns.slice(0, 2)
+      // }
     }
 
 
@@ -101,9 +101,10 @@ export default defineComponent({
     const init = async () => {
       let res = await getActiveInfo()
       console.log(res, 'res')
-      allTimeColumns = filterColumn(res.extra.param[9].data)
-      timeColumns.value = allTimeColumns.slice(0, 2)
-      placeColumn.value = filterColumn(res.extra.param[10].data).filter(item => {
+      allTimeColumns = filterColumn(res.extra.param[12].data)
+      timeColumns.value = allTimeColumns
+      // .slice(0, 2)
+      placeColumn.value = filterColumn(res.extra.param[13].data).filter(item => {
         return item.text != '飞动篮球公园' && item.text != '硬核-古墩印象城馆'
       })
     };
@@ -228,8 +229,8 @@ export default defineComponent({
 
       // console.log(values, 'vales')
 
-      values.radio9 = findArrValue(allTimeColumns, values.radio9);
-      values.radio10 = findArrValue(placeColumn.value, values.radio10);
+      values.radio12 = findArrValue(allTimeColumns, values.radio12);
+      values.radio13 = findArrValue(placeColumn.value, values.radio13);
 
 
       let res = await postSignUp({
