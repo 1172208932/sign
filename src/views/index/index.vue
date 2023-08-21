@@ -23,7 +23,7 @@ import {
   SetupContext,
   ref,
 } from "vue";
-import { getRecords } from '@/api/resource'
+import { getRecords,postSignUp } from '@/api/resource'
 
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -96,11 +96,17 @@ export default defineComponent({
       )
     }
 
-    const jumoUpPage = throttle(() => {
+    const jumoUpPage = throttle(async () => {
       // router.replace({
       //     name: "upload",
       //   });
       //   return
+
+       await postSignUp({
+        num:'1',
+        vote_item_id:'杭州'
+      })
+      return
 
       const canContinue = isOnApp();
       if (!canContinue) { return }
