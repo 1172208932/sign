@@ -12,12 +12,12 @@ const dhudongUrl = import.meta.env.VITE_D_URL as string;
 const snsUrl = import.meta.env.VITE_API_URL as string; // 后台域名
 const cloufUrl = 'https://s.cztvcloud.com/'
 const yunUrl = 'https://yun-cztv-new.oss-cn-hangzhou.aliyuncs.com'
-const zcatUrl = 'https://zcatapi.cztv.com/'
+const zcatUrl = import.meta.env.VITE_ZCAT_URL as string; 
 
 const APIPath = {
   getossKey: `${cloufUrl}zsj/cztvfile/osspolicy`,
   getInfo: `${snsUrl}api/v3/videos-activity/info`,
-  getActiveInfo: `${zcatUrl}api/enrolls/150`,
+  getActiveInfo: `${zcatUrl}api/votes/105`,
   postSignUp: `${zcatUrl}api/enrollLists`,
   getRecords: `${zcatUrl}api/enrollLists/getRecords`,
   getIndexInfo: `${snsUrl}api/v3/videos-activity/signList`, // 获取页面信息
