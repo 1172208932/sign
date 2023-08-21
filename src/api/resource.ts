@@ -18,7 +18,7 @@ const APIPath = {
   getossKey: `${cloufUrl}zsj/cztvfile/osspolicy`,
   getInfo: `${snsUrl}api/v3/videos-activity/info`,
   getActiveInfo: `${zcatUrl}api/votes/105`,
-  postSignUp: `${zcatUrl}api/enrollLists`,
+  postSignUp: `${zcatUrl}api/votes/105/finishVote`,
   getRecords: `${zcatUrl}api/enrollLists/getRecords`,
   getIndexInfo: `${snsUrl}api/v3/videos-activity/signList`, // 获取页面信息
   getHomeInfo: `${dhudongUrl}media/latest`, // 获取页面信息
