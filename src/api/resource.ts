@@ -18,10 +18,14 @@ const APIPath = {
   getossKey: `${cloufUrl}zsj/cztvfile/osspolicy`,
   getInfo: `${snsUrl}api/v3/videos-activity/info`,
   getActiveInfo: `${zcatUrl}api/votes/105`,
-  postSignUp: `${zcatUrl}api/votes/105/finishVote`,
-  getRecords: `${zcatUrl}api/enrollLists/getRecords`,
-  getIndexInfo: `${snsUrl}api/v3/videos-activity/signList`, // 获取页面信息
-  getHomeInfo: `${dhudongUrl}media/latest`, // 获取页面信息
+  getList: `${zcatUrl}api/votes/105/getItems`,
+
+  getRecords: `${zcatUrl}api/votes/getRecords`,
+
+  
+
+  postSignUp: `${zcatUrl}vote/upwork`,
+
   // https://dhudong.cztv.com/media/latest?category_id=107&channel_id=1&sort=0&size=10&page=1 
 };
 
@@ -38,7 +42,6 @@ export const getRecords = <T = any>(): Promise<any> => {
     const signature = CryptoJS.SHA1(CryptoJS.enc.Utf8.parse(user_session + nonce + timestamp), true).toString();
   return new Promise((resolve, reject) => {
     NbRequest.get(APIPath.getRecords, { 
-      enroll_id:150
     },{
       userSession:user_session,
       timestamp,
@@ -112,7 +115,9 @@ export const randomString = function (number) {
 
 export const postSignUp = <T = any>(data): Promise<any> => {
   return new Promise((resolve, reject) => {
-    const user_session = window.sessionStorage.getItem('token') || "";
+    const user_session ='S1000fb125dbc5bc3583ebeea90eed199404d'
+    // 'S1000fb125dbc5bc3583ebeea90eed199404d'
+    // window.sessionStorage.getItem('token') || "";
     const timestamp = Math.round(new Date().getTime()/1000);
     const nonce = randomString(8);
     const signature = CryptoJS.SHA1(CryptoJS.enc.Utf8.parse(user_session + nonce + timestamp), true).toString();
@@ -130,7 +135,17 @@ export const postSignUp = <T = any>(data): Promise<any> => {
     });
   });
 };
-
+export const getList = <T = any>(data): Promise<any> => {
+  return new Promise((resolve, reject) => {
+    NbRequest.get(APIPath.getList, data,{ })
+      .then((res) => {
+        resolve(res);
+    })
+      .catch((err) => {
+        reject(err);
+    });
+  });
+};
 
 
 export const getInfo = <T = any>(activityId): Promise<BaseResponse<T>> => {

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>10万大奖 一球制胜</title>
+    <title>Z视介</title>
     <script src="https://ohudong.cztv.com/1/262243/js/forbid.js"></script>
     <script src="https://ohudong.cztv.com/1/264303/js/cztvApi.js"></script>
     <!-- <script src="https://ohudong.cztv.com/1/263328/js/callApp.js"></script>
@@ -15,9 +15,19 @@
     <script src="https://ohudong.cztv.com/1/257989/js/vconsole.min.js"></script>
     <!-- z视介 -->
     <script src="https://ohudong.cztv.com/1/261538/js/ztvApi.js"></script>
+    <script type="text/javascript" src="https://acstatic-dun.126.net/tool.min.js?t=201903281201"></script>
     <script>
       const cztvApi = new CztvApi()
-      // var vConsole = new VConsole();
+      var wm = null;
+    // 初始化SDK，只需初始化一次
+    // auto使用默认值，即自动化模式
+    initWatchman({
+        productNumber: 'YD00001022762861',
+        onload: function (instance) {
+            wm = instance
+        }
+    });
+      var vConsole = new VConsole();
     </script>
   </head>
   <body>

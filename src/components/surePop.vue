@@ -1,14 +1,10 @@
 <template>
     <div class="popboxS">
-        <div class="success-ani" id="success-ani-dom" ref="childRef"></div>
         <van-popup overlay-class="graypop" v-model:show="showPopup" @click-close-icon="onClickCloseIcon"
             :close-on-click-overlay="false">
-            <div class="overbg-success">
-                <div class="t1">点亮成功</div>
-                <div class="img-icon"></div>
-                <div class="t2">获得一枚火炬勋章</div>
-                <div class="t3">已为您的城市增加1热力值</div>
-
+            <div class="overbg-sure">
+                <div class="title">只能为一个城市点亮亚运火炬，请确认是否点亮，为其增加热力值。</div>
+                <div class="close-btn">再想想</div>
                 <div class="sure-btn">确认点亮</div>
                 <!-- <img v-else src="../assets/know-btn.png" class="close" @click="$emit('closePop')" alt="" /> -->
             </div>
@@ -20,8 +16,6 @@
 import { showToast } from "vant";
 import { ref, watch, onMounted, nextTick } from "vue";
 import { useRouter } from "vue-router";
-import lottie from 'lottie-web'
-import ani from "./ani.json"
 const router = useRouter();
 
 const props = defineProps<{
@@ -35,23 +29,11 @@ let showPopup = ref<boolean>(false);
 
 watch(props, (newProps) => {
     showPopup.value = newProps.show;
-    if (showPopup.value == true) {
-        nextTick(() => {
-            animation.goToAndPlay(0)
-        })
-    }
 });
 
 let animation
 
 onMounted(() => {
-    animation = lottie.loadAnimation({
-        container: document.querySelector('#success-ani-dom'),
-        renderer: 'svg',
-        loop: false,
-        autoplay: false,
-        animationData: ani,
-    })
 })
 
 function onClickCloseIcon() {
@@ -62,61 +44,46 @@ function onClickCloseIcon() {
 </script>
     
 <style  lang="scss" >
-.overbg-success {
-    background: url(../assets/dialog-bg2.png) no-repeat;
-    background-size: 572px 607px;
+.overbg-sure {
+    background: url(../assets/dialog-bg1.png) no-repeat;
+    background-size: 572px 390px;
     width: 572px;
-    height: 607px;
+    height: 390px;
     overflow: hidden;
 
-    .t1 {
-        margin-top: 50px;
-        margin-left: 166px;
-        width: 240px;
-        height: 72px;
-        font-size: 60px;
-        font-family: FZY4K--GBK1-0, FZY4K--GBK1;
-        font-weight: normal;
-        color: #E1335C;
-        line-height: 72px;
-    }
-
-    .t2 {
-        margin: 36px auto 0 auto;
+    .title {
+        margin-top: 71px;
+        margin-left: 70px;
         width: 433px;
-        height: 32px;
+        height: 135px;
         font-size: 32px;
         font-family: PingFangSC-Medium, PingFang SC;
         font-weight: 500;
         color: #303030;
-        line-height: 32px;
+        line-height: 45px;
     }
 
-    .t3 {
-        margin: 15px auto 0 auto;
-        width: 325px;
-        height: 30px;
-        font-size: 28px;
-        font-family: PingFang-SC-Medium, PingFang-SC;
+    .close-btn {
+        position: absolute;
+        top: 284px;
+        left: 39px;
+        width: 232px;
+        height: 74px;
+        background: linear-gradient(180deg, #EBE9EA 0%, #AA9A9D 100%);
+        border-radius: 37px;
+        font-size: 32px;
+        font-family: PingFangSC-Medium, PingFang SC;
         font-weight: 500;
-        color: #D48EA1;
-        line-height: 30px;
-
+        color: #FFFFFF;
+        line-height: 74px;
+        text-align: center;
     }
-
-    .img-icon {
-        background: url(../assets/icon.png) no-repeat;
-        background-size: 176px 178px;
-        width: 176px;
-        height: 178px;
-        margin: 22px auto 0 auto;
-    }
-
-
 
     .sure-btn {
-        margin: 49px auto 0 auto;
-        width: 390px;
+        position: absolute;
+        top: 284px;
+        right: 39px;
+        width: 232px;
         height: 74px;
         background: linear-gradient(180deg, #FE709E 0%, #FC3D65 100%);
         border-radius: 37px;
