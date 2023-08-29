@@ -1,7 +1,8 @@
 <template>
     <div class="city-item">
+        <div class="t1">{{  }}</div>
+
         <div class="people"></div>
-        <div class="t1">{{ title }}</div>
     </div>
 </template>
     
@@ -26,16 +27,19 @@ let showPopup = ref<boolean>(false);
 <style  lang="scss" scoped>
 .city-item {
     display: flex;
-    width: 130px;
+    width: 180px;
+    // background-color: rgba($color: #000000, $alpha: .6);
 
     .people {
         background: url(../../assets/people.png) no-repeat;
         background-size: 60px 85px;
         width: 60px;
         height: 85px;
+        margin-right: 0;
     }
 
     .t1 {
+        width: 120px;
         font-size: 28px;
         font-family: PingFangSC-Medium, PingFang SC;
         font-weight: 500;

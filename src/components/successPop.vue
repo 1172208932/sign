@@ -5,11 +5,10 @@
             :close-on-click-overlay="false">
             <div class="overbg-success">
                 <div class="t1">点亮成功</div>
-                <div class="img-icon"></div>
                 <div class="t2">获得一枚火炬勋章</div>
-                <div class="t3">已为您的城市增加1热力值</div>
-
-                <div class="sure-btn">确认点亮</div>
+                <div class="t3">已为您的城市增加热力值</div>
+                <div class="img-icon"></div>
+                <div class="sure-btn" @click="$emit('closePop')"></div>
                 <!-- <img v-else src="../assets/know-btn.png" class="close" @click="$emit('closePop')" alt="" /> -->
             </div>
         </van-popup>
@@ -88,18 +87,19 @@ function onClickCloseIcon() {
         font-size: 32px;
         font-family: PingFangSC-Medium, PingFang SC;
         font-weight: 500;
-        color: #303030;
+        color: #231344;
         line-height: 32px;
     }
 
     .t3 {
         margin: 15px auto 0 auto;
-        width: 325px;
+        width: 100%;
+        text-align: center;
         height: 30px;
         font-size: 28px;
         font-family: PingFang-SC-Medium, PingFang-SC;
         font-weight: 500;
-        color: #D48EA1;
+        color: #231344;
         line-height: 30px;
 
     }
@@ -112,14 +112,12 @@ function onClickCloseIcon() {
         margin: 22px auto 0 auto;
     }
 
-
-
     .sure-btn {
-        margin: 49px auto 0 auto;
-        width: 390px;
-        height: 74px;
-        background: linear-gradient(180deg, #FE709E 0%, #FC3D65 100%);
-        border-radius: 37px;
+        margin: 10px auto 0 auto;
+        width: 232px;
+        height: 85px;
+        background: url(../assets/new-button2.png) no-repeat;
+        background-size: 232px 85px;
         font-size: 32px;
         font-family: PingFangSC-Medium, PingFang SC;
         font-weight: 500;
@@ -177,7 +175,7 @@ function onClickCloseIcon() {
 
 .graypop {
 
-    background-color: rgba(0, 0, 0, .9);
+    // background-color: rgba(0, 0, 0, .9);
 
 }
 

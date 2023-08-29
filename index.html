@@ -1,37 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Z视介</title>
-    <script src="https://ohudong.cztv.com/1/262243/js/forbid.js"></script>
-    <script src="https://ohudong.cztv.com/1/264303/js/cztvApi.js"></script>
-    <!-- <script src="https://ohudong.cztv.com/1/263328/js/callApp.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Z视介</title>
+  <script src="https://ohudong.cztv.com/1/262243/js/forbid.js"></script>
+  <script src="https://ohudong.cztv.com/1/264303/js/cztvApi.js"></script>
+  <!-- <script src="https://ohudong.cztv.com/1/263328/js/callApp.js"></script>
     <script src="https://ohudong.cztv.com/1/263328/js/callUpApp.js"></script> -->
-    <script src="https://ohudong.cztv.com/1/261542/js/callapp-lib-v3.5.3.js"></script>
-    <script src="https://ohudong.cztv.com/1/257989/js/vconsole.min.js"></script>
-    <!-- z视介 -->
-    <script src="https://ohudong.cztv.com/1/261538/js/ztvApi.js"></script>
-    <script type="text/javascript" src="https://acstatic-dun.126.net/tool.min.js?t=201903281201"></script>
-    <script>
-      const cztvApi = new CztvApi()
-      var wm = null;
+  <script src="https://ohudong.cztv.com/1/261542/js/callapp-lib-v3.5.3.js"></script>
+  <script src="https://ohudong.cztv.com/1/257989/js/vconsole.min.js"></script>
+  <!-- z视介 -->
+  <script src="https://ohudong.cztv.com/1/261538/js/ztvApi.js"></script>
+  <script type="text/javascript" src="https://acstatic-dun.126.net/tool.min.js?t=201903281201"></script>
+  <script>
+    const cztvApi = new CztvApi()
+    var wm = null;
     // 初始化SDK，只需初始化一次
     // auto使用默认值，即自动化模式
     initWatchman({
-        productNumber: 'YD00001022762861',
-        onload: function (instance) {
-            wm = instance
-        }
+      productNumber: 'YD00001022762861',
+      onload: function (instance) {
+        wm = instance
+      }
     });
-      var vConsole = new VConsole();
-    </script>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    var vConsole = new VConsole();
+  </script>
+  <script async
+    src="https://lf3-data.volccdn.com/obj/data-static/log-sdk/collect/5.0/collect-rangers-v5.1.4.js"></script>
+  <script>
+    (function (win, export_obj) {
+      win['LogAnalyticsObject'] = export_obj;
+      if (!win[export_obj]) {
+        function _collect() {
+          _collect.q.push(arguments);
+        }
+        _collect.q = _collect.q || [];
+        win[export_obj] = _collect;
+      }
+      win[export_obj].l = +new Date();
+    })(window, 'collectEvent');
+    window.collectEvent('init', {
+      app_id: 481246, // 参考2.1节获取，注意类型是number而非字符串
+      channel: 'cn', // 设置数据上送地址
+      log: true, // true:开启日志，false:关闭日志
+      autotrack: false, // 全埋点开关，true开启，false关闭
+    });
+    // 此处可添加设置uuid、设置公共属性等代码
+    window.collectEvent('start'); // 通知SDK设置完毕，可以真正开始发送事件了
+  </script>
+  <!-- 埋点结束 -->
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>

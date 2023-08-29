@@ -3,43 +3,58 @@
     <GuideTips ref="childRef" v-if="showGuideTips" />
     <div :class="{ indexBg: true, appTop: isApp, wxTop: !isApp }">
       <div class="top-img">
-        <div class="top-t1">点亮亚运火炬</div>
-        <div class="top-t2">活动时间：9月1日 — 9月22日</div>
+        <!-- <div class="top-t1">点亮亚运火炬</div>
+        <div class="top-t2">活动时间：9月1日 — 9月22日</div> -->
       </div>
+      <div class="index-bg"></div>
       <div class="center-img-box">
         <div class="center-img">
-          <CityItem class="p1" title="杭州"></CityItem>
-          <CityItem class="p2" title="湖州"></CityItem>
-          <CityItem class="p3" title="嘉兴"></CityItem>
-          <CityItem class="p4" title="绍兴"></CityItem>
-          <CityItem class="p5" title="宁波"></CityItem>
-          <CityItem class="p6" title="舟山"></CityItem>
-          <CityItem class="p7" title="台州"></CityItem>
-          <CityItem class="p8" title="温州"></CityItem>
-          <CityItem class="p9" title="丽水"></CityItem>
-          <CityItem class="p10" title="金华"></CityItem>
-          <CityItem class="p11" title="衢州"></CityItem>
+          <CityItem class="p1" @click="() => { cityClick('杭州') }" title="杭州"></CityItem>
+          <CityItem class="p2" @click="() => { cityClick('湖州') }" title="湖州"></CityItem>
+          <CityItem class="p3" @click="() => { cityClick('嘉兴') }" title="嘉兴"></CityItem>
+          <CityItem class="p4" @click="() => { cityClick('绍兴') }" title="绍兴"></CityItem>
+          <CityItem class="p5" @click="() => { cityClick('宁波') }" title="宁波"></CityItem>
+          <CityItem class="p6" @click="() => { cityClick('舟山') }" title="舟山"></CityItem>
+          <CityItem class="p7" @click="() => { cityClick('台州') }" title="台州"></CityItem>
+          <CityItem class="p8" @click="() => { cityClick('温州') }" title="温州"></CityItem>
+          <CityItem class="p9" @click="() => { cityClick('丽水') }" title="丽水"></CityItem>
+          <CityItem class="p10" @click="() => { cityClick('金华') }" title="金华"></CityItem>
+          <CityItem class="p11" @click="() => { cityClick('衢州') }" title="衢州"></CityItem>
         </div>
       </div>
-      <div class="medal-img"></div>
-      <div v-if="actStatus == 1" class="actbtn01">活动未开始</div>
-      <div v-if="actStatus == 2" class="actbtn01">活动已结束</div>
-      <div v-if="actStatus == 0" class="actbtn02" @click="jumoUpPage">邀请好友点亮城市火炬</div>
+      <div v-if="!isSignUp" class="medal-img" @click="unLockClick"></div>
+      <div v-else class="medal-img2" @click="showSuccessDialog"></div>
+
+      <div v-if="actStatus == 1" class="actbtn01"></div>
+      <div v-if="actStatus == 2" class="actbtn03">活动已结束</div>
+      <div v-if="actStatus == 0" class="actbtn02" @click="jumoUpPage"></div>
       <div class="list-box">
-        <div class="list-t1">城市热力值排行榜</div>
-        <div class="list-t2">点亮亚运火炬，为城市增加热力值</div>
+        <!-- <div class="list-t1">城市热力值排行榜</div>
+        <div class="list-t2">点亮亚运火炬，为城市增加热力值</div> -->
         <div v-if="actStatus != 1" v-for="(item, index) in cityList" key="item.id" :class="{
-          listItem: true,
-          firtsItem: index == 0,
-          secondItem: index == 1,
-          thirdItem: index == 2,
-        }">{{ item.title }}</div>
+          listItem: true
+        }">
+          <div style="display:flex">
+            <div :class="{
+              'item-t1':  item.rank > 3,
+              firtsItem: item.rank == 1,
+              secondItem: item.rank == 2,
+              thirdItem: item.rank == 3,
+            }">{{ item.rank > 3 ? item.rank : '' }}</div>
+            <span style="color: #231344;">{{ item.title }}</span>
+          </div>
+          <div style="display:flex; margin-right: 30px;">
+            <div class="icon-people"></div> <span style="color: #5F5C65;" class="item-t2"> {{
+              item.total * 100 }}</span>
+          </div>
+        </div>
         <div v-else class="unList">
           <div class="unlist-tip">暂无榜单数据</div>
         </div>
       </div>
     </div>
-    <SurePop v-model:show="showSurePop" @closePop="backSurePopCall"></SurePop>
+    <SurePop :selectCityId="selectCityId" v-model:show="showSurePop" @closeAndOpenNext="backSurePopAndOpenCall"
+      @closePop="backSurePopCall"></SurePop>
     <success-pop v-model:show="showPop" @closePop="backPopCall"></success-pop>
   </div>
 </template>
@@ -88,28 +103,38 @@ export default defineComponent({
     let showPop = ref<boolean>(false);
     let showSurePop = ref<boolean>(false);
 
+
+    function nonenumerable(target, name, descriptor) {
+
+      return descriptor;
+    }
+
     const backSurePopCall = () => {
       showSurePop.value = false;
+    }
+
+    const backSurePopAndOpenCall = () => {
+      showSurePop.value = false;
+      showPop.value = true
+      getCityList()
+      getMyRecord()
     }
     const backPopCall = () => {
       showPop.value = false;
     }
+    const showSuccessDialog = () => {
+      showPop.value = true;
+
+    }
     const state: {} = reactive({});
     const actStatus = ref(0) // 0 进行中 1 未开始 2 已结束
     const isApp = ref(false)
-    const cityList = ref([])
-
+    const cityList = ref<any[]>([])
+    let selectCityId = ref(0) // 所选城市id
 
     const { index } = store.state;
 
     onMounted(async () => {
-      // showPop.value = true
-      // console.log(history.state.params?.from)
-      // if(history.state.params?.from){
-      //   console.log('showwwwwwwwwwwwwwwww')
-      // }
-
-
       showGuideTips.value = window.navigator.userAgent.indexOf('chinablue') == -1
       if (window.navigator.userAgent.indexOf('chinablue') == -1) {
         initWechatShare()
@@ -118,59 +143,54 @@ export default defineComponent({
       } else {
         isApp.value = true
         initAppShare()
+        getUserInfo()
       }
       await store.dispatch("getActiveInfo");
+      getCityList()
+      actStatus.value = isInActive()
+
+      addEvent()
+    });
+
+    function addEvent() {
+      // 埋点上报start
+      window.collectEvent("activity_page_display", {
+        // 活动页面曝光
+        activity_id: 174, // 活动id
+        activity_type: "", // 活动类型
+        activity_name: '点亮亚运火炬', // 活动名称
+        activity_url: 'https://ztv.cztv.com/ap/zt2023/lightcitytorch/index.shtml#/', // 活动链接
+        activity_page_name: "", // 活动页面名称
+      });
+      // 埋点上报end
+    }
+
+    let timer
+
+    // 获取城市列表
+    const getCityList = async () => {
       let listres = await getList({
         group: '',
         sort: 'vote',
         pageSize: 800
       })
       cityList.value = listres
-      actStatus.value = isInActive()
-      console.log(actStatus.value)
-    });
 
-    const initAppShare = () => {
-      const shareData = {
-        url: `https://ztv.cztv.com/ap/zt2023/signupshoot/index.shtml#/`,
-        title: '10万大奖 一球制胜', //分享的标题
-        content: 'Z视介迎亚运大联投，一“战”到底', // 分享的文字
-        img: 'https://ohudong.cztv.com/1/266056/static/share.png'
-      }
-      cztvApi.changeShareInfo(shareData)
-      cztvApi.showShareButton(true)
-    }
-    const initWechatShare = () => {
-      wxShare(
-        true,
-        "10万大奖 一球制胜",
-        "Z视介迎亚运大联投，一“战”到底",
-        "10万大奖 一球制胜",
-        "https://ztv.cztv.com/ap/zt2023/signupshoot/index.shtml#/",
-        "https://ohudong.cztv.com/1/266056/static/share.png"
-      )
+      clearTimeout(timer)
+
+      timer = setTimeout(()=>{
+        getCityList()
+      },10000)
     }
 
-    const jumoUpPage = throttle(async () => {
-      // router.replace({
-      //     name: "upload",
-      //   });
-      //   return
 
 
+    const getMyRecord = async () => {
+      let res = await getRecords({ vote_id: 174 });
+      isSignUp.value = res?.data?.length ? true : false
+    }
 
-      // 调用SDK的getToken接口，通过接口回调的方式获取token
-      // wm && wm.getToken('d38b59d1634344de990a5e75c4fdfad5', async (token) => {
-      //   // 提交点赞业务请求            
-      //   await postSignUp({
-      //     num: '1',
-      //     vote_item_id: 531,
-      //     vote_id: 105,
-      //     token,
-      //   })
-      // });
-      // return
-
+    const unLockClick = () => {
       const canContinue = isOnApp();
       if (!canContinue) { return }
 
@@ -181,41 +201,97 @@ export default defineComponent({
       }
       const user_session = window.sessionStorage.getItem('token') || "";
       if (!user_session) {
-        handleLogin()
+        handleLogin(() => { showToast('点亮城市，获得城市亚运徽章') })
         return
       }
-      nextStep()
-    }, 2000)
-
-
-    const nextStep = async () => {
-      await getRecords()
-      return
-
-
-      wm && wm.getToken('d38b59d1634344de990a5e75c4fdfad5', async (token) => {
-        // 提交点赞业务请求            
-        await postSignUp({
-          num: '1',
-          vote_item_id: 531,
-          vote_id: 105,
-          token,
-        })
-      });
-
-      return
-
-      let res = await getRecords()
-      if (res?.data?.length) {
-        radioList.value = getRadioList(res?.data[0])
-        sid.value = res?.data[0].id + '';
-        showPop.value = true
-      } else {
-        router.replace({
-          name: "upload",
-        });
-      }
+      showToast('点亮城市，获得城市亚运徽章')
     }
+
+    const cityClick = (title) => {
+      const canContinue = isOnApp();
+      if (!canContinue) { return }
+
+      let isInAct = isInActive()
+      if (isInAct != 0) {
+        showToast('未在活动时间范围内！')
+        return
+      }
+      const user_session = window.sessionStorage.getItem('token') || "";
+      if (!user_session) {
+        handleLogin(() => {
+
+          nextTick(() => {
+            if (isSignUp.value) {
+              showToast('您已点亮城市亚运火炬，不可再次点亮')
+            } else {
+              selectCityId.value = cityList.value.filter(item => {
+                return item.title == title
+              })[0].id
+              showSurePop.value = true
+            }
+          })
+        })
+        return
+      }
+      nextTick(() => {
+        if (isSignUp.value) {
+          showToast('您已点亮城市亚运火炬，不可再次点亮')
+        } else {
+          selectCityId.value = cityList.value.filter(item => {
+            return item.title == title
+          })[0].id
+          showSurePop.value = true
+        }
+      })
+    }
+
+    const initAppShare = () => {
+      const shareData = {
+        url: `https://ztv.cztv.com/ap/zt2023/lightcitytorch/index.shtml#/`,
+        title: '点亮亚运火炬', //分享的标题
+        content: '为传递城市增添热力', // 分享的文字
+        img: 'https://ohudong.cztv.com/1/266094/static/share.png'
+      }
+      cztvApi.changeShareInfo(shareData)
+      cztvApi.showShareButton(true)
+    }
+    const initWechatShare = () => {
+      wxShare(
+        true,
+        "点亮亚运火炬",
+        "为传递城市增添热力",
+        "点亮亚运火炬",
+        "https://ztv.cztv.com/ap/zt2023/lightcitytorch/index.shtml#/",
+        "https://ohudong.cztv.com/1/266094/static/share.png"
+      )
+    }
+
+
+    const jumoUpPage = throttle(async () => {
+
+      // 埋点上报start
+      window.collectEvent("activity_button_click", {
+        // 活动页面曝光
+        activity_id: 174, // 活动id
+        activity_type: "", // 活动类型
+        activity_name: '点亮亚运火炬', // 活动名称
+        activity_url: 'https://ztv.cztv.com/ap/zt2023/lightcitytorch/index.shtml#/', // 活动链接
+        activity_page_name: "", // 活动页面名称
+      });
+      // 埋点上报end
+
+      const canContinue = isOnApp();
+      if (!canContinue) { return }
+      cztvApi.share({
+        url: 'https://ztv.cztv.com/ap/zt2023/lightcitytorch/index.shtml#/', //分享的网址链接
+        title: "点亮亚运火炬", //分享的标题
+        content: "为传递城市增添热力", // 分享的文字
+        img: "https://ohudong.cztv.com/1/266094/static/share.png", // 分享的图片Url
+      }, res => {
+        console.log('share:', res)
+        // res.code === 200 分享成功
+      })
+    }, 2000)
 
     const isInActive = () => {
       // 活动时间限制
@@ -250,37 +326,53 @@ export default defineComponent({
       }
     }
 
-    const handleLogin = () => {
-      cztvApi.userInfo(res => {
+    const getUserInfo = ()=>{
+      cztvApi.userInfo(async res => {
         const data = JSON.parse(res);
         console.log(data, 'login data')
         // this.token = data.sessionId || ''
         if (data?.sessionId || '') {
           window.sessionStorage.setItem('token', data.sessionId)
-          nextStep()
+          await getMyRecord()
         } else {
-          loginApp()
+        }
+      })
+    }
+
+    const handleLogin = (nextFn) => {
+      cztvApi.userInfo(async res => {
+        const data = JSON.parse(res);
+        console.log(data, 'login data')
+        // this.token = data.sessionId || ''
+        if (data?.sessionId || '') {
+          window.sessionStorage.setItem('token', data.sessionId)
+          await getMyRecord()
+
+          nextFn()
+        } else {
+          loginApp(nextFn)
         }
       })
 
       setTimeout(() => {
         const user_session = window.sessionStorage.getItem('token') || "";
         if (!user_session) {
-          loginApp()
+          loginApp(nextFn)
         }
       }, 1000)
     }
 
-    const loginApp = () => {
-      cztvApi.login(res => {
+    const loginApp = (nextFn) => {
+      cztvApi.login(async res => {
         console.log('login', res)
         if (res?.code === 200) {
-          cztvApi.userInfo(res => {
+          cztvApi.userInfo(async res => {
             const data = JSON.parse(res);
             // this.token = data.sessionId || ''
             if (data.sessionId || '') {
               window.sessionStorage.setItem('token', data.sessionId)
-              nextStep()
+              await getMyRecord()
+              nextFn()
             }
           })
           // this.$router.go(0)
@@ -306,6 +398,7 @@ export default defineComponent({
     return {
       ...toRefs(state),
       isApp,
+      selectCityId,
       actStatus,
       cityList,
       sid,
@@ -316,8 +409,12 @@ export default defineComponent({
       isSignUp,
       radioList,
       place,
+      showSuccessDialog,
+      cityClick,
+      unLockClick,
       backPopCall,
       backSurePopCall,
+      backSurePopAndOpenCall,
       jumoUpPage
 
     };
@@ -332,68 +429,68 @@ export default defineComponent({
 
 .p1 {
   position: absolute;
-  left: 350px;
-  top: 250px;
+  left: 340px;
+  top: 340px;
 }
 
 .p2 {
   position: absolute;
-  left: 480px;
-  top: 40px;
+  left: 510px;
+  top: 85px;
 }
 
 .p3 {
   position: absolute;
-  left: 750px;
-  top: 74px;
+  left: 780px;
+  top: 124px;
 }
 
 .p4 {
   position: absolute;
-  left: 700px;
-  top: 284px;
+  left: 710px;
+  top: 378px;
 }
 
 .p5 {
   position: absolute;
-  left: 970px;
-  top: 284px;
+  left: 1000px;
+  top: 374px;
 }
 
 .p6 {
   position: absolute;
-  left: 1070px;
-  top: 134px;
+  left: 1190px;
+  top: 244px;
 }
 
 .p7 {
   position: absolute;
-  left: 860px;
-  top: 494px;
+  left: 930px;
+  top: 604px;
 }
 
 .p8 {
   position: absolute;
-  left: 660px;
-  top: 744px;
+  left: 690px;
+  top: 794px;
 }
 
 .p9 {
   position: absolute;
-  left: 360px;
-  top: 664px;
+  left: 370px;
+  top: 714px;
 }
 
 .p10 {
   position: absolute;
   left: 480px;
-  top: 444px;
+  top: 510px;
 }
 
 .p11 {
   position: absolute;
-  left: 160px;
-  top: 494px;
+  left: 150px;
+  top: 544px;
 }
 
 .picBox {
@@ -421,7 +518,34 @@ export default defineComponent({
     top: 270px;
   }
 
+  .medal-img2 {
+    background: url(../../assets/icon.png) no-repeat;
+    background-size: 135px 139px;
+    width: 135px;
+    height: 139px;
+    position: absolute;
+    right: 31px;
+    top: 270px;
+  }
+
   .actbtn01 {
+    width: 422px;
+    height: 84px;
+    background: url(../../assets/new-index-button1.png) no-repeat;
+    background-size: 422px 84px;
+
+    position: absolute;
+    right: 164px;
+    top: 1125px;
+    font-size: 32px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #FFFFFF;
+    line-height: 80px;
+    text-align: center;
+  }
+
+  .actbtn03 {
     width: 428px;
     height: 80px;
     background: linear-gradient(180deg, #EBE9EA 0%, #AA9A9D 100%);
@@ -438,12 +562,12 @@ export default defineComponent({
   }
 
   .actbtn02 {
-    width: 428px;
-    height: 80px;
-    background: linear-gradient(180deg, #FE709E 0%, #FC3D65 100%);
-    border-radius: 40px;
+    width: 422px;
+    height: 84px;
+    background: url(../../assets/new-index-button2.png) no-repeat;
+    background-size: 422px 84px;
     position: absolute;
-    right: 161px;
+    right: 164px;
     top: 1125px;
     font-size: 32px;
     font-family: PingFangSC-Medium, PingFang SC;
@@ -493,9 +617,19 @@ export default defineComponent({
     }
   }
 
-  .center-img-box {
+  .index-bg{
+    background: url(../../assets/background.png) no-repeat;
+    background-size: 750px 1294px;
     width: 750px;
-    height: 936px;
+    height: 1294px;
+    position: absolute;
+    top: calc(330px - 76px);
+  }
+
+  .center-img-box {
+
+    width: 750px;
+    height: 934px;
     overflow-x: scroll;
     // overflow-y: hidden;
     white-space: nowrap;
@@ -513,12 +647,15 @@ export default defineComponent({
   }
 
   .list-box {
+    background: url(../../assets/new-rankbg.png) no-repeat;
+    background-size: 750px 1584px;
     position: absolute;
     top: 1262px;
     width: 750px;
     min-height: 620px;
-    background: #FEFAF9;
+    // background: #FEFAF9;
     border-radius: 50px 50px 0px 0px;
+    padding-top: 180px;
 
     .list-t1 {
       font-size: 46px;
@@ -566,15 +703,46 @@ export default defineComponent({
 
 
   .listItem {
-    margin-left: 66px;
-    width: 620px;
-    height: 66px;
-    border-radius: 33px;
+    display: flex;
+    justify-content: space-between;
+    background: url(../../assets/new-rank.png) no-repeat;
+    background-size: 702px 81px;
+    margin-left: 24px;
+    width: 702px;
+    height: 81px;
+    // border-radius: 33px;
     margin-bottom: 16px;
-    line-height: 66px;
+    line-height: 81px;
     font-weight: 500;
     font-size: 32px;
     color: #2A2A2A;
+    text-align: left;
+
+    .item-t1 {
+      background-color: #7F7F7F;
+      color: #FFFFFF;
+      font-size: 24px;
+      border-radius: 20px;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      margin-top: 24px;
+      margin-left: 30px;
+      margin-right: 30px;
+    }
+
+    .icon-people {
+      background: url(../../assets/new-score.png) no-repeat;
+      background-size: 28px 48px;
+      width: 28px;
+      height: 48px;
+      margin-top: 20px;
+      // margin-left: 370px;
+      margin-right: 10px;
+    }
+
+    .item-t2 {}
   }
 
   .unList {
@@ -598,18 +766,38 @@ export default defineComponent({
   }
 
   .firtsItem {
-    background-color: #F34D68;
-    color: #FFFFFF;
+    background: url(../../assets/new-1.png) no-repeat;
+    background-size: 38px 48px;
+    width: 38px;
+    height: 48px;
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+    background-color: transparent !important;
   }
 
   .secondItem {
-    background-color: #FF718C;
-    color: #FFFFFF;
+    background: url(../../assets/new-2.png) no-repeat;
+    background-size: 38px 48px;
+    background-color: transparent !important;
+    width: 38px;
+    height: 48px;
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+
   }
 
   .thirdItem {
-    background-color: #FF9194;
-    color: #FFFFFF;
+    background: url(../../assets/new-3.png) no-repeat;
+    background-size: 38px 48px;
+    background-color: transparent !important;
+    width: 38px;
+    height: 48px;
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+
   }
 
 }

@@ -3,9 +3,9 @@
         <van-popup overlay-class="graypop" v-model:show="showPopup" @click-close-icon="onClickCloseIcon"
             :close-on-click-overlay="false">
             <div class="overbg-sure">
-                <div class="title">只能为一个城市点亮亚运火炬，请确认是否点亮，为其增加热力值。</div>
-                <div class="close-btn">再想想</div>
-                <div class="sure-btn">确认点亮</div>
+                <div class="title">只能为一个城市点亮亚运火炬，请确认是否点亮，为其增加热力值</div>
+                <div class="close-btn" @click="$emit('closePop')"></div>
+                <div class="sure-btn" @click="sureBtnClick"></div>
                 <!-- <img v-else src="../assets/know-btn.png" class="close" @click="$emit('closePop')" alt="" /> -->
             </div>
         </van-popup>
@@ -16,14 +16,15 @@
 import { showToast } from "vant";
 import { ref, watch, onMounted, nextTick } from "vue";
 import { useRouter } from "vue-router";
+import { postSignUp } from '@/api/resource'
+
 const router = useRouter();
 
 const props = defineProps<{
-
+    selectCityId: number,
     show: boolean
-
 }>()
-const emit = defineEmits(['closePop'])
+const emit = defineEmits(['closePop', 'closeAndOpenNext'])
 
 let showPopup = ref<boolean>(false);
 
@@ -35,6 +36,26 @@ let animation
 
 onMounted(() => {
 })
+
+async function sureBtnClick() {
+    wm && wm.getToken('d38b59d1634344de990a5e75c4fdfad5', async (token) => {
+        // 提交点赞业务请求            
+        let res = await postSignUp({
+            num: '1',
+            vote_item_id: props.selectCityId,
+            vote_id: 174,
+            token,
+        })
+
+        if (res?.status_code == 200) {
+            emit('closeAndOpenNext')
+        } else {
+            showToast(res?.message || '投票失败，请稍后重试！')
+        }
+    });
+
+
+}
 
 function onClickCloseIcon() {
     emit('closePop')
@@ -52,24 +73,25 @@ function onClickCloseIcon() {
     overflow: hidden;
 
     .title {
-        margin-top: 71px;
-        margin-left: 70px;
-        width: 433px;
+        margin-top: 84px;
+        margin-left: 47px;
+        width: 463px;
         height: 135px;
-        font-size: 32px;
+        font-size: 30px;
         font-family: PingFangSC-Medium, PingFang SC;
         font-weight: 500;
-        color: #303030;
+        color: #231344;
         line-height: 45px;
     }
 
     .close-btn {
         position: absolute;
-        top: 284px;
+        top: 234px;
         left: 39px;
-        width: 232px;
-        height: 74px;
-        background: linear-gradient(180deg, #EBE9EA 0%, #AA9A9D 100%);
+        width: 233px;
+        height: 85px;
+        background: url(../assets/new-button1.png) no-repeat;
+        background-size: 233px 85px;
         border-radius: 37px;
         font-size: 32px;
         font-family: PingFangSC-Medium, PingFang SC;
@@ -81,11 +103,12 @@ function onClickCloseIcon() {
 
     .sure-btn {
         position: absolute;
-        top: 284px;
+        top: 234px;
         right: 39px;
-        width: 232px;
-        height: 74px;
-        background: linear-gradient(180deg, #FE709E 0%, #FC3D65 100%);
+        width: 233px;
+        height: 85px;
+        background: url(../assets/new-button3.png) no-repeat;
+        background-size: 233px 85px;
         border-radius: 37px;
         font-size: 32px;
         font-family: PingFangSC-Medium, PingFang SC;
@@ -95,17 +118,6 @@ function onClickCloseIcon() {
         text-align: center;
     }
 }
-
-.success-ani {
-    z-index: 3000;
-    position: fixed;
-    left: 0px;
-    top: -300px;
-    width: 750px;
-    height: 1624px;
-    pointer-events: none;
-}
-
 .icon-box {
     position: absolute;
     top: 550px;
@@ -144,7 +156,7 @@ function onClickCloseIcon() {
 
 .graypop {
 
-    background-color: rgba(0, 0, 0, .9);
+    // background-color: rgba(0, 0, 0, .9);
 
 }
 

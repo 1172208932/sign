@@ -17,4 +17,5 @@ declare namespace cztvApi {
   function userInfo (resCallback: (res: any) => void): void;
   function changeShareInfo (res:any): void;
   function showShareButton (res:any): void;
+  function share(data:any,callFn):void
 }
