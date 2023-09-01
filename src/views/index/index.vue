@@ -7,7 +7,7 @@
         <div class="top-t2">活动时间：9月1日 — 9月22日</div> -->
       </div>
       <div class="index-bg"></div>
-      <div class="center-img-box">
+      <div class="center-img-box" id="scrollableDiv">
         <div class="center-img">
           <CityItem class="p1" @click="() => { cityClick('杭州') }" title="杭州"></CityItem>
           <CityItem class="p2" @click="() => { cityClick('湖州') }" title="湖州"></CityItem>
@@ -55,7 +55,7 @@
     </div>
     <SurePop :selectCityId="selectCityId" v-model:show="showSurePop" @closeAndOpenNext="backSurePopAndOpenCall"
       @closePop="backSurePopCall"></SurePop>
-    <success-pop v-model:show="showPop" @closePop="backPopCall"></success-pop>
+    <success-pop v-model:show="showPop" :cityName="selectCity" @closePop="backPopCall"></success-pop>
   </div>
 </template>
 
@@ -103,6 +103,7 @@ export default defineComponent({
     let showPop = ref<boolean>(false);
     let showSurePop = ref<boolean>(false);
 
+    const selectCity =  ref('')
 
     function nonenumerable(target, name, descriptor) {
 
@@ -135,6 +136,10 @@ export default defineComponent({
     const { index } = store.state;
 
     onMounted(async () => {
+
+      var scrollableDiv = document.getElementById("scrollableDiv");
+      scrollableDiv.scrollLeft = 100;
+     
       showGuideTips.value = window.navigator.userAgent.indexOf('chinablue') == -1
       if (window.navigator.userAgent.indexOf('chinablue') == -1) {
         initWechatShare()
@@ -188,6 +193,10 @@ export default defineComponent({
     const getMyRecord = async () => {
       let res = await getRecords({ vote_id: 174 });
       isSignUp.value = res?.data?.length ? true : false
+      if(res?.data?.length){
+        selectCity.value = res?.data[0]?.vote_item?.title || ''
+      }
+      
     }
 
     const unLockClick = () => {
@@ -222,7 +231,7 @@ export default defineComponent({
 
           nextTick(() => {
             if (isSignUp.value) {
-              showToast('您已点亮城市亚运火炬，不可再次点亮')
+              showToast(`您已点亮【${selectCity.value}】亚运火炬，不可再次点亮`)
             } else {
               selectCityId.value = cityList.value.filter(item => {
                 return item.title == title
@@ -235,7 +244,7 @@ export default defineComponent({
       }
       nextTick(() => {
         if (isSignUp.value) {
-          showToast('您已点亮城市亚运火炬，不可再次点亮')
+          showToast(`您已点亮【${selectCity.value}】亚运火炬，不可再次点亮`)
         } else {
           selectCityId.value = cityList.value.filter(item => {
             return item.title == title
@@ -409,6 +418,7 @@ export default defineComponent({
       isSignUp,
       radioList,
       place,
+      selectCity,
       showSuccessDialog,
       cityClick,
       unLockClick,

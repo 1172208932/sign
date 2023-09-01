@@ -4,8 +4,8 @@
         <van-popup overlay-class="graypop" v-model:show="showPopup" @click-close-icon="onClickCloseIcon"
             :close-on-click-overlay="false">
             <div class="overbg-success">
-                <div class="t1">点亮成功</div>
-                <div class="t2">获得一枚火炬勋章</div>
+                <div class="t1">点亮{{cityName}}</div>
+                <div class="t2">获得一枚火炬徽章</div>
                 <div class="t3">已为您的城市增加热力值</div>
                 <div class="img-icon"></div>
                 <div class="sure-btn" @click="$emit('closePop')"></div>
@@ -24,7 +24,7 @@ import ani from "./ani.json"
 const router = useRouter();
 
 const props = defineProps<{
-
+    cityName:string,
     show: boolean
 
 }>()
@@ -70,8 +70,9 @@ function onClickCloseIcon() {
 
     .t1 {
         margin-top: 50px;
-        margin-left: 166px;
-        width: 240px;
+        // margin-left: 166px;
+        text-align: center;
+        width: 100%;
         height: 72px;
         font-size: 60px;
         font-family: FZY4K--GBK1-0, FZY4K--GBK1;
