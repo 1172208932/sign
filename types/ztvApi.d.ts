@@ -18,4 +18,5 @@ declare namespace cztvApi {
   function changeShareInfo (res:any): void;
   function showShareButton (res:any): void;
   function share(data:any,callFn):void
+  function route(url:string):void
 }

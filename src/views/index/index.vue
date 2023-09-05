@@ -3,6 +3,7 @@
     <GuideTips ref="childRef" v-if="showGuideTips" />
     <div :class="{ indexBg: true, appTop: isApp, wxTop: !isApp }">
       <div class="top-img">
+        <div class="click-topbox" @click="toSignClick"></div>
         <!-- <div class="top-t1">点亮亚运火炬</div>
         <div class="top-t2">活动时间：9月1日 — 9月22日</div> -->
       </div>
@@ -27,7 +28,7 @@
 
       <div v-if="actStatus == 1" class="actbtn01"></div>
       <div v-if="actStatus == 2" class="actbtn03">活动已结束</div>
-      <div v-if="actStatus == 0" class="actbtn02" @click="jumoUpPage"></div>
+      <div v-if="actStatus == 0 && isSignUp" class="actbtn02" @click="jumoUpPage"></div>
       <div class="list-box">
         <!-- <div class="list-t1">城市热力值排行榜</div>
         <div class="list-t2">点亮亚运火炬，为城市增加热力值</div> -->
@@ -186,6 +187,14 @@ export default defineComponent({
       timer = setTimeout(()=>{
         getCityList()
       },10000)
+    }
+
+    const toSignClick = ()=>{
+      const canContinue = isOnApp();
+      if (!canContinue) { return }
+      const path = encodeURIComponent('https://zinteract.cztv.com/batrix-h5/luckydraw/?id=193')
+      const route = `chinablue://cztvrouter/business/h5?path=${path}&displayBar=false`
+      cztvApi.route(route)
     }
 
 
@@ -419,6 +428,7 @@ export default defineComponent({
       radioList,
       place,
       selectCity,
+      toSignClick,
       showSuccessDialog,
       cityClick,
       unLockClick,
@@ -602,6 +612,14 @@ export default defineComponent({
       position: absolute;
       overflow: hidden;
       top: -76px;
+      .click-topbox{
+        position: absolute;
+        right: 70px;
+        top: 195px;
+        width: 120px;
+        height: 120px;
+        // background-color: rgba($color: #000000, $alpha: .5);
+      }
 
       .top-t1 {
         margin-top: calc(97px + 76px);
