@@ -208,7 +208,7 @@ export default defineComponent({
       if (!user_session) {
         handleLogin(() => {
           if (isSignUp.value) {
-            const path = encodeURIComponent('https://zinteract.cztv.com/batrix-h5/luckydraw/?id=193')
+            const path = encodeURIComponent('https://zinteract.cztv.com/batrix-h5/luckydraw/?id=195')
             const route = `chinablue://cztvrouter/business/h5?path=${path}&displayBar=true`
             cztvApi.route(route)
           } else {
@@ -219,7 +219,7 @@ export default defineComponent({
       }
 
       if (isSignUp.value) {
-        const path = encodeURIComponent('https://zinteract.cztv.com/batrix-h5/luckydraw/?id=193')
+        const path = encodeURIComponent('https://zinteract.cztv.com/batrix-h5/luckydraw/?id=195')
         const route = `chinablue://cztvrouter/business/h5?path=${path}&displayBar=true`
         cztvApi.route(route)
       } else {
