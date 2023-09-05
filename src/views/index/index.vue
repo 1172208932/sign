@@ -190,8 +190,33 @@ export default defineComponent({
     }
 
     const toSignClick = () => {
+
+      window.collectEvent("activity_button_click", {
+        // 活动页面曝光
+        activity_id: 174, // 活动id
+        activity_type: "", // 活动类型
+        activity_name: '点亮亚运火炬', // 活动名称
+        activity_url: 'https://ztv.cztv.com/ap/zt2023/lightcitytorch/index.shtml#/', // 活动链接
+        activity_page_name: "", // 活动页面名称
+        activity_button_name: "tosign_btn"
+      });
+
       const canContinue = isOnApp();
       if (!canContinue) { return }
+
+      const user_session = window.sessionStorage.getItem('token') || "";
+      if (!user_session) {
+        handleLogin(() => {
+          if (isSignUp.value) {
+            const path = encodeURIComponent('https://zinteract.cztv.com/batrix-h5/luckydraw/?id=193')
+            const route = `chinablue://cztvrouter/business/h5?path=${path}&displayBar=true`
+            cztvApi.route(route)
+          } else {
+            showToast('点亮城市后，即可参加抽奖')
+          }
+        })
+        return
+      }
 
       if (isSignUp.value) {
         const path = encodeURIComponent('https://zinteract.cztv.com/batrix-h5/luckydraw/?id=193')
@@ -300,6 +325,7 @@ export default defineComponent({
         activity_name: '点亮亚运火炬', // 活动名称
         activity_url: 'https://ztv.cztv.com/ap/zt2023/lightcitytorch/index.shtml#/', // 活动链接
         activity_page_name: "", // 活动页面名称
+        activity_button_name: "share_btn"
       });
       // 埋点上报end
 
@@ -454,68 +480,68 @@ export default defineComponent({
 
 .p1 {
   position: absolute;
-  left: 340px;
-  top: 340px;
+  left: 300px;
+  top: 320px;
 }
 
 .p2 {
   position: absolute;
-  left: 510px;
-  top: 85px;
+  left: 480px;
+  top: 110px;
 }
 
 .p3 {
   position: absolute;
-  left: 780px;
+  left: 740px;
   top: 124px;
 }
 
 .p4 {
   position: absolute;
-  left: 710px;
+  left: 670px;
   top: 378px;
 }
 
 .p5 {
   position: absolute;
-  left: 1000px;
-  top: 374px;
+  left: 930px;
+  top: 364px;
 }
 
 .p6 {
   position: absolute;
-  left: 1190px;
-  top: 244px;
+  left: 1110px;
+  top: 264px;
 }
 
 .p7 {
   position: absolute;
-  left: 930px;
-  top: 604px;
+  left: 820px;
+  top: 564px;
 }
 
 .p8 {
   position: absolute;
-  left: 690px;
-  top: 794px;
+  left: 630px;
+  top: 754px;
 }
 
 .p9 {
   position: absolute;
-  left: 370px;
-  top: 714px;
+  left: 350px;
+  top: 704px;
 }
 
 .p10 {
   position: absolute;
-  left: 480px;
-  top: 510px;
+  left: 485px;
+  top: 470px;
 }
 
 .p11 {
   position: absolute;
-  left: 150px;
-  top: 544px;
+  left: 140px;
+  top: 504px;
 }
 
 .picBox {

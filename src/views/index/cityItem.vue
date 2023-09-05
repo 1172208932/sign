@@ -31,7 +31,7 @@ let showPopup = ref<boolean>(false);
     // background-color: rgba($color: #000000, $alpha: .6);
 
     .people {
-        background: url(../../assets/people.png) no-repeat;
+        // background: url(../../assets/people.png) no-repeat;
         background-size: 60px 85px;
         width: 60px;
         height: 85px;
