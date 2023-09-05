@@ -37,7 +37,7 @@
         }">
           <div style="display:flex">
             <div :class="{
-              'item-t1':  item.rank > 3,
+              'item-t1': item.rank > 3,
               firtsItem: item.rank == 1,
               secondItem: item.rank == 2,
               thirdItem: item.rank == 3,
@@ -104,7 +104,7 @@ export default defineComponent({
     let showPop = ref<boolean>(false);
     let showSurePop = ref<boolean>(false);
 
-    const selectCity =  ref('')
+    const selectCity = ref('')
 
     function nonenumerable(target, name, descriptor) {
 
@@ -140,7 +140,7 @@ export default defineComponent({
 
       var scrollableDiv = document.getElementById("scrollableDiv");
       scrollableDiv.scrollLeft = 100;
-     
+
       showGuideTips.value = window.navigator.userAgent.indexOf('chinablue') == -1
       if (window.navigator.userAgent.indexOf('chinablue') == -1) {
         initWechatShare()
@@ -184,17 +184,22 @@ export default defineComponent({
 
       clearTimeout(timer)
 
-      timer = setTimeout(()=>{
+      timer = setTimeout(() => {
         getCityList()
-      },10000)
+      }, 10000)
     }
 
-    const toSignClick = ()=>{
+    const toSignClick = () => {
       const canContinue = isOnApp();
       if (!canContinue) { return }
-      const path = encodeURIComponent('https://zinteract.cztv.com/batrix-h5/luckydraw/?id=193')
-      const route = `chinablue://cztvrouter/business/h5?path=${path}&displayBar=false`
-      cztvApi.route(route)
+
+      if (isSignUp.value) {
+        const path = encodeURIComponent('https://zinteract.cztv.com/batrix-h5/luckydraw/?id=193')
+        const route = `chinablue://cztvrouter/business/h5?path=${path}&displayBar=true`
+        cztvApi.route(route)
+      } else {
+        showToast('点亮城市后，即可参加抽奖')
+      }
     }
 
 
@@ -202,10 +207,10 @@ export default defineComponent({
     const getMyRecord = async () => {
       let res = await getRecords({ vote_id: 174 });
       isSignUp.value = res?.data?.length ? true : false
-      if(res?.data?.length){
+      if (res?.data?.length) {
         selectCity.value = res?.data[0]?.vote_item?.title || ''
       }
-      
+
     }
 
     const unLockClick = () => {
@@ -344,7 +349,7 @@ export default defineComponent({
       }
     }
 
-    const getUserInfo = ()=>{
+    const getUserInfo = () => {
       cztvApi.userInfo(async res => {
         const data = JSON.parse(res);
         console.log(data, 'login data')
@@ -612,7 +617,8 @@ export default defineComponent({
       position: absolute;
       overflow: hidden;
       top: -76px;
-      .click-topbox{
+
+      .click-topbox {
         position: absolute;
         right: 70px;
         top: 195px;
@@ -645,7 +651,7 @@ export default defineComponent({
     }
   }
 
-  .index-bg{
+  .index-bg {
     background: url(../../assets/background.png) no-repeat;
     background-size: 750px 1294px;
     width: 750px;
