@@ -4,7 +4,7 @@
         <van-popup overlay-class="graypop" v-model:show="showPopup" @click-close-icon="onClickCloseIcon"
             :close-on-click-overlay="false">
             <div class="overbg-success">
-                <div class="t1">点亮{{cityName}}</div>
+                <div class="t1">点亮成功</div>
                 <div class="t2">获得一枚火炬徽章</div>
                 <div class="t3">已为您的城市增加热力值</div>
                 <div class="img-icon"></div>
@@ -26,7 +26,7 @@ const router = useRouter();
 const props = defineProps<{
     cityName:string,
     show: boolean
-
+    time?: any
 }>()
 const emit = defineEmits(['closePop'])
 

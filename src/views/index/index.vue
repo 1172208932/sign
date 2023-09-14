@@ -54,7 +54,7 @@
         </div>
       </div>
     </div>
-    <SurePop :selectCityId="selectCityId" v-model:show="showSurePop" @closeAndOpenNext="backSurePopAndOpenCall"
+    <SurePop :selectCityId="selectCityId"  :cityName="clickCity" v-model:show="showSurePop" @closeAndOpenNext="backSurePopAndOpenCall"
       @closePop="backSurePopCall"></SurePop>
     <success-pop v-model:show="showPop" :cityName="selectCity" @closePop="backPopCall"></success-pop>
   </div>
@@ -101,10 +101,12 @@ export default defineComponent({
     const route = useRoute();
     const store = useStore();
     const isSignUp = ref(false)
+    const signupTimes = ref(0)
     let showPop = ref<boolean>(false);
     let showSurePop = ref<boolean>(false);
 
     const selectCity = ref('')
+    const clickCity = ref('')
 
     function nonenumerable(target, name, descriptor) {
 
@@ -137,7 +139,6 @@ export default defineComponent({
     const { index } = store.state;
 
     onMounted(async () => {
-
       var scrollableDiv = document.getElementById("scrollableDiv");
       scrollableDiv.scrollLeft = 100;
 
@@ -227,15 +228,13 @@ export default defineComponent({
       }
     }
 
-
-
     const getMyRecord = async () => {
       let res = await getRecords({ vote_id: 174 });
       isSignUp.value = res?.data?.length ? true : false
+      signupTimes.value = res?.data?.length
       if (res?.data?.length) {
         selectCity.value = res?.data[0]?.vote_item?.title || ''
       }
-
     }
 
     const unLockClick = () => {
@@ -256,6 +255,7 @@ export default defineComponent({
     }
 
     const cityClick = (title) => {
+
       const canContinue = isOnApp();
       if (!canContinue) { return }
 
@@ -264,32 +264,26 @@ export default defineComponent({
         showToast('未在活动时间范围内！')
         return
       }
+
+      clickCity.value = title
+
       const user_session = window.sessionStorage.getItem('token') || "";
       if (!user_session) {
         handleLogin(() => {
-
           nextTick(() => {
-            if (isSignUp.value) {
-              showToast(`您已点亮【${selectCity.value}】亚运火炬，不可再次点亮`)
-            } else {
               selectCityId.value = cityList.value.filter(item => {
                 return item.title == title
               })[0].id
               showSurePop.value = true
-            }
           })
         })
         return
       }
       nextTick(() => {
-        if (isSignUp.value) {
-          showToast(`您已点亮【${selectCity.value}】亚运火炬，不可再次点亮`)
-        } else {
           selectCityId.value = cityList.value.filter(item => {
             return item.title == title
           })[0].id
           showSurePop.value = true
-        }
       })
     }
 
@@ -448,6 +442,7 @@ export default defineComponent({
       ...toRefs(state),
       isApp,
       selectCityId,
+      clickCity,
       actStatus,
       cityList,
       sid,
@@ -456,6 +451,7 @@ export default defineComponent({
       showPop,
       showSurePop,
       isSignUp,
+      signupTimes,
       radioList,
       place,
       selectCity,

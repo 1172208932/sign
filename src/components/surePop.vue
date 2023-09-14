@@ -3,7 +3,7 @@
         <van-popup overlay-class="graypop" v-model:show="showPopup" @click-close-icon="onClickCloseIcon"
             :close-on-click-overlay="false">
             <div class="overbg-sure">
-                <div class="title">只能为一个城市点亮亚运火炬，请确认是否点亮，为其增加热力值</div>
+                <div class="title">点亮{{cityName}}，为其增加热力值</div>
                 <div class="close-btn" @click="$emit('closePop')"></div>
                 <div class="sure-btn" @click="sureBtnClick"></div>
                 <!-- <img v-else src="../assets/know-btn.png" class="close" @click="$emit('closePop')" alt="" /> -->
@@ -21,6 +21,7 @@ import { postSignUp } from '@/api/resource'
 const router = useRouter();
 
 const props = defineProps<{
+    cityName:string,
     selectCityId: number,
     show: boolean
 }>()
@@ -73,7 +74,7 @@ function onClickCloseIcon() {
     overflow: hidden;
 
     .title {
-        margin-top: 84px;
+        margin-top: 124px;
         margin-left: 47px;
         width: 463px;
         height: 135px;
