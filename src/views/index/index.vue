@@ -1,6 +1,6 @@
 <template>
   <div class="picBox">
-
+    <FirstPage />
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 import GuideTips from "@/components/guideTips/index.vue"
 import dayjs from 'dayjs' //日期库
 import { wxShare } from "../../utils/wxUtils";
-
+import FirstPage from "./components/firstPage.vue"
 
 import {
   defineComponent,
@@ -28,6 +28,7 @@ import { getRadioList } from "@/utils/index"
 export default defineComponent({
   name: "picPage",
   components: {
+    FirstPage
   },
   setup(props, { emit }: SetupContext) {
 
