@@ -1,6 +1,8 @@
 <template>
   <div class="picBox">
-    <FirstPage />
+    <FirstPage v-if="index.nowPage  == 'first'"/>
+    <SecondPage v-if="index.nowPage  == 'SecondPage'"/>
+
   </div>
 </template>
 
@@ -9,6 +11,7 @@ import GuideTips from "@/components/guideTips/index.vue"
 import dayjs from 'dayjs' //日期库
 import { wxShare } from "../../utils/wxUtils";
 import FirstPage from "./components/firstPage.vue"
+import SecondPage from "./components/second.vue"
 
 import {
   defineComponent,
@@ -28,7 +31,8 @@ import { getRadioList } from "@/utils/index"
 export default defineComponent({
   name: "picPage",
   components: {
-    FirstPage
+    FirstPage,
+    SecondPage
   },
   setup(props, { emit }: SetupContext) {
 
@@ -37,6 +41,7 @@ export default defineComponent({
     const route = useRoute();
     const store = useStore();
 
+    const isSignUp = ref(false);
     const { index } = store.state;
 
     onMounted(async () => {
@@ -45,28 +50,11 @@ export default defineComponent({
 
     function addEvent() {
       // 埋点上报start
-      window.collectEvent("activity_page_display", {
-        // 活动页面曝光
-        activity_id: 174, // 活动id
-        activity_type: "", // 活动类型
-        activity_name: '点亮亚运火炬', // 活动名称
-        activity_url: 'https://ztv.cztv.com/ap/zt2023/lightcitytorch/index.shtml#/', // 活动链接
-        activity_page_name: "", // 活动页面名称
-      });
-      // 埋点上报end
+     
     }
 
 
     const toSignClick = () => {
-      window.collectEvent("activity_button_click", {
-        // 活动页面曝光
-        activity_id: 174, // 活动id
-        activity_type: "", // 活动类型
-        activity_name: '点亮亚运火炬', // 活动名称
-        activity_url: 'https://ztv.cztv.com/ap/zt2023/lightcitytorch/index.shtml#/', // 活动链接
-        activity_page_name: "", // 活动页面名称
-        activity_button_name: "tosign_btn"
-      });
 
       const canContinue = isOnApp();
       if (!canContinue) { return }
@@ -97,9 +85,7 @@ export default defineComponent({
     const getMyRecord = async () => {
       let res = await getRecords({ vote_id: 174 });
       isSignUp.value = res?.data?.length ? true : false
-      signupTimes.value = res?.data?.length
       if (res?.data?.length) {
-        selectCity.value = res?.data[0]?.vote_item?.title || ''
       }
     }
 
@@ -270,7 +256,7 @@ export default defineComponent({
     }
 
     return {
-
+      index
     };
   },
 });
