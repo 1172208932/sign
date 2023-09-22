@@ -31,24 +31,24 @@ let showPopup = ref<boolean>(false);
 let animation;
 
 onMounted(() => {
-      animation = lottie.loadAnimation({
-          container: document.getElementById('canvas1'),
-          renderer: 'svg',
-          loop: false,
-          autoplay: false,
-          animationData: indexjson,
-          assetsPath: 'src/assets/images/',
-      });
-      animation.addEventListener('complete', () => {
-            console.log('end')
-            // 设置开始帧和结束帧
-            animation.goToAndPlay(90, true)
-            // animation.stop()
-            // goToAndPlay(20, 40, true); // 替换为你想要的开始帧和结束帧
+    // animation = lottie.loadAnimation({
+    //     container: document.getElementById('canvas1'),
+    //     renderer: 'svg',
+    //     loop: false,
+    //     autoplay: false,
+    //     animationData: indexjson,
+    //     assetsPath: 'src/assets/images/',
+    // });
+    // animation.addEventListener('complete', () => {
+    //     console.log('end')
+    //     // 设置开始帧和结束帧
+    //     animation.goToAndPlay(90, true)
+    //     // animation.stop()
+    //     // goToAndPlay(20, 40, true); // 替换为你想要的开始帧和结束帧
 
-            // // 重新播放动画
-            // animation.play();
-});
+    //     // // 重新播放动画
+    //     // animation.play();
+    // });
 
 })
 
@@ -64,10 +64,9 @@ function onClickCloseIcon() {
 </script>
     
 <style  lang="scss" >
-.overbg-sure {
-}
+.overbg-sure {}
 
-.first-page{
+.first-page {
     background: url(../../../assets/3.png) no-repeat;
     background-size: 750px 1624px;
     width: 750px;
