@@ -18,6 +18,8 @@
 import { showToast } from "vant";
 import { ref, watch, onMounted, onUnmounted, nextTick } from "vue";
 import { useRouter } from "vue-router";
+import { Howl } from "howler";
+import wx from "weixin-js-sdk";
 const soundConfig = [
     {
         t1: '杭州第19届亚运会开幕式总导演 沙晓岚',
@@ -69,6 +71,7 @@ const audioElement = ref(null);
 const clickboxRef = ref(null)
 const soundNum = ref(0);
 let isFirst = true
+let music = null
 
 const props = defineProps<{
     num: Number
@@ -115,6 +118,18 @@ const nextClick = () => {
     });
 
 }
+
+// music =  new Howl({
+//     src: soundConfig[soundNum.value].sound,
+//     preload: true,
+//     autoplay: true,
+//     loop: true,
+//     onload: () => {
+//         wx.ready(() => {
+//             music.play();
+//         });
+//     }
+// });
 
 onMounted(() => {
     soundNum.value = props.num

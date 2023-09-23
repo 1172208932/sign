@@ -26,6 +26,7 @@
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.9",
     "esbuild-windows-64": "^0.15.6",
+    "howler": "^2.2.4",
     "jsonp": "^0.2.1",
     "lodash-es": "^4.17.21",
     "lottie-web": "^5.12.2",
