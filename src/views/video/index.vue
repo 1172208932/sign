@@ -150,9 +150,10 @@ export default defineComponent({
       if(actIndex.value < 0) {
         actIndex.value = 6
       }
-      setTimeout(() => {
-        play()
-      }, 500);
+      showSoundMask.value = true
+      // setTimeout(() => {
+      //   play()
+      // }, 500);
     }
 
     const next = () => {
@@ -160,9 +161,10 @@ export default defineComponent({
       if(actIndex.value > 6) {
         actIndex.value = 0
       }
-      setTimeout(() => {
-        play()
-      }, 500);
+      showSoundMask.value = true
+      // setTimeout(() => {
+      //   play()
+      // }, 500);
     }
 
     // 播放视频
