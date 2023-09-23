@@ -1,12 +1,15 @@
 <template>
     <div class="soundPage">
+        <audio ref="audioElement" :src="soundConfig[soundNum].sound"></audio>
         <div class="logio"></div>
-        <div class="t1">杭州第19届亚运会开幕式总导演 沙晓岚</div>
-        <div class="t2">无论是开幕式演出，还是城市的美、人的美，都是能够体现出中国传统文化的延续性，绽放独特绵延的人文雅韵。</div>
+        <div class="t1">{{ soundConfig[soundNum].t1 }}</div>
+        <div class="t2">{{ soundConfig[soundNum].t2 }}</div>
         <div class="center-img"></div>
-        <div class="t3">听，这是开幕式总导演的声音</div>
+        <div class="t3">{{ soundConfig[soundNum].t3 }}</div>
         <div class="cirle">
             <div class="begin-btn" @click="begin"></div>
+            <div class="pre-btn" @click="preClick"></div>
+            <div class="next-btn" @click="nextClick"></div>
         </div>
     </div>
 </template>
@@ -15,9 +18,59 @@
 import { showToast } from "vant";
 import { ref, watch, onMounted, onUnmounted, nextTick } from "vue";
 import { useRouter } from "vue-router";
+const soundConfig = [
+    {
+        t1: '杭州第19届亚运会开幕式总导演 沙晓岚',
+        t2: '无论是开幕式演出，还是城市的美、人的美，都是能够体现出中国传统文化的延续性，绽放独特绵延的人文雅韵。',
+        t3: '听，这是开幕式总导演的声音',
+        sound: 'https://ohudong.cztv.com/1/266130/sound/shatan.mp3'
+    },
+    {
+        t1: '《白鹭精灵》演员 骆文博',
+        t2: '登上亚运舞台的“白鹭”不仅仅是白鹭，还是人与自然和谐共生的代表，也是和平的象征。',
+        t3: '听，这是白鹭精灵的声音',
+        sound: 'https://ohudong.cztv.com/1/266130/sound/bailu.mp3'
+    },
+    {
+        t1: '杭州第19届亚运会开幕式引导员',
+        t2: '一群之前没有经过形体训练，特别“素”的孩子，第一次在她们眼中“很大”的场馆里亮相，绽放的笑容都是最真挚的祝福。',
+        t3: '听，这是开幕式引导员的声音',
+        sound: 'https://ohudong.cztv.com/1/266130/sound/yindao.mp3'
+    },
+    {
+        t1: '《钱塘潮涌》双人威亚演员 黄琛迪 李艳超',
+        t2: '炫酷的双人3D威亚表演背后，是无数次的大腿充血和贯穿始终的肌肉高速运转，只为再现钱塘江的无畏潮涌。',
+        t3: '听，这是双人威压演员的声音',
+        sound: 'https://ohudong.cztv.com/1/266130/sound/weiya.mp3'
+    },
+    {
+        t1: '《平凡的微光》群演',
+        t2: '跳舞跳到“脸红”、手开始抖、一次等待7到9小时……但他们说有这“一分钟时间的认可”也值得了。',
+        t3: '听，这是平凡的微光的声音',
+        sound: 'https://ohudong.cztv.com/1/266130/sound/pingfan.mp3'
+    },
+    {
+        t1: '杭州第19届亚运会开幕式旗手',
+        t2: '从进场口到升旗台，每一步都彰显着中国军人的威武。这背后的苦练和巧练，只为了“国家的荣耀、人民的期望”。',
+        t3: '听，这是开幕式旗手的声音',
+        sound: 'https://ohudong.cztv.com/1/266130/sound/qishou.mp3'
+    },
+    {
+        t1: '《国风雅韵》芭蕾舞演员 宁珑',
+        t2: '用芭蕾舞蹈将江南画卷诗意展开，“立起脚尖”的芭蕾特色与上身肢体的江南韵味互相“碰撞”，绽放别样风情。',
+        t3: '听，这是芭蕾舞演员的声音',
+        sound: 'https://ohudong.cztv.com/1/266130/sound/balei.mp3'
+    }
+]
 
 // import { postSignUp } from '@/api/resource'
-const canRef = ref(null);
+const audioElement = ref(null);
+const soundNum = ref(0);
+
+
+const props = defineProps<{
+    num: Number
+}>()
 
 const emit = defineEmits(['closeSound', 'closeAndOpenNext'])
 
@@ -27,12 +80,40 @@ const begin = () => {
     emit('closeSound')
 }
 
+const preClick = () => {
+    soundNum.value--
+    if (soundNum.value == -1) {
+        soundNum.value = 6
+    }
+    nextTick(() => {
+        audioElement.value.play();
+    });
+
+
+}
+
+const nextClick = () => {
+
+    soundNum.value++
+    if (soundNum.value == 7) {
+        soundNum.value = 0
+    }
+    nextTick(() => {
+        audioElement.value.play();
+    });
+
+}
+
 onMounted(() => {
-
-
+    soundNum.value = props.num
+    nextTick()
+    nextTick(() => {
+        audioElement.value.play();
+    });
 })
 
 onUnmounted(() => {
+
 })
 </script>
     
@@ -129,6 +210,26 @@ onUnmounted(() => {
         left: 50%;
         transform: translateX(-50%);
         bottom: 100px;
+    }
+
+    .pre-btn {
+        background: url(../../../assets/pre-sound-btn.png) no-repeat;
+        background-size: 186px 106px;
+        width: 186px;
+        height: 106px;
+        position: absolute;
+        bottom: 100px;
+        left: 40px;
+    }
+
+    .next-btn {
+        background: url(../../../assets/next-sound-btn.png) no-repeat;
+        background-size: 186px 106px;
+        width: 186px;
+        height: 106px;
+        position: absolute;
+        bottom: 100px;
+        right: 40px;
     }
 }
 </style>

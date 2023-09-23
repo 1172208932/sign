@@ -35,7 +35,7 @@
         <img class="poster-bg" :src="data[actIndex].poster" alt="">
       </div>
     </div>
-    <SoundMask v-if="showSoundMask" @closeSound="closeSound" />
+    <SoundMask :num="actIndex"  v-if="showSoundMask" @closeSound="closeSound" />
   </div>
 </template>
 
