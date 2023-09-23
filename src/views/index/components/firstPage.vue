@@ -70,6 +70,15 @@ import { useStore } from "vuex";
 import json2 from './data2.json'
 import json3 from './data3.json'
 
+const soundConfig = ['https://ohudong.cztv.com/1/266130/sound/shatan.mp3','https://ohudong.cztv.com/1/266130/sound/balei.mp3',
+         'https://ohudong.cztv.com/1/266130/sound/weiya.mp3',
+         'https://ohudong.cztv.com/1/266130/sound/bailu.mp3',
+          'https://ohudong.cztv.com/1/266130/sound/pingfan.mp3',
+          'https://ohudong.cztv.com/1/266130/sound/yindao.mp3',
+          'https://ohudong.cztv.com/1/266130/sound/qishou.mp3'
+
+]
+
 const scrollRef = ref(null)
 const soundRef = ref(null)
 const store = useStore();
@@ -117,6 +126,22 @@ const beginAni = () => {
 }
 
 const peopleClick = (num) => {
+    const viodo = document.getElementById('sound')
+    if(!viodo){
+        var audio = document.createElement('audio');
+        // 设置音频源
+        audio.src = soundConfig[num];
+
+        // 设置其他属性
+        audio.autoplay = true; // 自动播放
+        audio.id = 'sound'
+
+        // 将 audio 元素添加到 body 中
+        document.body.appendChild(audio);
+        audio.play();
+    }
+    
+
     router.push({
         name: "video",
         query: {
@@ -145,6 +170,8 @@ onMounted(() => {
         assetsPath: isTextUrl + 'images2/',
     });
 
+    animation2.setSpeed(2);
+
     animation3 = lottie.loadAnimation({
         container: document.getElementById('canvas3'),
         renderer: 'svg',
@@ -164,11 +191,10 @@ onMounted(() => {
         isIndexAniFinish.value = true
         if (!canScroll.value) {
             // scrollRef.value.scrollTop = 200
-            scrollToDistance(200)
+            scrollToDistance(380)
         }
         canScroll.value = true
     });
-
 })
 
 

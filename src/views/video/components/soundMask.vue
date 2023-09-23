@@ -1,6 +1,6 @@
 <template>
-    <div class="soundPage" @click="palySound">
-        <audio id="bg-music" ref="audioElement" :src="soundConfig[soundNum].sound"></audio>
+    <div class="soundPage" id="soundPage" ref="clickboxRef">
+        <audio id="bg-music" ref="audioElement" loop :src="soundConfig[soundNum].sound"></audio>
         <div class="logio"></div>
         <div class="t1">{{ soundConfig[soundNum].t1 }}</div>
         <div class="t2">{{ soundConfig[soundNum].t2 }}</div>
@@ -61,11 +61,12 @@ const soundConfig = [
         t3: '听，那是整齐有力的步伐声荣耀登场',
         sound: 'https://ohudong.cztv.com/1/266130/sound/qishou.mp3'
     },
-    
+
 ]
 
 // import { postSignUp } from '@/api/resource'
 const audioElement = ref(null);
+const clickboxRef = ref(null)
 const soundNum = ref(0);
 let isFirst = true
 
@@ -73,7 +74,7 @@ const props = defineProps<{
     num: Number
 }>()
 
-const emit = defineEmits(['closeSound', 'nextClick','preClick'])
+const emit = defineEmits(['closeSound', 'nextClick', 'preClick'])
 
 let showPopup = ref<boolean>(false);
 
@@ -82,6 +83,8 @@ const begin = () => {
 }
 
 const preClick = () => {
+    const viodo = document.getElementById('sound')
+    viodo.pause()
     emit('preClick')
 
     soundNum.value--
@@ -93,20 +96,21 @@ const preClick = () => {
     });
 }
 
-const palySound = ()=>{
-    if(isFirst){
-        audioElement.value.play();
-    }
-    isFirst = false
+const palySound = () => {
+    console.log('play')
+    audioElement.value.play();
 }
 
 const nextClick = () => {
+    const viodo = document.getElementById('sound')
+    viodo.pause()
     emit('nextClick')
     soundNum.value++
     if (soundNum.value == 7) {
         soundNum.value = 0
     }
     nextTick(() => {
+        palySound();
         audioElement.value.play();
     });
 
@@ -114,27 +118,49 @@ const nextClick = () => {
 
 onMounted(() => {
     soundNum.value = props.num
-    nextTick(() => {
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
+    // audioAutoPlay();
     function audioAutoPlay() {
-            var audio = document.getElementById('bg-music');
-                audio.play();
-            document.addEventListener("WeixinJSBridgeReady", function () {
-                audio.play();
-            }, false);
+        console.log('audioAutoPlay')
+
+        var audio = document.getElementById('bg-music');
+        if(audio){
+            console.log('-----isaudio')
         }
-        audioAutoPlay();
+        console.log(audio,'audio')
+        audio.play();
+        document.addEventListener("WeixinJSBridgeReady", function () {
+            console.log('WeixinJSBridgeReady')
+            audio.play();
+        }, false);
+    }
+    nextTick(() => {
+        console.log('nextTick',audioElement)
+        // var element = document.getElementById("soundPage");
+
+        // // 创建一个新的点击事件
+        // var event = new MouseEvent("click", {
+        //     bubbles: true,
+        //     cancelable: true,
+        //     view: window
+        // });
+
+        // // 触发点击事件
+        // element.dispatchEvent(event);
+        // audioElement.value.play();
+        // clickboxRef.value.click()
     });
 
-    setTimeout(() => {
-        audioElement.value.play();
-    }, 1000);
+    // setTimeout(() => {
+    //     console.log('setTimeout')
+    //     audioElement.value.play();
+    // }, 1000);
 })
 
 onUnmounted(() => {
-
+    const viodo = document.getElementById('sound')
+    if(viodo){
+        viodo.remove()
+    }
 })
 </script>
     
