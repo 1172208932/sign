@@ -98,9 +98,7 @@ let animation, animation2, animation3;
 
 const toSecongPage = () => {
     // store.commit("setNowPage",'SecondPage')
-    router.push({
-        name: "video",
-    });
+
 }
 
 const beginAni = () => {
