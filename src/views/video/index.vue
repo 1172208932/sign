@@ -14,7 +14,7 @@
     <img @click="prev" class="prev-btn" src="../../assets/video/prev_btn.png" alt="">
     <img @click="next" class="next-btn" src="../../assets/video/next_btn.png" alt="">
     <img @click="showForm" class="reserve-btn" src="../../assets/video/reserve_btn.png" alt="">
-    <p class="tips">9月23日纪录片《绽放》正式上线</p>
+    <p class="tips">纪录片《绽放》即将上线</p>
 
     <div class="reserve-container" v-show="isShowForm">
       <div class="reserve-wrap">
@@ -35,6 +35,7 @@
       <div class="poster-wrap">
         <img @click="isShowPost = false" class="close-poster" src="../../assets/video/close_poster.png" alt="">
         <img class="poster-bg" :src="data[actIndex].poster" alt="">
+        <p class="tips">长按保存图片</p>
       </div>
     </div>
     <SoundMask :num="actIndex"  v-if="showSoundMask" @preClick="soundPreClick" @nextClick="soundNextClick" @closeSound="closeSound" />
@@ -96,27 +97,27 @@ export default defineComponent({
       },
       {
         video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/b187c6809eb74230926a91ec22aa1107/h264_800k_mp4.mp4', // 芭蕾舞者
-        poster: poster6,
-        audio: ''
-      },
-      {
-        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/68d5118c4ca9451cb8a5d5d8258d7fd8/h264_800k_mp4.mp4', // 双人威亚
-        poster: poster5,
-        audio: ''
-      },
-      {
-        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/95dd64f040c24814a6ab04c435936a73/h264_800k_mp4.mp4', // 白鹭精灵
         poster: poster2,
         audio: ''
       },
       {
-        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/ec7d671f429d49dc9c0414235014209f/h264_800k_mp4.mp4', // 群演
+        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/68d5118c4ca9451cb8a5d5d8258d7fd8/h264_800k_mp4.mp4', // 双人威亚
         poster: poster3,
         audio: ''
       },
       {
-        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/1c66cac0b1fb45a08785420663d6704e/h264_800k_mp4.mp4', // 引导员
+        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/95dd64f040c24814a6ab04c435936a73/h264_800k_mp4.mp4', // 白鹭精灵
         poster: poster4,
+        audio: ''
+      },
+      {
+        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/ec7d671f429d49dc9c0414235014209f/h264_800k_mp4.mp4', // 群演
+        poster: poster5,
+        audio: ''
+      },
+      {
+        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/1c66cac0b1fb45a08785420663d6704e/h264_800k_mp4.mp4', // 引导员
+        poster: poster6,
         audio: ''
       },
       {
@@ -424,6 +425,29 @@ export default defineComponent({
       width: 100%;
       height: 100%;
     }
+    .tips {
+      width: 100%;
+      font-size: 24px;
+      font-weight: 400;
+      color: #FFFFFF;
+      line-height: 40px;
+      position: absolute;
+      bottom: 0px;
+      animation: fadeInOut 1.2s linear infinite;
+    }
+  }
+}
+@keyframes fadeInOut {
+  from {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.3;
   }
 }
 </style>

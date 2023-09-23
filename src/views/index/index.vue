@@ -116,7 +116,7 @@ export default defineComponent({
         url: `https://ztv.cztv.com/ap/zt2023/newbluesound/index.shtml#/`,
         title: '听，那是“绽放”背后的秘密', //分享的标题
         content: '杭州亚运会开幕式揭秘', // 分享的文字
-        img: ''
+        img: 'https://ohudong.cztv.com/1/266130/images/share.png'
         // 'https://ohudong.cztv.com/1/266130/static/share.png'
       }
       cztvApi.changeShareInfo(shareData)
@@ -129,7 +129,7 @@ export default defineComponent({
         "杭州亚运会开幕式揭秘",
         "听，那是“绽放”背后的秘密",
         "https://ztv.cztv.com/ap/zt2023/newbluesound/index.shtml#/",
-        ""
+        "https://ohudong.cztv.com/1/266130/images/share.png"
       )
     }
 

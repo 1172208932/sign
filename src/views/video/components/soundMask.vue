@@ -1,6 +1,6 @@
 <template>
     <div class="soundPage" @click="palySound">
-        <audio id="bg-music" ref="audioElement" :src="soundConfig[soundNum].sound"></audio>
+        <audio preload autoplay id="bg-music" ref="audioElement" :src="soundConfig[soundNum].sound"></audio>
         <div class="logio"></div>
         <div class="t1">{{ soundConfig[soundNum].t1 }}</div>
         <div class="t2">{{ soundConfig[soundNum].t2 }}</div>
@@ -18,6 +18,8 @@
 import { showToast } from "vant";
 import { ref, watch, onMounted, onUnmounted, nextTick } from "vue";
 import { useRouter } from "vue-router";
+import { Howl } from "howler";
+import wx from "weixin-js-sdk";
 const soundConfig = [
     {
         t1: '杭州第19届亚运会开幕式总导演 沙晓岚',
@@ -66,8 +68,9 @@ const soundConfig = [
 
 // import { postSignUp } from '@/api/resource'
 const audioElement = ref(null);
-const soundNum = ref(0);
+const soundNum = ref(1);
 let isFirst = true
+let music = null
 
 const props = defineProps<{
     num: Number
@@ -112,25 +115,58 @@ const nextClick = () => {
 
 }
 
+// music =  new Howl({
+//     src: soundConfig[soundNum.value].sound,
+//     preload: true,
+//     autoplay: true,
+//     loop: true,
+//     onload: () => {
+//         wx.ready(() => {
+//             music.play();
+//         });
+//     }
+// });
+
 onMounted(() => {
     soundNum.value = props.num
     nextTick(() => {
     });
 
-    document.addEventListener('DOMContentLoaded', function () {
-    function audioAutoPlay() {
-            var audio = document.getElementById('bg-music');
-                audio.play();
-            document.addEventListener("WeixinJSBridgeReady", function () {
-                audio.play();
-            }, false);
-        }
-        audioAutoPlay();
-    });
+    // document.addEventListener(
+    //     "WeixinJSBridgeReady",
+    //     function onBridgeReady() {
+    //         WeixinJSBridge.invoke("getNetworkType", {}, function(e) {
+    //             document.getElementById("bg-music").play();
+    //         // document.getElementById("startMusic").pause();
+    //         });
+    //     },
+    //     false
+    // );
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        WeixinJSBridge.invoke('getNetworkType', {},
+            function (e) {
+                document.getElementById("bg-music").play();
+            });
+    }, false);
 
-    setTimeout(() => {
-        audioElement.value.play();
-    }, 1000);
+    // document.addEventListener('DOMContentLoaded', function () {
+    // function audioAutoPlay() {
+    //         var audio = document.getElementById('bg-music');
+    //             audio.play();
+    //         document.addEventListener("WeixinJSBridgeReady", function () {
+    //             audio.play();
+    //         }, false);
+    //     }
+    //     audioAutoPlay();
+    // });
+
+    // setTimeout(() => {
+    //     audioElement.value.play();
+    // }, 1000);    
+    
+    // setTimeout(() => {
+    //     music.play();
+    // }, 1000);
 })
 
 onUnmounted(() => {
