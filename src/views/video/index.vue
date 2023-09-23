@@ -21,7 +21,7 @@
         <img class="reserve-bg" src="../../assets/video/reserve_bg.png" alt="">
         <img class="logo" src="../../assets/video/logo.png" alt="">
         <img class="reserve-title" src="../../assets/video/reserve_title.png" alt="">
-        <input v-model="mobile" placeholder="请输出手机号" type="tel" maxlength="11" class="tel-input">
+        <input v-model="mobile" placeholder="请输入手机号" type="tel" maxlength="11" class="tel-input">
         <!-- <div class="submit-btn" @click="submit">
           <p class="btn-txt">提交</p>
         </div> -->
