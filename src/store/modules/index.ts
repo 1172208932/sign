@@ -11,12 +11,17 @@ export interface GameState {
 export interface PageStage {
   nowPage: any;
 }
+
+export interface VideoStage {
+  videoIndex: any;
+}
 export default {
   state: {
     activeInfo: {},
     gameInfo: {},
     img: '',
-    nowPage:'first'
+    nowPage:'first',
+    videoIndex:0
   },
   mutations: {
     setActiveInfo(state: UserState, data: any) {
@@ -27,6 +32,9 @@ export default {
     },
     setNowPage(state: PageStage, data: string) {
       state.nowPage = data;
+    },
+    setVideoIndex(state: VideoStage, data: string) {
+      state.videoIndex = data;
     },
   },
   actions: {
