@@ -54,6 +54,14 @@ import CryptoJS from "crypto-js";
 import axios from "axios";
 import video from '../../assets/video/video.mp4'
 import poster from '../../assets/video/poster_bg.png'
+import poster1 from '../../assets/video/poster1.png'
+import poster2 from '../../assets/video/poster2.png'
+import poster3 from '../../assets/video/poster3.png'
+import poster4 from '../../assets/video/poster4.png'
+import poster5 from '../../assets/video/poster5.png'
+import poster6 from '../../assets/video/poster6.png'
+import poster7 from '../../assets/video/poster7.png'
+
 
 
 export default defineComponent({
@@ -75,38 +83,38 @@ export default defineComponent({
 
     data.value = [
       {
-        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/6d2afd886c96364c426873563fbf52e5/6d2afd886c96364c426873563fbf52e5_h264_1500k_mp4.mp4',
-        poster: poster,
+        video: 'http://ali-v.cztv.com/cztv/vod/2023/09/23/b17f79a815e651479618c8412c3057e4/b17f79a815e651479618c8412c3057e4_h264_1500k_mp4.mp4',
+        poster: poster1,
         audio: ''
       },
       {
-        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/ba5fa40e094f70444508335036477192/ba5fa40e094f70444508335036477192_h264_1500k_mp4.mp4',
-        poster: poster,
+        video: 'http://ali-v.cztv.com/cztv/vod/2023/09/23/ba5fa40e094f70444508335036477192/ba5fa40e094f70444508335036477192_h264_1500k_mp4.mp4',
+        poster: poster6,
         audio: ''
       },
       {
-        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/b17f79a815e651479618c8412c3057e4/b17f79a815e651479618c8412c3057e4_h264_1500k_mp4.mp4',
-        poster: poster,
+        video: 'http://ali-v.cztv.com/cztv/vod/2023/09/23/bf89c74737a77341be3b8c33bd2d2dea/bf89c74737a77341be3b8c33bd2d2dea_h264_1500k_mp4.mp4',
+        poster: poster5,
         audio: ''
       },
       {
-        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/c00cd5e1bc863b4d49b8c59bb2c1bd4d/c00cd5e1bc863b4d49b8c59bb2c1bd4d_h264_1500k_mp4.mp4',
-        poster: poster,
+        video: 'http://ali-v.cztv.com/cztv/vod/2023/09/23/6d2afd886c96364c426873563fbf52e5/6d2afd886c96364c426873563fbf52e5_h264_1500k_mp4.mp4',
+        poster: poster2,
         audio: ''
       },
       {
-        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/bf89c74737a77341be3b8c33bd2d2dea/bf89c74737a77341be3b8c33bd2d2dea_h264_1500k_mp4.mp4',
-        poster: poster,
+        video: 'http://ali-v.cztv.com/cztv/vod/2023/09/23/c00cd5e1bc863b4d49b8c59bb2c1bd4d/c00cd5e1bc863b4d49b8c59bb2c1bd4d_h264_1500k_mp4.mp4',
+        poster: poster3,
         audio: ''
       },
       {
-        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/7a11de91a644ba4172aa059ae078186e/7a11de91a644ba4172aa059ae078186e_h264_1500k_mp4.mp4',
-        poster: poster,
+        video: 'http://ali-v.cztv.com/cztv/vod/2023/09/23/7a11de91a644ba4172aa059ae078186e/7a11de91a644ba4172aa059ae078186e_h264_1500k_mp4.mp4',
+        poster: poster4,
         audio: ''
       },
       {
-        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/930de6a76454b64b8f6814f6ab7c9d1b/930de6a76454b64b8f6814f6ab7c9d1b_h264_1500k_mp4.mp4',
-        poster: poster,
+        video: 'http://ali-v.cztv.com/cztv/vod/2023/09/23/930de6a76454b64b8f6814f6ab7c9d1b/930de6a76454b64b8f6814f6ab7c9d1b_h264_1500k_mp4.mp4',
+        poster: poster7,
         audio: ''
       }
     ]
