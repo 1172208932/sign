@@ -18,11 +18,12 @@
     <div class="reserve-container" v-show="isShowForm">
       <div class="reserve-wrap">
         <img class="reserve-bg" src="../../assets/video/reserve_bg.png" alt="">
+        <img class="logo" src="../../assets/video/logo.png" alt="">
         <img class="reserve-title" src="../../assets/video/reserve_title.png" alt="">
         <input v-model="mobile" placeholder="请输出手机号" type="tel" maxlength="11" class="tel-input">
-        <div class="submit-btn" @click="submit">
+        <!-- <div class="submit-btn" @click="submit">
           <p class="btn-txt">提交</p>
-        </div>
+        </div> -->
         <p class="sub-tips">填写手机号，接收开播提醒短信</p>
         <img class="reserve" src="../../assets/video/reserve.png" alt="">
         <img @click="isShowForm = false" class="close-btn" src="../../assets/video/close_btn.png" alt="">
@@ -298,6 +299,13 @@ export default defineComponent({
       left: 50%;
       transform: translate(-50%, -60%);
     }
+    .logo {
+      width: 277px;
+      height: 39px;
+      top: 14px;
+      left: 35px;
+      position: absolute;
+    }
     .reserve-bg {
       width: 100%;
       height: 100%;
@@ -310,7 +318,7 @@ export default defineComponent({
       left: 192px;
     }
     .tel-input {
-      width: 362px;
+      width: 471px;
       height: 71px;
       background: #FFFFFF;
       box-shadow: inset 0px 4px 4px 0px rgba(0,0,0,0.25);
