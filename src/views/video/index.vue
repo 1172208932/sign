@@ -7,6 +7,7 @@
         x5-video-player-type="h5-page"
         playsinline="playsinline"
         webkit-playsinline="true"
+        loop
         :src="data[actIndex].video"
     ></video>
     <img @click="isShowPost = true" class="make-poster-btn" src="../../assets/video/make_poster_btn.png" alt="">
@@ -18,13 +19,14 @@
     <div class="reserve-container" v-show="isShowForm">
       <div class="reserve-wrap">
         <img class="reserve-bg" src="../../assets/video/reserve_bg.png" alt="">
+        <img class="logo" src="../../assets/video/logo.png" alt="">
         <img class="reserve-title" src="../../assets/video/reserve_title.png" alt="">
         <input v-model="mobile" placeholder="请输出手机号" type="tel" maxlength="11" class="tel-input">
-        <div class="submit-btn" @click="submit">
+        <!-- <div class="submit-btn" @click="submit">
           <p class="btn-txt">提交</p>
-        </div>
+        </div> -->
         <p class="sub-tips">填写手机号，接收开播提醒短信</p>
-        <img class="reserve" src="../../assets/video/reserve.png" alt="">
+        <img @click="submit" class="reserve" src="../../assets/video/reserve.png" alt="">
         <img @click="isShowForm = false" class="close-btn" src="../../assets/video/close_btn.png" alt="">
       </div>
     </div>
@@ -88,37 +90,37 @@ export default defineComponent({
 
     data.value = [
       {
-        video: 'http://ali-v.cztv.com/cztv/vod/2023/09/23/b17f79a815e651479618c8412c3057e4/b17f79a815e651479618c8412c3057e4_h264_1500k_mp4.mp4',
+        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/479f08eafb6140c79d2cd0230fa1e5ab/h264_800k_mp4.mp4', // 总导演
         poster: poster1,
         audio: ''
       },
       {
-        video: 'http://ali-v.cztv.com/cztv/vod/2023/09/23/ba5fa40e094f70444508335036477192/ba5fa40e094f70444508335036477192_h264_1500k_mp4.mp4',
+        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/b187c6809eb74230926a91ec22aa1107/h264_800k_mp4.mp4', // 芭蕾舞者
         poster: poster6,
         audio: ''
       },
       {
-        video: 'http://ali-v.cztv.com/cztv/vod/2023/09/23/bf89c74737a77341be3b8c33bd2d2dea/bf89c74737a77341be3b8c33bd2d2dea_h264_1500k_mp4.mp4',
+        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/68d5118c4ca9451cb8a5d5d8258d7fd8/h264_800k_mp4.mp4', // 双人威亚
         poster: poster5,
         audio: ''
       },
       {
-        video: 'http://ali-v.cztv.com/cztv/vod/2023/09/23/6d2afd886c96364c426873563fbf52e5/6d2afd886c96364c426873563fbf52e5_h264_1500k_mp4.mp4',
+        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/95dd64f040c24814a6ab04c435936a73/h264_800k_mp4.mp4', // 白鹭精灵
         poster: poster2,
         audio: ''
       },
       {
-        video: 'http://ali-v.cztv.com/cztv/vod/2023/09/23/c00cd5e1bc863b4d49b8c59bb2c1bd4d/c00cd5e1bc863b4d49b8c59bb2c1bd4d_h264_1500k_mp4.mp4',
+        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/ec7d671f429d49dc9c0414235014209f/h264_800k_mp4.mp4', // 群演
         poster: poster3,
         audio: ''
       },
       {
-        video: 'http://ali-v.cztv.com/cztv/vod/2023/09/23/7a11de91a644ba4172aa059ae078186e/7a11de91a644ba4172aa059ae078186e_h264_1500k_mp4.mp4',
+        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/1c66cac0b1fb45a08785420663d6704e/h264_800k_mp4.mp4', // 引导员
         poster: poster4,
         audio: ''
       },
       {
-        video: 'http://ali-v.cztv.com/cztv/vod/2023/09/23/930de6a76454b64b8f6814f6ab7c9d1b/930de6a76454b64b8f6814f6ab7c9d1b_h264_1500k_mp4.mp4',
+        video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/d04d0438b90f4fd7bdb708d9cd0a0c8e/h264_800k_mp4.mp4', // 旗手
         poster: poster7,
         audio: ''
       }
@@ -298,6 +300,13 @@ export default defineComponent({
       left: 50%;
       transform: translate(-50%, -60%);
     }
+    .logo {
+      width: 277px;
+      height: 39px;
+      top: 14px;
+      left: 35px;
+      position: absolute;
+    }
     .reserve-bg {
       width: 100%;
       height: 100%;
@@ -310,7 +319,7 @@ export default defineComponent({
       left: 192px;
     }
     .tel-input {
-      width: 362px;
+      width: 471px;
       height: 71px;
       background: #FFFFFF;
       box-shadow: inset 0px 4px 4px 0px rgba(0,0,0,0.25);
