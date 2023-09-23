@@ -12,7 +12,7 @@
     <img @click="isShowPost = true" class="make-poster-btn" src="../../assets/video/make_poster_btn.png" alt="">
     <img @click="prev" class="prev-btn" src="../../assets/video/prev_btn.png" alt="">
     <img @click="next" class="next-btn" src="../../assets/video/next_btn.png" alt="">
-    <img @click="isShowForm = true" class="reserve-btn" src="../../assets/video/reserve_btn.png" alt="">
+    <img @click="showForm" class="reserve-btn" src="../../assets/video/reserve_btn.png" alt="">
     <p class="tips">9月23日纪录片《绽放》正式上线</p>
 
     <div class="reserve-container" v-show="isShowForm">
@@ -67,9 +67,11 @@ export default defineComponent({
     let isShowPost = ref(false)
     const playVideo = ref<any>(null)
     let mobile = ref('')
-
+    const route = useRoute()
     const data = ref<any>([])
-    const actIndex = ref(0)
+    const actIndex = ref<any>(0)
+
+    actIndex.value = route.query.actIndex
 
     data.value = [
       {
@@ -134,6 +136,11 @@ export default defineComponent({
       playVideo.value.play()
     }
 
+    const showForm = () => {
+      isShowForm.value = true
+      play()
+    }
+
     function randomString (e) {
       e = e || 32;
       var t = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678",
@@ -192,7 +199,8 @@ export default defineComponent({
       data,
       actIndex,
       prev,
-      next
+      next,
+      showForm
     }
 
     
