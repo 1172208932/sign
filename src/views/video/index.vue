@@ -26,7 +26,7 @@
           <p class="btn-txt">提交</p>
         </div> -->
         <p class="sub-tips">填写手机号，接收开播提醒短信</p>
-        <img class="reserve" src="../../assets/video/reserve.png" alt="">
+        <img @click="submit" class="reserve" src="../../assets/video/reserve.png" alt="">
         <img @click="isShowForm = false" class="close-btn" src="../../assets/video/close_btn.png" alt="">
       </div>
     </div>
