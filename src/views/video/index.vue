@@ -35,6 +35,7 @@
         <img class="poster-bg" :src="data[actIndex].poster" alt="">
       </div>
     </div>
+    <SoundMask v-if="showSoundMask" @closeSound="closeSound" />
   </div>
 </template>
 
@@ -54,17 +55,20 @@ import CryptoJS from "crypto-js";
 import axios from "axios";
 import video from '../../assets/video/video.mp4'
 import poster from '../../assets/video/poster_bg.png'
-
+import SoundMask from './components/soundMask.vue'
 
 export default defineComponent({
   name: "videoPage",
   components: {
+    SoundMask
   },
   setup(props, { emit }: SetupContext) {
     const store = useStore();
     const { index } = store.state;
     let isShowForm = ref(false)
     let isShowPost = ref(false)
+    let showSoundMask = ref(true)
+    
     const playVideo = ref<any>(null)
     let mobile = ref('')
 
@@ -108,6 +112,11 @@ export default defineComponent({
         audio: ''
       }
     ]
+
+    const closeSound = ()=>{
+      showSoundMask.value = false
+      play()
+    }
 
     const prev = () => {
       actIndex.value --
@@ -186,13 +195,15 @@ export default defineComponent({
       playVideo,
       isShowForm,
       isShowPost,
+      showSoundMask,
       mobile,
       play,
       submit,
       data,
       actIndex,
       prev,
-      next
+      next,
+      closeSound
     }
 
     

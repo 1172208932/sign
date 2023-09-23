@@ -162,6 +162,10 @@ onMounted(() => {
 
 })
 
+onUnmounted(()=>{
+    animation3.destroy()
+})
+
 const handleScroll = (event) => {
     const targetElement = canRef.value;
     const rect = targetElement.getBoundingClientRect();
@@ -208,6 +212,7 @@ function onClickCloseIcon() {
     width: 100vw;
     height: 100vh;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .no-scroll {
@@ -222,8 +227,6 @@ function onClickCloseIcon() {
     background-size: 750px 1447px;
     width: 750px;
     height: 1447px;
-
-
 }
 
 .tip {
@@ -265,6 +268,8 @@ function onClickCloseIcon() {
     position: absolute;
     pointer-events: none;
     top: 374px;
+    width: 750px;
+
 }
 
 #canvas2 {
@@ -278,9 +283,10 @@ function onClickCloseIcon() {
 .click-box {
     position: absolute;
     top: 464px;
-    left: 580px;
-    width: 120px;
-    height: 470px;
+    // left: 580px;
+    width: 90%;
+    left: 5%;
+    height: 550px;
 }
 
 .title1 {
