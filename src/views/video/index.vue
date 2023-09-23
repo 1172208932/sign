@@ -37,7 +37,7 @@
         <img class="poster-bg" :src="data[actIndex].poster" alt="">
       </div>
     </div>
-    <SoundMask :num="actIndex"  v-if="showSoundMask" @closeSound="closeSound" />
+    <SoundMask :num="actIndex"  v-if="showSoundMask" @preClick="soundPreClick" @nextClick="soundNextClick" @closeSound="closeSound" />
   </div>
 </template>
 
@@ -131,6 +131,20 @@ export default defineComponent({
       play()
     }
 
+    const  soundPreClick = () =>{
+      actIndex.value --
+      if(actIndex.value < 0) {
+        actIndex.value = 6
+      }
+    }
+
+    const  soundNextClick = () =>{
+      actIndex.value ++
+      if(actIndex.value > 6) {
+        actIndex.value = 0
+      }
+    }
+
     const prev = () => {
       actIndex.value --
       if(actIndex.value < 0) {
@@ -222,7 +236,9 @@ export default defineComponent({
       prev,
       next,
       closeSound,
-      showForm
+      showForm,
+      soundNextClick,
+      soundPreClick
     }
 
     

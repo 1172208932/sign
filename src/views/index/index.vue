@@ -45,7 +45,12 @@ export default defineComponent({
     const { index } = store.state;
 
     onMounted(async () => {
-
+      // const canContinue = isOnApp();
+      if (window.navigator.userAgent.indexOf('chinablue') === -1) {
+        initAppShare()
+      }else{
+        initWechatShare()
+      }
     });
 
     function addEvent() {
@@ -108,10 +113,11 @@ export default defineComponent({
 
     const initAppShare = () => {
       const shareData = {
-        url: `https://ztv.cztv.com/ap/zt2023/lightcitytorch/index.shtml#/`,
-        title: '点亮亚运火炬', //分享的标题
-        content: '为传递城市增添热力', // 分享的文字
-        img: 'https://ohudong.cztv.com/1/266094/static/share.png'
+        url: `https://ztv.cztv.com/ap/zt2023/newbluesound/index.shtml#/`,
+        title: '听，那是“绽放”背后的秘密', //分享的标题
+        content: '杭州亚运会开幕式揭秘', // 分享的文字
+        img: ''
+        // 'https://ohudong.cztv.com/1/266130/static/share.png'
       }
       cztvApi.changeShareInfo(shareData)
       cztvApi.showShareButton(true)
@@ -119,11 +125,11 @@ export default defineComponent({
     const initWechatShare = () => {
       wxShare(
         true,
-        "点亮亚运火炬",
-        "为传递城市增添热力",
-        "点亮亚运火炬",
-        "https://ztv.cztv.com/ap/zt2023/lightcitytorch/index.shtml#/",
-        "https://ohudong.cztv.com/1/266094/static/share.png"
+        "听，那是“绽放”背后的秘密",
+        "杭州亚运会开幕式揭秘",
+        "听，那是“绽放”背后的秘密",
+        "https://ztv.cztv.com/ap/zt2023/newbluesound/index.shtml#/",
+        ""
       )
     }
 

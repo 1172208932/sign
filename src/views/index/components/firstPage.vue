@@ -1,5 +1,6 @@
 <template>
-    <div :class="canScroll ? 'scroll-box' : 'no-scroll'" @scroll="handleScroll">
+    <div ref="scrollRef" :class="canScroll ? 'scroll-box' : 'no-scroll'" @scroll="handleScroll">
+        <audio ref="soundRef" loop src="http://ali-v.cztv.com/cztv/vod/2023/09/04/40ccfc735b74754732583f35e7cd9383/40ccfc735b74754732583f35e7cd9383_h264_128k_mp3.mp3"></audio>
         <div class="first-page">
             <div id="canvas2"></div>
             <div id="canvas1"></div>
@@ -69,7 +70,8 @@ import { useStore } from "vuex";
 import json2 from './data2.json'
 import json3 from './data3.json'
 
-
+const scrollRef = ref(null)
+const soundRef = ref(null)
 const store = useStore();
 const canScroll = ref(false)
 
@@ -102,6 +104,9 @@ const toSecongPage = () => {
 }
 
 const beginAni = () => {
+    soundRef.value.play()
+
+
     showTip.value = false
 
     animation.play()
@@ -157,12 +162,44 @@ onMounted(() => {
     animation2.addEventListener('complete', () => {
         animation2.goToAndPlay(38, true)
         isIndexAniFinish.value = true
+        if (!canScroll.value) {
+            // scrollRef.value.scrollTop = 200
+            scrollToDistance(200)
+        }
         canScroll.value = true
     });
 
 })
 
-onUnmounted(()=>{
+
+const scrollToDistance = (distance) => {
+    const container = scrollRef.value;
+    const start = container.scrollTop;
+    const change = distance - start;
+    const duration = 500; // 持续时间（毫秒）
+
+    let currentTime = 0;
+    const increment = 20; // 每次滚动的时间间隔（毫秒）
+
+    const animateScroll = () => {
+        currentTime += increment;
+        const easing = easeInOutQuad(currentTime, start, change, duration);
+        container.scrollTop = easing;
+        if (currentTime < duration) {
+            setTimeout(animateScroll, increment);
+        }
+    };
+
+    animateScroll();
+}
+const easeInOutQuad = (t, b, c, d) => {
+    t /= d / 2;
+    if (t < 1) return c / 2 * t * t + b;
+    t--;
+    return -c / 2 * (t * (t - 2) - 1) + b;
+}
+
+onUnmounted(() => {
     animation3.destroy()
 })
 
@@ -448,4 +485,5 @@ function onClickCloseIcon() {
     -moz-animation: rotation 3s linear infinite;
     -webkit-animation: rotation 3s linear infinite;
     -o-animation: rotation 3s linear infinite;
-}</style>
+}
+</style>
