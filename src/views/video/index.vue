@@ -11,7 +11,8 @@
         :poster="data[actIndex].cover"
         :src="data[actIndex].video"
     ></video>
-    <div class="back-btn" @click="back">返回</div>
+    <!-- <div class="back-btn" @click="back">返回</div> -->
+    <img class="back-btn" @click="back" src="../../assets/video/back.png" alt="">
     <img @click="isShowPost = true" class="make-poster-btn" src="../../assets/video/make_poster_btn.png" alt="">
     <img @click="prev" class="prev-btn" src="../../assets/video/prev_btn.png" alt="">
     <img @click="next" class="next-btn" src="../../assets/video/next_btn.png" alt="">
@@ -281,14 +282,17 @@ export default defineComponent({
   height: 100vh;
   position: relative;
   .back-btn {
-    font-size: 28px;
-    padding: 8px 35px;
-    border-radius: 20px;
+    // font-size: 28px;
+    // padding: 8px 35px;
+    // border-radius: 20px;
     position: absolute;
-    top: 30px;
+    top: 26px;
     left: 30px;
-    color: #000;
-    background-color: #fff;
+    // color: #000;
+    // background-color: #fff;
+    width: 160px;
+    height: 43px;
+
   }
   .make-poster-btn {
     position: absolute;
