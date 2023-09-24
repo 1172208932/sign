@@ -8,6 +8,7 @@
         playsinline="playsinline"
         webkit-playsinline="true"
         loop
+        :poster="data[actIndex].cover"
         :src="data[actIndex].video"
     ></video>
     <img @click="isShowPost = true" class="make-poster-btn" src="../../assets/video/make_poster_btn.png" alt="">
@@ -67,6 +68,13 @@ import poster4 from '../../assets/video/poster4.png'
 import poster5 from '../../assets/video/poster5.png'
 import poster6 from '../../assets/video/poster6.png'
 import poster7 from '../../assets/video/poster7.png'
+import cover1 from '../../assets/video/cover1.png'
+import cover2 from '../../assets/video/cover2.png'
+import cover3 from '../../assets/video/cover3.png'
+import cover4 from '../../assets/video/cover4.png'
+import cover5 from '../../assets/video/cover5.png'
+import cover6 from '../../assets/video/cover6.png'
+import cover7 from '../../assets/video/cover7.png'
 
 
 
@@ -95,36 +103,43 @@ export default defineComponent({
       {
         video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/479f08eafb6140c79d2cd0230fa1e5ab/h264_800k_mp4.mp4', // 总导演
         poster: poster1,
+        cover: cover1,
         audio: ''
       },
       {
         video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/b187c6809eb74230926a91ec22aa1107/h264_800k_mp4.mp4', // 芭蕾舞者
         poster: poster2,
+        cover: cover2,
         audio: ''
       },
       {
         video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/68d5118c4ca9451cb8a5d5d8258d7fd8/h264_800k_mp4.mp4', // 双人威亚
         poster: poster3,
+        cover: cover3,
         audio: ''
       },
       {
         video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/95dd64f040c24814a6ab04c435936a73/h264_800k_mp4.mp4', // 白鹭精灵
         poster: poster4,
+        cover: cover4,
         audio: ''
       },
       {
         video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/ec7d671f429d49dc9c0414235014209f/h264_800k_mp4.mp4', // 群演
         poster: poster5,
+        cover: cover5,
         audio: ''
       },
       {
         video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/1c66cac0b1fb45a08785420663d6704e/h264_800k_mp4.mp4', // 引导员
         poster: poster6,
+        cover: cover6,
         audio: ''
       },
       {
         video: 'https://ali-v.cztv.com/cztv/vod/2023/09/23/d04d0438b90f4fd7bdb708d9cd0a0c8e/h264_800k_mp4.mp4', // 旗手
         poster: poster7,
+        cover: cover7,
         audio: ''
       }
     ]

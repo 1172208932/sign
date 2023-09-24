@@ -2,10 +2,13 @@
   <el-config-provider>
     <transition name="fade">
       <div class="boxx">
-        <router-view #="{ Component, route }">
-          <component :is="Component" :key="route.path" />
-        </router-view>
+          <router-view #="{ Component, route }">
+            <KeepAlive>
+              <component :is="Component" :key="route.path" />
+            </KeepAlive>
+          </router-view>
         <div v-show="showAnimation" id="canvas9" class="lottie-container"></div>
+        
       </div>
     </transition>
   </el-config-provider>
