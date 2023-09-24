@@ -47,9 +47,9 @@ export default defineComponent({
     onMounted(async () => {
       // const canContinue = isOnApp();
       if (window.navigator.userAgent.indexOf('chinablue') === -1) {
-        initAppShare()
-      }else{
         initWechatShare()
+      }else{
+        initAppShare()
       }
     });
 
