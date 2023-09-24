@@ -154,39 +154,53 @@ const peopleClick = (num) => {
 
 onActivated(() => {
     let actId = route.query.actIndex
-    canScroll.value = true
-    animation3.goToAndStop(100, true)
     switch (actId) {
         case '0':
             scrollToDistance(380)
+            canScroll.value = true
+            animation3.goToAndStop(100, true)
             // animation3.goToAndStop(15, true)
             break;
         case '1':
             scrollToDistance(700)
+            canScroll.value = true
+            animation3.goToAndStop(100, true)
             // animation3.goToAndStop(28, true)
             break;
         case '2':
             scrollToDistance(900)
+            canScroll.value = true
+            animation3.goToAndStop(100, true)
             // animation3.goToAndStop(42, true)
             break;
         case '3':
             scrollToDistance(1180)
+            canScroll.value = true
+            animation3.goToAndStop(100, true)
             // animation3.goToAndStop(55, true)
             break;
         case '4':
             scrollToDistance(1380)
+            canScroll.value = true
+            animation3.goToAndStop(100, true)
             // animation3.goToAndStop(75, true)
             break;
         case '5':
             scrollToDistance(1580)
+            canScroll.value = true
+            animation3.goToAndStop(100, true)
             // animation3.goToAndStop(95, true)
             break;
         case '6':
             scrollToDistance(1780)
+            canScroll.value = true
+            animation3.goToAndStop(100, true)
             // animation3.goToAndStop(15, true)
             break;
         case '7':
             scrollToDistance(1980)
+            canScroll.value = true
+            animation3.goToAndStop(100, true)
             // animation3.goToAndStop(15, true)
             break;
         default:
