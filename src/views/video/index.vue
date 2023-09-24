@@ -148,7 +148,12 @@ export default defineComponent({
     ]
 
     const back = () => {
-      router.push('/')
+      router.push({
+        name: 'index',
+        query: {
+            actIndex: actIndex.value
+        }
+      })
     }
 
     const closeSound = ()=>{

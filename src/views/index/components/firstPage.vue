@@ -64,7 +64,7 @@
 <script setup lang="ts">
 import { showToast } from "vant";
 import { ref, watch, onMounted, onUnmounted, nextTick } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import lottie from 'lottie-web';
 import indexjson from './data.json'
 import { useStore } from "vuex";
@@ -88,6 +88,7 @@ const canScroll = ref(false)
 // import { postSignUp } from '@/api/resource'
 const canRef = ref(null);
 const router = useRouter();
+const route = useRoute();
 
 const props = defineProps<{
     // cityName?:string,
@@ -150,6 +151,48 @@ const peopleClick = (num) => {
         }
     });
 }
+
+onActivated(() => {
+    let actId = route.query.actIndex
+    canScroll.value = true
+    animation3.goToAndStop(100, true)
+    switch (actId) {
+        case '0':
+            scrollToDistance(380)
+            // animation3.goToAndStop(15, true)
+            break;
+        case '1':
+            scrollToDistance(700)
+            // animation3.goToAndStop(28, true)
+            break;
+        case '2':
+            scrollToDistance(900)
+            // animation3.goToAndStop(42, true)
+            break;
+        case '3':
+            scrollToDistance(1180)
+            // animation3.goToAndStop(55, true)
+            break;
+        case '4':
+            scrollToDistance(1380)
+            // animation3.goToAndStop(75, true)
+            break;
+        case '5':
+            scrollToDistance(1580)
+            // animation3.goToAndStop(95, true)
+            break;
+        case '6':
+            scrollToDistance(1780)
+            // animation3.goToAndStop(15, true)
+            break;
+        case '7':
+            scrollToDistance(1980)
+            // animation3.goToAndStop(15, true)
+            break;
+        default:
+            break;
+    }
+})
 
 onMounted(() => {
     const isTextUrl = import.meta.env.VITE_RESOURCE_URL;
