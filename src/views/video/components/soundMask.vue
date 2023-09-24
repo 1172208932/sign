@@ -18,7 +18,7 @@
 import { showToast } from "vant";
 import { ref, watch, onMounted, onUnmounted, nextTick } from "vue";
 import { useRouter } from "vue-router";
-import { Howl } from "howler";
+// import { Howl } from "howler";
 import wx from "weixin-js-sdk";
 const soundConfig = [
     {
@@ -87,7 +87,9 @@ const begin = () => {
 
 const preClick = () => {
     const viodo = document.getElementById('sound')
-    viodo.pause()
+    if(viodo?.pause){
+        viodo.pause()
+    }
     emit('preClick')
 
     soundNum.value--
@@ -106,7 +108,9 @@ const palySound = () => {
 
 const nextClick = () => {
     const viodo = document.getElementById('sound')
-    viodo.pause()
+    if(viodo?.pause){
+        viodo.pause()
+    }
     emit('nextClick')
     soundNum.value++
     if (soundNum.value == 7) {
@@ -132,38 +136,38 @@ const nextClick = () => {
 // });
 
 onMounted(() => {
-    soundNum.value = props.num
+    soundNum.value = Number(props.num)
     // audioAutoPlay();
-    function audioAutoPlay() {
-        console.log('audioAutoPlay')
+    // function audioAutoPlay() {
+    //     console.log('audioAutoPlay')
 
-        var audio = document.getElementById('bg-music');
-        if(audio){
-            console.log('-----isaudio')
-        }
-        console.log(audio,'audio')
-        audio.play();
-        document.addEventListener("WeixinJSBridgeReady", function () {
-            console.log('WeixinJSBridgeReady')
-            audio.play();
-        }, false);
-    }
-    nextTick(() => {
-        console.log('nextTick',audioElement)
-        // var element = document.getElementById("soundPage");
+    //     var audio = document.getElementById('bg-music');
+    //     if(audio){
+    //         console.log('-----isaudio')
+    //     }
+    //     console.log(audio,'audio')
+    //     audio.play();
+    //     document.addEventListener("WeixinJSBridgeReady", function () {
+    //         console.log('WeixinJSBridgeReady')
+    //         audio.play();
+    //     }, false);
+    // }
+    // nextTick(() => {
+    //     console.log('nextTick',audioElement)
+    //     // var element = document.getElementById("soundPage");
 
-        // // 创建一个新的点击事件
-        // var event = new MouseEvent("click", {
-        //     bubbles: true,
-        //     cancelable: true,
-        //     view: window
-        // });
+    //     // // 创建一个新的点击事件
+    //     // var event = new MouseEvent("click", {
+    //     //     bubbles: true,
+    //     //     cancelable: true,
+    //     //     view: window
+    //     // });
 
-        // // 触发点击事件
-        // element.dispatchEvent(event);
-        // audioElement.value.play();
-        // clickboxRef.value.click()
-    });
+    //     // // 触发点击事件
+    //     // element.dispatchEvent(event);
+    //     // audioElement.value.play();
+    //     // clickboxRef.value.click()
+    // });
 
     // setTimeout(() => {
     //     console.log('setTimeout')
@@ -177,6 +181,9 @@ onUnmounted(() => {
         viodo.remove()
     }
 })
+
+
+defineExpose({ palySound })
 </script>
     
 <style  lang="scss" >
