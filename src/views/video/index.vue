@@ -11,6 +11,7 @@
         :poster="data[actIndex].cover"
         :src="data[actIndex].video"
     ></video>
+    <div class="back-btn" @click="back">返回</div>
     <img @click="isShowPost = true" class="make-poster-btn" src="../../assets/video/make_poster_btn.png" alt="">
     <img @click="prev" class="prev-btn" src="../../assets/video/prev_btn.png" alt="">
     <img @click="next" class="next-btn" src="../../assets/video/next_btn.png" alt="">
@@ -90,6 +91,7 @@ export default defineComponent({
     let isShowPost = ref(false)
     let showSoundMask = ref(true)
     let isShowPlayBtn = ref(true)
+    const router = useRouter()
     
     const playVideo = ref<any>(null)
     let mobile = ref('')
@@ -143,6 +145,10 @@ export default defineComponent({
         audio: ''
       }
     ]
+
+    const back = () => {
+      router.push('/')
+    }
 
     const closeSound = ()=>{
       showSoundMask.value = false
@@ -260,7 +266,8 @@ export default defineComponent({
       showForm,
       soundNextClick,
       soundPreClick,
-      isShowPlayBtn
+      isShowPlayBtn,
+      back
     }
 
     
@@ -273,6 +280,16 @@ export default defineComponent({
   width: 100vw;
   height: 100vh;
   position: relative;
+  .back-btn {
+    font-size: 28px;
+    padding: 8px 35px;
+    border-radius: 20px;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    color: #000;
+    background-color: #fff;
+  }
   .make-poster-btn {
     position: absolute;
     width: 156px;
