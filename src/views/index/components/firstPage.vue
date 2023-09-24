@@ -5,6 +5,7 @@
             <div id="canvas2"></div>
             <div id="canvas1"></div>
             <div v-if="showTip" class="tip"></div>
+            <div class="btm-t1">了解幕后故事</div>
             <div class="click-box" @click="beginAni"></div>
         </div>
         <div class="second-page" ref="canRef" @click="toSecongPage">
@@ -290,6 +291,14 @@ function onClickCloseIcon() {
     background-size: 750px 1447px;
     width: 750px;
     height: 1447px;
+    .btm-t1{
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        bottom: 80px;
+        font-size: 29px;
+        color: #ffffff;
+    }
 }
 
 .tip {
