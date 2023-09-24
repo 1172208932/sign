@@ -14,6 +14,7 @@
     <img @click="prev" class="prev-btn" src="../../assets/video/prev_btn.png" alt="">
     <img @click="next" class="next-btn" src="../../assets/video/next_btn.png" alt="">
     <img @click="showForm" class="reserve-btn" src="../../assets/video/reserve_btn.png" alt="">
+    <img v-if="isShowPlayBtn" @click="play" class="play-btn" src="../../assets/video/play_btn.png" alt="">
     <p class="tips">纪录片《绽放》即将上线</p>
 
     <div class="reserve-container" v-show="isShowForm">
@@ -38,7 +39,7 @@
         <p class="tips">长按保存图片</p>
       </div>
     </div>
-    <SoundMask :num="actIndex"  v-if="showSoundMask" @preClick="soundPreClick" @nextClick="soundNextClick" @closeSound="closeSound" />
+    <!-- <SoundMask :num="actIndex"  v-if="showSoundMask" @preClick="soundPreClick" @nextClick="soundNextClick" @closeSound="closeSound" /> -->
   </div>
 </template>
 
@@ -80,6 +81,7 @@ export default defineComponent({
     let isShowForm = ref(false)
     let isShowPost = ref(false)
     let showSoundMask = ref(true)
+    let isShowPlayBtn = ref(true)
     
     const playVideo = ref<any>(null)
     let mobile = ref('')
@@ -152,9 +154,9 @@ export default defineComponent({
         actIndex.value = 6
       }
       showSoundMask.value = true
-      // setTimeout(() => {
-      //   play()
-      // }, 500);
+      setTimeout(() => {
+        play()
+      }, 500);
     }
 
     const next = () => {
@@ -163,14 +165,15 @@ export default defineComponent({
         actIndex.value = 0
       }
       showSoundMask.value = true
-      // setTimeout(() => {
-      //   play()
-      // }, 500);
+      setTimeout(() => {
+        play()
+      }, 500);
     }
 
     // 播放视频
     const play = () => {
       playVideo.value.play()
+      isShowPlayBtn.value = false
     }
 
     const showForm = () => {
@@ -241,7 +244,8 @@ export default defineComponent({
       closeSound,
       showForm,
       soundNextClick,
-      soundPreClick
+      soundPreClick,
+      isShowPlayBtn
     }
 
     
@@ -292,6 +296,14 @@ export default defineComponent({
     right: 41px;
     bottom: 107px;
     position: absolute;
+  }
+  .play-btn {
+    width: 170px;
+    height: 170px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -60%);
   }
   .tips {
     width: 100%;

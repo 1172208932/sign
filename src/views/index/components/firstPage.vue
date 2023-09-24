@@ -128,19 +128,19 @@ const beginAni = () => {
 
 const peopleClick = (num) => {
     const viodo = document.getElementById('sound')
-    if(!viodo){
-        var audio = document.createElement('audio');
-        // 设置音频源
-        audio.src = soundConfig[num];
+    // if(!viodo){
+    //     var audio = document.createElement('audio');
+    //     // 设置音频源
+    //     audio.src = soundConfig[num];
 
-        // 设置其他属性
-        audio.autoplay = true; // 自动播放
-        audio.id = 'sound'
+    //     // 设置其他属性
+    //     audio.autoplay = true; // 自动播放
+    //     audio.id = 'sound'
 
-        // 将 audio 元素添加到 body 中
-        document.body.appendChild(audio);
-        audio.play();
-    }
+    //     // 将 audio 元素添加到 body 中
+    //     document.body.appendChild(audio);
+    //     audio.play();
+    // }
     
 
     router.push({
