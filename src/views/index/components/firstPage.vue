@@ -362,6 +362,7 @@ function onClickCloseIcon() {
 }
 
 .title1 {
+    width: 120%;
     font-size: 30px;
     font-family: Source Han Sans CN-Bold, Source Han Sans CN;
     font-weight: bold;
@@ -390,11 +391,11 @@ function onClickCloseIcon() {
     margin-bottom: 15px;
 
     .play-icon {
-        background: url(../../../assets/play-icon.png) no-repeat;
-        background-size: 27px 30px;
-        width: 27px;
-        height: 30px;
-        margin-left: 20px;
+        background: url("../../../assets/video/play_icon.png") no-repeat;
+        background-size: 100% 100%;
+        width: 120px;
+        height: 44px;
+        margin-left: 10px;
     }
 }
 
