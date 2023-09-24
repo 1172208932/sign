@@ -3,9 +3,10 @@
     <transition name="fade">
       <div class="boxx">
           <router-view #="{ Component, route }">
-            <KeepAlive>
+            <KeepAlive v-if="route.meta.keepAlive">
               <component :is="Component" :key="route.path" />
             </KeepAlive>
+            <component v-else :is="Component" :key="route.path" />
           </router-view>
         <div v-show="showAnimation" id="canvas9" class="lottie-container"></div>
         

@@ -5,11 +5,19 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "index",
+    meta: {
+      title: '',
+      keepAlive: true
+    },
     component: () => import("../views/index/index.vue"),
   },
   {
     path: "/video",
     name: "video",
+    meta: {
+      title: '',
+      keepAlive: false
+    },
     component: () => import("../views/video/index.vue"),
   }
 ];
